@@ -1,64 +1,50 @@
 CREATE SCHEMA `project_uob` ;
 
 CREATE TABLE `project_uob`.`student` (
-  `student_number` int NOT NULL,
-  `slug` VARCHAR(255) DEFAULT NULL,
+  `student_number` INT NOT NULL,
   `student_first_name` VARCHAR(45) NOT NULL,
   `student_last_name` VARCHAR(45) NULL,
   `student_email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(50) NOT NULL,
-  `is_active` bit NOT NULL default 1,
-  `image_url` varchar(200) null,
-  `date_joined` date not null,
+  `is_active` TINYINT NOT NULL,
   PRIMARY KEY (`student_number`));
-  
 
 CREATE TABLE `project_uob`.`student_details` (
-	`no` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `student_number` INT NOT NULL,
   `student_telephone` INT NULL,
   `student_address` VARCHAR(100) NULL,
   `student_education_level` VARCHAR(50) NULL,
   `student_dob` DATE NULL,
-  PRIMARY KEY (`no`),
+  PRIMARY KEY (`student_number`),
   CONSTRAINT `student_number`
     FOREIGN KEY (`student_number`)
     REFERENCES `project_uob`.`student` (`student_number`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
     
-   
-    
 CREATE TABLE `project_uob`.`teacher` (
   `teacher_id` INT NOT NULL,
-  `slug` VARCHAR(255) DEFAULT NULL,
   `teacher_first_name` VARCHAR(45) NOT NULL,
   `teacher_last_name` VARCHAR(45) NULL,
   `teacher_email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(50) NOT NULL,
-  `is_active` BIT not null default 1,
-  `image_url` varchar(200) null,
-  `date_joined` date not null,
+  `is_active` TINYINT NOT NULL,
   PRIMARY KEY (`teacher_id`));
   
-  
 CREATE TABLE `project_uob`.`teacher_details` (
-`no` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `teacher_id` INT NOT NULL,
   `teacher_telephone` INT NULL,
   `teacher_address` VARCHAR(100) NULL,
   `teacher_zoom_id` VARCHAR(200) NULL,
-  PRIMARY KEY (`no`),
+  PRIMARY KEY (`teacher_id`),
   CONSTRAINT `teacher_id`
     FOREIGN KEY (`teacher_id`)
     REFERENCES `project_uob`.`teacher` (`teacher_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
     
-    
-    
 CREATE TABLE `project_uob`.`teacher_experience` (
-  `no` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `no` INT NOT NULL AUTO_INCREMENT,
   `teacher_id` INT NOT NULL,
   `title` VARCHAR(45) NOT NULL,
   `description` VARCHAR(45) NULL,
@@ -70,16 +56,15 @@ CREATE TABLE `project_uob`.`teacher_experience` (
     REFERENCES `project_uob`.`teacher` (`teacher_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-  
+    
+
 
 CREATE TABLE `project_uob`.`subject` (
   `subject_id` INT NOT NULL,
-  `sku` VARCHAR(255) DEFAULT NULL,
   `subject_name` VARCHAR(50) NULL,
   `subject_description` VARCHAR(45) NULL,
   `is_active` BIT NOT NULL DEFAULT 1,
   PRIMARY KEY (`subject_id`));
-  
 
 CREATE TABLE `project_uob`.`teacher_subject` (
   `no` INT NOT NULL AUTO_INCREMENT,
@@ -101,16 +86,11 @@ CREATE TABLE `project_uob`.`teacher_subject` (
     
 CREATE TABLE `project_uob`.`course` (
   `course_id` INT NOT NULL,
-  `sku` VARCHAR(255) DEFAULT NULL,
   `course_name` VARCHAR(100) NOT NULL,
   `course_description` VARCHAR(200) NULL,
   `is_active` BIT NOT NULL DEFAULT 1,
   `per_session_price` FLOAT NOT NULL,
-  `image_url` varchar(200) null,
-  `date_created` date not null,
-  `last modified` date not null,
   PRIMARY KEY (`course_id`));
-  
 
 CREATE TABLE `project_uob`.`course_subject` (
   `no` INT NOT NULL AUTO_INCREMENT,
