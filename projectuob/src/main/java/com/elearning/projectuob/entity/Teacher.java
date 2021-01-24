@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "teacher")
@@ -43,4 +44,7 @@ public class Teacher {
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "teacherId")
     private TeacherDetails teacherDetails;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacherId")
+    private List<TeacherExperience> teacherExperiences;
 }
