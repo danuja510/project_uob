@@ -18,7 +18,10 @@ public class StudentDetails {
     @Column(name = "no")
     private Long no;
 
-    @OneToOne
+    @OneToOne(cascade =  {CascadeType.DETACH,
+                            CascadeType.MERGE,
+                            CascadeType.PERSIST,
+                            CascadeType.REFRESH})
     @JoinColumn(name = "student_number", nullable = false)
     private Student studentNumber;
 

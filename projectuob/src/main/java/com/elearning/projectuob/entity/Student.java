@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "student")
@@ -41,6 +42,16 @@ public class Student {
     @CreationTimestamp
     private Date dateJoined;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "studentNumber")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "studentNumber", fetch = FetchType.LAZY)
     private StudentDetails studentDetails;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade= {CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH})
+    @JoinTable(
+            name = "course_enrollment",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id"))
+    private List<Course> courses;
 }

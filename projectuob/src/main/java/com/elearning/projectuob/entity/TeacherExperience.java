@@ -18,7 +18,10 @@ public class TeacherExperience {
     @Column(name ="no")
     private Long no;
 
-    @ManyToOne
+    @ManyToOne(cascade =  {CascadeType.DETACH,
+                            CascadeType.MERGE,
+                            CascadeType.PERSIST,
+                            CascadeType.REFRESH})
     @JoinColumn(name = "teacher_id", nullable = false)
     private Teacher teacherId;
 

@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -40,4 +41,34 @@ public class Course {
 
     @Column(name = "last_modified")
     private Date lastModified;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade= {CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH})
+    @JoinTable(
+            name = "course_subject",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "subject_id"))
+    private List<Subject> subjects;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade= {CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH})
+    @JoinTable(
+            name = "course_teacher",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "teacher_id"))
+    private List<Teacher> teachers;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade= {CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH})
+    @JoinTable(
+            name = "course_enrollment",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id"))
+    private List<Student> students;
 }

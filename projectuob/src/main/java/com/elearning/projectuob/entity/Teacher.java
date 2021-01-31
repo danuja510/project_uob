@@ -42,9 +42,29 @@ public class Teacher {
     @CreationTimestamp
     private Date dateJoined;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "teacherId")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "teacherId", fetch = FetchType.LAZY)
     private TeacherDetails teacherDetails;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacherId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacherId",fetch = FetchType.LAZY)
     private List<TeacherExperience> teacherExperiences;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade= {CascadeType.DETACH,
+                                                    CascadeType.MERGE,
+                                                    CascadeType.PERSIST,
+                                                    CascadeType.REFRESH})
+    @JoinTable(
+            name = "teacher_subject",
+            joinColumns = @JoinColumn(name = "teacher_id"),
+            inverseJoinColumns = @JoinColumn(name = "subject_id"))
+    private List<Subject> subjects;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade= {CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH})
+    @JoinTable(
+            name = "course_teacher",
+            joinColumns = @JoinColumn(name = "teacher_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id"))
+    private List<Course> courses;
 }
