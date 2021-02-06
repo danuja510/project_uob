@@ -1,0 +1,8 @@
+<div class="container">
+  <div *ngFor="let teacher of teachers" class="row">
+    <p >{{teacher.teacherFirstName}} | {{ teacher.teacherLastName}} | {{teacher.teacherEmail}}</p>
+    <hr>
+  </div>
+  <hr>
+  <button class="btn btn-primary" (click)="onNewTeacher()">New</button>
+</div>

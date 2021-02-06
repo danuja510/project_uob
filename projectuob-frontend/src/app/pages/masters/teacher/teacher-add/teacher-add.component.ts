@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {TeachersService} from '../../../../services/backend/teachers.service';
 import {Teacher} from '../teacher.model';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-teacher-add',
@@ -11,11 +12,9 @@ import {Teacher} from '../teacher.model';
 export class TeacherAddComponent implements OnInit {
   teacherForm: FormGroup;
 
-  constructor(private teacherService: TeachersService) { }
+  constructor(private teacherService: TeachersService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-
-
     this.teacherForm = new FormGroup({
       teacherFirstName: new FormControl(null, Validators.required),
       teacherLastName: new FormControl(null, Validators.required),
@@ -51,6 +50,7 @@ export class TeacherAddComponent implements OnInit {
       responce => {
         console.log(responce);
         this.teacherForm.reset();
+        this.router.navigate(['../'], {relativeTo: this.route});
       }
     );
   }

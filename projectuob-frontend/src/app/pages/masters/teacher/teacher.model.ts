@@ -1,14 +1,15 @@
 export class Teacher{
 
   constructor(
-    private slug: string,
-    private teacherFirstName: string,
-    private teacherLastName: string,
-    private teacherEmail: string,
-    private password: string,
-    private imageUrl: string,
-    private dateJoined: Date,
-    private active: boolean
+    public slug: string,
+    public teacherFirstName: string,
+    public teacherLastName: string,
+    public teacherEmail: string,
+    public password: string,
+    public imageUrl: string,
+    public dateJoined: Date,
+    public active: boolean,
+    public teacherId?: string
   ) {
   }
 }
