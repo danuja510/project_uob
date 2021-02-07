@@ -1,0 +1,9 @@
+ul{
+  flex-direction: row;
+}
+
+li { padding: 10px; }
+
+a {
+  color: #666;
+}

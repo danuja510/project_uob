@@ -1,8 +1,42 @@
-<div class="container">
-  <div *ngFor="let teacher of teachers" class="row">
-    <p >{{teacher.teacherFirstName}} | {{ teacher.teacherLastName}} | {{teacher.teacherEmail}}</p>
-    <hr>
+<button class="btn btn-primary" (click)="onNewTeacher()">New Teacher</button>
+<hr>
+<div class="row">
+  <div class="col-md-3" *ngFor="let teacher of teachers">
+    <div class="product-box">
+      <a>
+        <img src="{{teacher.imageUrl?teacher.imageUrl:'assets/images/teachers/placeholder.png'}}" class="img-responsive">
+        <br>
+        <h1>{{teacher.teacherFirstName}}</h1>
+      </a>
+      <h2>{{teacher.slug}} </h2>
+  <!--            <div class="price">{{course.perSessionPrice}} $</div>-->
+    </div>
   </div>
-  <hr>
-  <button class="btn btn-primary" (click)="onNewTeacher()">New</button>
 </div>
+<!--static stuff-->
+<div class="footer-pagination">
+  <div class="row">
+    <div class="col-md-6"></div>
+    <div class="col-md-3">
+      <div class="items">
+        <label>Item per page</label> <select>
+        <option>10</option>
+        <option>20</option>
+        <option>30</option>
+        <option>40</option>
+      </select>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="number">1 - 10 of 100</div>
+    </div>
+    <div class="col-md-1">
+      <div class="arrows">
+        <a href="#"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+        <a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+

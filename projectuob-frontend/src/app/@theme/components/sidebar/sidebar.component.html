@@ -1,17 +1,17 @@
 <aside class="menu-sidebar d-none d-lg-block">
   <div class="logo">
     <a routerLink="/">
-      <img src="assets/images/logo.png" alt="luv2shop" class="img-responsive">
+      <img src="assets/images/logo.png" alt="projectuob" class="img-responsive">
     </a>
   </div>
   <div class="menu-sidebar-content js-scrollbar1">
     <nav class="navbar-sidebar">
       <ul class="list-unstyled navbar-list">
-        <li>
-          <a [routerLink]="'/course'" routerLinkActive="active-link">Courses</a>
+        <li >
+          <a [routerLink]="[route.snapshot.url]" routerLinkActive="active-link">All</a>
         </li>
-        <li>
-          <a [routerLink]="'/teacher'"  routerLinkActive="active-link">Teachers</a>
+        <li *ngFor="let subject of subjects">
+          <a [routerLink]="[route.snapshot.url, subject.subjectId]" routerLinkActive="active-link">{{subject.subjectName}}</a>
         </li>
       </ul>
     </nav>

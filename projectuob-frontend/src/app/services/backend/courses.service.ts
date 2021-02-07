@@ -20,8 +20,15 @@ export class CoursesService{
     );
   }
 
-  addTeachers(course: Course): Observable<any>{
+  addCourse(course: Course): Observable<any>{
     return this.http.post(this.baseUrl, course);
+  }
+
+  filterBySubject(subjectId: string): Observable<Course[]>{
+    const filterUrl = this.baseUrl + '/search/findBySubjectId?id=' + subjectId;
+    return this.http.get<GetResponce>(filterUrl,  ).pipe(
+      map(responce => responce._embedded.courses)
+    );
   }
 }
 

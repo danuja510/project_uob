@@ -10,9 +10,11 @@ const routes: Routes = [
   { path: '', redirectTo: 'course', pathMatch: 'full' },
   { path: 'teacher', component: TeacherComponent, children: [
       { path: '', component: TeacherListComponent },
+      { path: ':id', component: TeacherListComponent },
       { path: 'new', component: TeacherAddComponent}
     ] },
   { path: 'course', component: CourseComponent },
+  { path: 'course/:id', component: CourseComponent },
   { path: 'not-found', component: ErrorComponent, data: {message: 'Page not found!'} },
   { path: '**', redirectTo: 'not-found' }];
 

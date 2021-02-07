@@ -14,11 +14,21 @@ export class TeacherListComponent implements OnInit {
   constructor(private teacherService: TeachersService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.teacherService.getTeachers().subscribe(
-      data => {
-        this.teachers = data;
+    this.route.params.subscribe( params => {
+      if (params['id']){
+        this.teacherService.filterBySubject(params.id).subscribe(
+          data => {
+            this.teachers = data;
+          }
+        );
+      }else{
+        this.teacherService.getTeachers().subscribe(
+          data => {
+            this.teachers = data;
+          }
+        );
       }
-    );
+    });
   }
 
   onNewTeacher(): void{

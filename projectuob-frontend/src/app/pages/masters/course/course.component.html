@@ -6,7 +6,7 @@
         <div class="col-md-3" *ngFor="let course of courses">
           <div class="product-box">
             <a>
-              <img src="assets/images/products/placeholder.png" class="img-responsive">
+              <img src="{{course.imageUrl?course.imageUrl:'assets/images/products/placeholder.png'}}" class="img-responsive">
             <br>
               <h1>{{course.courseName}}</h1>
             </a>
