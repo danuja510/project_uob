@@ -1,8 +1,8 @@
 <div class="cart-area d-n">
   <a>
     <div class="total">
-      36.99
-      <span> 3</span>
+      {{ totalPrice | currency: 'USD'}}
+      <span> {{this.totalQuantity }} </span>
     </div>
     <i class="fa fa-shopping-cart" style="color: #273c75" aria-hidden="true"></i>
   </a>

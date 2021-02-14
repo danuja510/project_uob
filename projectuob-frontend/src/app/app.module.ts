@@ -18,6 +18,7 @@ import { SearchComponent } from './@theme/components/header/search/search.compon
 import { TeacherDetailsComponent } from './pages/masters/teacher/teacher-details/teacher-details.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './@theme/components/header/cart-status/cart-status.component';
+import { CartComponent } from './pages/components/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { CartStatusComponent } from './@theme/components/header/cart-status/cart
     FooterComponent,
     SearchComponent,
     TeacherDetailsComponent,
-    CartStatusComponent
+    CartStatusComponent,
+    CartComponent
   ],
   imports: [
     NgbModule,

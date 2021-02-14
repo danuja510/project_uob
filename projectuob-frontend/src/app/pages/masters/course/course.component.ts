@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Course} from './course.model';
 import {CoursesService} from '../../../services/backend/courses.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {CartService} from '../../../services/common/cart.service';
 
 @Component({
   selector: 'app-course',
@@ -20,7 +21,10 @@ export class CourseComponent implements OnInit {
   previousSearch = '';
   currentSearch = '';
 
-  constructor(private courseService: CoursesService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private courseService: CoursesService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private cartService: CartService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(
@@ -99,6 +103,6 @@ export class CourseComponent implements OnInit {
   }
 
   addToCart(course: Course): void {
-    console.log('Added to cart: '+ course.courseName);
+    this.cartService.addCartItem(course);
   }
 }
