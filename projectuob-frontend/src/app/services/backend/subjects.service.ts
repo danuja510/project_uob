@@ -15,7 +15,7 @@ export class SubjectsService{
   }
 
   getSubjects(): Observable<Subject[]>{
-    return this.http.get<GetResponce>(this.baseUrl,  ).pipe(
+    return this.http.get<GetResponce>(this.baseUrl ).pipe(
       map(responce => responce._embedded.subjects)
     );
   }

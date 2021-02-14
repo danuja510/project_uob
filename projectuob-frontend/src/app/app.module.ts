@@ -14,6 +14,10 @@ import { CourseComponent } from './pages/masters/course/course.component';
 import { HeaderComponent } from './@theme/components/header/header.component';
 import { SidebarComponent } from './@theme/components/sidebar/sidebar.component';
 import { FooterComponent } from './@theme/components/footer/footer.component';
+import { SearchComponent } from './@theme/components/header/search/search.component';
+import { TeacherDetailsComponent } from './pages/masters/teacher/teacher-details/teacher-details.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { CartStatusComponent } from './@theme/components/header/cart-status/cart-status.component';
 
 @NgModule({
   declarations: [
@@ -26,9 +30,13 @@ import { FooterComponent } from './@theme/components/footer/footer.component';
     CourseComponent,
     HeaderComponent,
     SidebarComponent,
-    FooterComponent
+    FooterComponent,
+    SearchComponent,
+    TeacherDetailsComponent,
+    CartStatusComponent
   ],
   imports: [
+    NgbModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

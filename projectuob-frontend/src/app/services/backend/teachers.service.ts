@@ -16,9 +16,13 @@ export class TeachersService{
   }
 
   getTeachers(): Observable<Teacher[]>{
-    return this.http.get<GetResponce>(this.baseUrl,  ).pipe(
+    return this.http.get<GetResponses>(this.baseUrl ).pipe(
       map(responce => responce._embedded.teachers)
     );
+  }
+
+  getTeacher(id: number): Observable<Teacher>{
+    return this.http.get<Teacher>(this.baseUrl + '/' + id );
   }
 
   addTeacher(teacher: Teacher): Observable<any>{
@@ -27,13 +31,13 @@ export class TeachersService{
 
   filterBySubject(subjectId: string): Observable<Teacher[]>{
     const filterUrl = this.baseUrl + '/search/findBySubjectId?id=' + subjectId;
-    return this.http.get<GetResponce>(filterUrl,  ).pipe(
+    return this.http.get<GetResponses>(filterUrl ).pipe(
       map(responce => responce._embedded.teachers)
     );
   }
 }
 
-interface GetResponce {
+interface GetResponses {
   _embedded: {
     teachers: Teacher[]
   };

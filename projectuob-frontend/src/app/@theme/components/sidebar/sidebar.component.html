@@ -11,7 +11,7 @@
           <a [routerLink]="[route.snapshot.url]" routerLinkActive="active-link">All</a>
         </li>
         <li *ngFor="let subject of subjects">
-          <a [routerLink]="[route.snapshot.url, subject.subjectId]" routerLinkActive="active-link">{{subject.subjectName}}</a>
+          <a [routerLink]="[route.snapshot.url]" [queryParams]="{ 'subject': subject.subjectId}" routerLinkActive="active-link">{{subject.subjectName}}</a>
         </li>
       </ul>
     </nav>

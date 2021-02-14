@@ -1,0 +1,23 @@
+<div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <div class="row">
+
+        <div>
+          <img src="{{teacher.imageUrl?teacher.imageUrl:'assets/images/teachers/placeholder.png'}}" class="img-responsive" width="200px">
+          <br>
+          <h3>{{teacher.teacherFirstName+ " "+ teacher.teacherLastName}}</h3>
+          <p>{{teacher.slug}}</p>
+<!--          <div class="price">$19.22</div>-->
+<!--          <a href="shopping-detail.html" class="primary-btn">Add to cart</a>-->
+          <h4>{{teacher.teacherEmail}}</h4>
+          <p>
+            Date Joined: {{teacher.dateJoined}}
+          </p>
+          <hr>
+          <a routerLink="/teacher">Back to Teacher List</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

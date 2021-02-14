@@ -15,9 +15,13 @@ export class CoursesService{
   }
 
   getCourses(): Observable<Course[]>{
-    return this.http.get<GetResponce>(this.baseUrl,  ).pipe(
+    return this.http.get<GetResponce>(this.baseUrl ).pipe(
       map(responce => responce._embedded.courses)
     );
+  }
+
+  getCoursesPaginate(thePage: number, thePageSize: number): Observable<GetResponce>{
+    return this.http.get<GetResponce>(this.baseUrl + '?page=' + thePage + '&size=' + thePageSize );
   }
 
   addCourse(course: Course): Observable<any>{
@@ -26,14 +30,39 @@ export class CoursesService{
 
   filterBySubject(subjectId: string): Observable<Course[]>{
     const filterUrl = this.baseUrl + '/search/findBySubjectId?id=' + subjectId;
-    return this.http.get<GetResponce>(filterUrl,  ).pipe(
+    return this.http.get<GetResponce>(filterUrl ).pipe(
       map(responce => responce._embedded.courses)
     );
+  }
+
+  filterBySubjectPaginate(subjectId: string, thePage: number, thePageSize: number): Observable<GetResponce>{
+    const filterUrl = this.baseUrl + '/search/findBySubjectId?id=' + subjectId + '&page=' + thePage + '&size=' + thePageSize;
+    return this.http.get<GetResponce>(filterUrl);
+  }
+
+  searchByCourseName(searchString: string): Observable<Course[]> {
+    const searchUrl = this.baseUrl + '/search/findByCourseNameContaining?name=' + searchString;
+    return this.http.get<GetResponce>(searchUrl ).pipe(
+      map(responce => responce._embedded.courses)
+    );
+  }
+
+  searchByCourseNamePaginate(searchString: string, thePage: number, thePageSize: number): Observable<GetResponce> {
+    const searchUrl = this.baseUrl + '/search/findByCourseNameContaining?name=' + searchString
+                                   + '&page=' + thePage
+                                   + '&size=' + thePageSize;
+    return this.http.get<GetResponce>(searchUrl);
   }
 }
 
 interface GetResponce {
   _embedded: {
-    courses: Course[]
+    courses: Course[];
+  };
+  page: {
+    size: number,
+    totalElements: number,
+    totalPages: number,
+    number: number
   };
 }

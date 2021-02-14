@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Teacher} from '../teacher.model';
 import {TeachersService} from '../../../../services/backend/teachers.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 
 @Component({
   selector: 'app-teacher-list',
@@ -14,21 +14,23 @@ export class TeacherListComponent implements OnInit {
   constructor(private teacherService: TeachersService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe( params => {
-      if (params['id']){
-        this.teacherService.filterBySubject(params.id).subscribe(
-          data => {
-            this.teachers = data;
-          }
-        );
-      }else{
-        this.teacherService.getTeachers().subscribe(
-          data => {
-            this.teachers = data;
-          }
-        );
+    this.route.queryParams.subscribe(
+      (queryParams: Params) => {
+        if (queryParams.subject){
+          this.teacherService.filterBySubject(queryParams.subject).subscribe(
+            data => {
+              this.teachers = data;
+            }
+          );
+        } else {
+          this.teacherService.getTeachers().subscribe(
+            data => {
+              this.teachers = data;
+            }
+          );
+        }
       }
-    });
+    );
   }
 
   onNewTeacher(): void{

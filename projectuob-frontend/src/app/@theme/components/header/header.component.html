@@ -1,5 +1,4 @@
 <header class="header-desktop">
-
   <div class="section-content section-content-p30">
     <div class="container-fluid">
       <div class="header-wrap">
@@ -11,23 +10,11 @@
             <a [routerLink]="'/teacher'"  routerLinkActive="active-link">Teachers</a>
           </li>
         </ul>
-        <form>
-          <input class="au-input au-input-xl" type="text" name="search"
-                 placeholder="Search for data ..." />
-          <button class="au-btn-submit" type="submit">
-            Search
-          </button>
-        </form>
 
-        <div class="cart-area d-n">
-          <a>
-            <div class="total">
-              19.22
-              <span> 2</span>
-            </div>
-            <i class="fa fa-shopping-cart" style="color: #273c75" aria-hidden="true"></i>
-          </a>
-        </div>
+        <app-search></app-search>
+
+        <app-cart-status></app-cart-status>
+
       </div>
       <div class="account-wrap"></div>
     </div>

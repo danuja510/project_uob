@@ -20,7 +20,7 @@ export class TeacherAddComponent implements OnInit {
       teacherLastName: new FormControl(null, Validators.required),
       teacherEmail: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, Validators.required),
-      imageUrl: new FormControl(null, Validators.required)
+      imageUrl: new FormControl(null)
     });
   }
 
@@ -46,7 +46,7 @@ export class TeacherAddComponent implements OnInit {
       true,
       );
 
-    this.teacherService.addTeachers(teacher).subscribe(
+    this.teacherService.addTeacher(teacher).subscribe(
       responce => {
         console.log(responce);
         this.teacherForm.reset();
