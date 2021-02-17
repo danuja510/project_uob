@@ -1,0 +1,23 @@
+<div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <div class="row">
+
+        <div>
+          <img src="{{course.imageUrl?course.imageUrl:'assets/images/products/placeholder.png'}}" class="img-responsive" width="200px">
+          <br>
+          <h3>{{course.courseName}}</h3>
+          <p>{{course.sku}}</p>
+                    <div class="price">{{course.perSessionPrice | currency:'USD'}}</div>
+                    <button class="btn btn-success" (click)="addToCart()">Add to cart</button>
+          <p>
+            Date Created: {{course.dateCreated}}
+          </p>
+          <hr>
+          <a routerLink="/course">Back to Course List</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
