@@ -11,8 +11,8 @@ export class CartStatusComponent implements OnInit, OnDestroy {
   private totalPriceSub: Subscription;
   private totalQuantitySub: Subscription;
 
-  private totalPrice = 0.00;
-  private totalQuantity = 0;
+  totalPrice = 0.00;
+  totalQuantity = 0;
 
   constructor(private cartService: CartService) { }
 

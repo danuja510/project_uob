@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Course} from '../../pages/masters/course/course.model';
+import {Teacher} from '../../pages/masters/teacher/teacher.model';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +53,10 @@ export class CoursesService{
                                    + '&page=' + thePage
                                    + '&size=' + thePageSize;
     return this.http.get<GetResponce>(searchUrl);
+  }
+
+  getCourse(id: number): Observable<Course>{
+    return this.http.get<Course>(this.baseUrl + '/' + id );
   }
 }
 

@@ -24,13 +24,12 @@ export class CartService {
       }
     }
     if (!itemExisting) {
-      console.log('hi');
       this.cart.push(new CartItem(course));
     }
     this.calculateCart();
   }
 
-  private calculateCart(): void {
+  calculateCart(): void {
     let totalCartPrice = 0.00;
     let totalCartQuantity = 0;
 
@@ -41,5 +40,26 @@ export class CartService {
 
     this.totalPrice.next(totalCartPrice);
     this.totalQuantity.next(totalCartQuantity);
+  }
+
+  getCartItems(): CartItem[] {
+    return this.cart;
+  }
+
+  decrementQuantity(item: CartItem): void {
+    item.quantity--;
+    if (item.quantity === 0){
+      this.remove(item);
+    }else {
+      this.calculateCart();
+    }
+  }
+
+  remove(item: CartItem): void {
+    const itemIndex = this.cart.findIndex(tempItem => tempItem.course.courseId === item.course.courseId);
+    if (itemIndex > -1 ){
+      this.cart.splice(itemIndex, 1);
+      this.calculateCart();
+    }
   }
 }
