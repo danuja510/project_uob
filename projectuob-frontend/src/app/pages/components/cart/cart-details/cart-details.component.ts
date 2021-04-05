@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CartItem} from '../cart-item.model';
 import {CartService} from '../../../../services/common/cart.service';
 import {Subscription} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-cart-details',
@@ -14,7 +15,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
   cartQuantitySub: Subscription;
   cartTotal = 0.00;
   cartQuantity = 0;
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService, private router: Router) { }
 
   ngOnInit(): void {
     this.cart = this.cartService.getCartItems();
@@ -28,7 +29,6 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
         this.cartQuantity = data;
       }
     );
-    this.cartService.calculateCart();
   }
 
   ngOnDestroy(): void {
@@ -46,5 +46,9 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
 
   removeItem(item: CartItem): void {
     this.cartService.remove(item);
+  }
+
+  checkout(): void {
+    this.router.navigate(['/checkout']);
   }
 }

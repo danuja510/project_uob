@@ -41,7 +41,7 @@
             <td><b>Total Quantity:{{cartQuantity}}</b>
               <p>Shipping FREE</p>
               <b>Total Price: {{cartTotal| currency:'USD'}}</b><br>
-              <a class="primary-btn">Checkout</a>
+              <button class="btn btn-success" (click)="checkout()">Checkout</button>
             </td>
           </tr>
         </table>

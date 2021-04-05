@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {CartItem} from '../../pages/components/cart/cart-item.model';
-import {Subject} from 'rxjs';
+import {BehaviorSubject, Subject} from 'rxjs';
 import {Course} from '../../pages/masters/course/course.model';
 
 @Injectable({
@@ -8,10 +8,10 @@ import {Course} from '../../pages/masters/course/course.model';
 })
 export class CartService {
 
-  private cart: CartItem[] = [];
+  cart: CartItem[] = [];
 
-  totalPrice: Subject<number> = new Subject<number>();
-  totalQuantity: Subject<number> = new Subject<number>();
+  totalPrice: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  totalQuantity: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   addCartItem(course: Course): void{
     let itemExisting = false;

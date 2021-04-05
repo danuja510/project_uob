@@ -9,21 +9,21 @@ import java.util.List;
 
 @Getter
 @Setter
-@NamedStoredProcedureQueries({
-    @NamedStoredProcedureQuery(
-        name = "getCourses",
-        procedureName = "getCourses",
-        resultClasses = {Course.class}
-    ),
-    @NamedStoredProcedureQuery(
-        name = "filterCoursesBySubject",
-        procedureName = "filterCoursesBySubject",
-        parameters = {
-            @StoredProcedureParameter(mode = ParameterMode.IN, name = "id", type = Long.class)
-        },
-        resultClasses = {Course.class}
-)
-})
+//@NamedStoredProcedureQueries({
+//    @NamedStoredProcedureQuery(
+//        name = "getCourses",
+//        procedureName = "getCourses",
+//        resultClasses = {Course.class}
+//    ),
+//    @NamedStoredProcedureQuery(
+//        name = "filterCoursesBySubject",
+//        procedureName = "filterCoursesBySubject",
+//        parameters = {
+//            @StoredProcedureParameter(mode = ParameterMode.IN, name = "id", type = Long.class)
+//        },
+//        resultClasses = {Course.class}
+//)
+//})
 @Entity
 @Table(name = "course")
 public class Course {

@@ -8,8 +8,13 @@ import {CourseComponent} from './pages/masters/course/course.component';
 import {TeacherDetailsComponent} from './pages/masters/teacher/teacher-details/teacher-details.component';
 import {CourseDetailsComponent} from './pages/masters/course/course-details/course-details.component';
 import {CartDetailsComponent} from './pages/components/cart/cart-details/cart-details.component';
+import {CheckoutComponent} from './pages/components/checkout/checkout.component';
+import {OktaCallbackComponent} from '@okta/okta-angular';
+import {LoginComponent} from './pages/components/login/login.component';
 
 const routes: Routes = [
+    {path: 'login/callback', component: OktaCallbackComponent},
+    {path: 'login', component: LoginComponent},
     { path: 'teacher', component: TeacherComponent, children: [
         { path: 'new', component: TeacherAddComponent },
         { path: ':id', component: TeacherDetailsComponent },
@@ -18,6 +23,7 @@ const routes: Routes = [
     { path: 'course/:id', component: CourseDetailsComponent },
     { path: 'course', component: CourseComponent },
     { path: 'cart', component: CartDetailsComponent },
+    { path: 'checkout', component: CheckoutComponent },
     { path: 'not-found', component: ErrorComponent },
     { path: '', redirectTo: 'teacher', pathMatch: 'full' },
     { path: '**', redirectTo: 'not-found' }

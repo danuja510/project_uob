@@ -8,7 +8,7 @@ export class Course {
     public imageUrl: string,
     public dateCreated: Date,
     public lastModified: Date,
-    public courseId?: string,
+    public courseId?: number,
   ) {
   }
 }

@@ -21,6 +21,24 @@ import { CartStatusComponent } from './@theme/components/header/cart-status/cart
 import { CartComponent } from './pages/components/cart/cart.component';
 import { CartDetailsComponent } from './pages/components/cart/cart-details/cart-details.component';
 import { CourseDetailsComponent } from './pages/masters/course/course-details/course-details.component';
+import { CheckoutComponent } from './pages/components/checkout/checkout.component';
+import { StudentComponent } from './pages/masters/student/student.component';
+import { LoginComponent } from './pages/components/login/login.component';
+import { LoginStatusComponent } from './@theme/components/header/login-status/login-status.component';
+import {
+  OKTA_CONFIG,
+  OktaAuthModule,
+} from '@okta/okta-angular';
+import AppConfig from './config/app-config';
+import {Router} from '@angular/router';
+
+const oktaConfig = Object.assign({
+  onAuthRequired: (injector) => {
+    const router = injector.get(Router);
+
+    router.navigate(['/login']);
+  }
+}, AppConfig.oidc);
 
 @NgModule({
   declarations: [
@@ -39,16 +57,21 @@ import { CourseDetailsComponent } from './pages/masters/course/course-details/co
     CartStatusComponent,
     CartComponent,
     CartDetailsComponent,
-    CourseDetailsComponent
+    CourseDetailsComponent,
+    CheckoutComponent,
+    StudentComponent,
+    LoginComponent,
+    LoginStatusComponent
   ],
   imports: [
     NgbModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    OktaAuthModule
   ],
-  providers: [],
+  providers: [{provide: OKTA_CONFIG, useValue: oktaConfig}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,7 +5,9 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "student")
@@ -45,13 +47,26 @@ public class Student {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "studentNumber", fetch = FetchType.LAZY)
     private StudentDetails studentDetails;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade= {CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH})
-    @JoinTable(
-            name = "course_enrollment",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id"))
-    private List<Course> courses;
+//    @ManyToMany(fetch = FetchType.LAZY, cascade= {CascadeType.DETACH,
+//            CascadeType.MERGE,
+//            CascadeType.PERSIST,
+//            CascadeType.REFRESH})
+//    @JoinTable(
+//            name = "course_enrollment",
+//            joinColumns = @JoinColumn(name = "student_id"),
+//            inverseJoinColumns = @JoinColumn(name = "course_id"))
+//    private List<Course> courses;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private Set<Order> orders = new HashSet<>();
+
+    public void add(Order order) {
+        if (order!= null){
+            if(orders==null){
+                orders = new HashSet<>();
+            }
+            orders.add(order);
+            order.setStudent(this);
+        }
+    }
 }
