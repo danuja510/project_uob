@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Course} from '../../pages/masters/course/course.model';
 import {Teacher} from '../../pages/masters/teacher/teacher.model';
+import {RecommendationsService} from './recommendations.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class CoursesService{
 
   private baseUrl = 'http://localhost:8080/api/courses';
 
-  constructor( private http: HttpClient) {
+  constructor( private http: HttpClient, private recommender: RecommendationsService) {
   }
 
   getCourses(): Observable<Course[]>{
@@ -55,9 +56,24 @@ export class CoursesService{
     return this.http.get<GetResponce>(searchUrl);
   }
 
-  getCourse(id: number): Observable<Course>{
+  getCourse(id: number): Observable<Course> {
     return this.http.get<Course>(this.baseUrl + '/' + id );
   }
+
+  // getRecommendedCourses(userId: number, nRec: number): Observable<Course[]> {
+  //
+  //   //
+  //   //   .subscribe(responce =>
+  //   // {
+  //   //   courseIds = responce;
+  //   //   for (const id of courseIds){
+  //   //     this.getCourse(id).subscribe( responce2 => {
+  //   //       course.push(responce2);
+  //   //     });
+  //   //   }
+  //   // });
+  //   return new Observable<Course[]>(course);
+  // }
 }
 
 interface GetResponce {

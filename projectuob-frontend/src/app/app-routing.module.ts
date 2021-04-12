@@ -11,6 +11,7 @@ import {CartDetailsComponent} from './pages/components/cart/cart-details/cart-de
 import {CheckoutComponent} from './pages/components/checkout/checkout.component';
 import {OktaCallbackComponent} from '@okta/okta-angular';
 import {LoginComponent} from './pages/components/login/login.component';
+import {HomeComponent} from './pages/home/home.component';
 
 const routes: Routes = [
     {path: 'login/callback', component: OktaCallbackComponent},
@@ -25,7 +26,7 @@ const routes: Routes = [
     { path: 'cart', component: CartDetailsComponent },
     { path: 'checkout', component: CheckoutComponent },
     { path: 'not-found', component: ErrorComponent },
-    { path: '', redirectTo: 'teacher', pathMatch: 'full' },
+    { path: '', component: HomeComponent },
     { path: '**', redirectTo: 'not-found' }
   ];
 

@@ -79,10 +79,10 @@ public class CBFMain {
         List<Long> recommendations = new ArrayList<>();
 
         CSVFileLoader fileLoadernew = new CSVFileLoader();
-        fileLoadernew.loadMovieFile();
-        fileLoadernew.loadMovieTagFile();
+        fileLoadernew.loadCourseFile();
+        fileLoadernew.loadCourseTagFile();
         fileLoadernew.loadUserFile();
-        fileLoadernew.loadRatingFile();
+        fileLoadernew.loadCourseRatingFile();
 
         LenskitConfiguration config = configureRecommender();
 
@@ -117,7 +117,7 @@ public class CBFMain {
         config.bind(EventDAO.class)
               .to(MOOCRatingDAO.class);
         config.set(RatingFile.class)
-              .to(new File("data/rating.csv"));
+              .to(new File("data/course-rating.csv"));
 
         // use custom item and user DAOs
         // specify item DAO implementation with tags
@@ -125,10 +125,10 @@ public class CBFMain {
               .to(CSVItemTagDAO.class);
         // specify tag file
         config.set(TagFile.class)
-              .to(new File("data/movie-tag.csv"));
+              .to(new File("data/course-tag.csv"));
         // and title file
         config.set(TitleFile.class)
-              .to(new File("data/movie.csv"));
+              .to(new File("data/course.csv"));
 
         // our user DAO can look up by user name
         config.bind(UserDAO.class)

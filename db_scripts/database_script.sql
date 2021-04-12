@@ -169,3 +169,66 @@ CREATE TABLE `project_uob`.`course_enrollment` (
     REFERENCES `project_uob`.`student` (`student_number`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+    
+CREATE TABLE `project_uob`.`course_tag` (
+  `id` BIGINT NOT NULL,
+  `course_id` BIGINT NULL,
+  `tag` VARCHAR(100) NULL,
+  PRIMARY KEY (`id`),
+  INDEX `course_id_idx` (`course_id` ASC) VISIBLE,
+  CONSTRAINT `course_id`
+    FOREIGN KEY (`course_id`)
+    REFERENCES `project_uob`.`course` (`course_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+CREATE TABLE `project_uob`.`teacher_tag` (
+  `id` BIGINT NOT NULL,
+  `teacher_id` BIGINT NULL,
+  `tag` VARCHAR(100) NULL,
+  PRIMARY KEY (`id`),
+  INDEX `teacher_id_idx` (`teacher_id` ASC) VISIBLE,
+  CONSTRAINT `teacher_id_fk`
+    FOREIGN KEY (`teacher_id`)
+    REFERENCES `project_uob`.`teacher` (`teacher_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+CREATE TABLE `project_uob`.`course_rating` (
+  `id` BIGINT NOT NULL,
+  `student_id` BIGINT NOT NULL,
+  `course_id` BIGINT NOT NULL,
+  `rating` FLOAT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `course_id_idx` (`course_id` ASC) VISIBLE,
+  INDEX `student_id_idx` (`student_id` ASC) VISIBLE,
+  CONSTRAINT `course_id_fk`
+    FOREIGN KEY (`course_id`)
+    REFERENCES `project_uob`.`course` (`course_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `student_id_fk`
+    FOREIGN KEY (`student_id`)
+    REFERENCES `project_uob`.`student` (`student_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+CREATE TABLE `project_uob`.`teacher_rating` (
+  `id` BIGINT NOT NULL,
+  `student_id` BIGINT NOT NULL,
+  `teacher_id` BIGINT NOT NULL,
+  `rating` FLOAT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `teacher_id_idx` (`teacher_id` ASC) VISIBLE,
+  INDEX `student_id_idx` (`student_id` ASC) VISIBLE,
+  CONSTRAINT `teacher_id_fk2`
+    FOREIGN KEY (`teacher_id`)
+    REFERENCES `project_uob`.`teacher` (`teacher_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `student_id_fk2`
+    FOREIGN KEY (`student_id`)
+    REFERENCES `project_uob`.`student` (`student_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+

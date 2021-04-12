@@ -31,6 +31,7 @@ import {
 } from '@okta/okta-angular';
 import AppConfig from './config/app-config';
 import {Router} from '@angular/router';
+import { HomeComponent } from './pages/home/home.component';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (injector) => {
@@ -61,7 +62,8 @@ const oktaConfig = Object.assign({
     CheckoutComponent,
     StudentComponent,
     LoginComponent,
-    LoginStatusComponent
+    LoginStatusComponent,
+    HomeComponent
   ],
   imports: [
     NgbModule,

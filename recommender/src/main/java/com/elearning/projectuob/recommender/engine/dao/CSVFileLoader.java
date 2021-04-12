@@ -14,7 +14,7 @@ public class CSVFileLoader {
     public void loadUserFile(){
         csvFilePath = "data/user.csv";
         try (Connection connection = DriverManager.getConnection(jdbcURL, username, password)) {
-            String sql = "SELECT * FROM user";
+            String sql = "SELECT * FROM student";
 
             Statement statement = connection.createStatement();
 
@@ -25,8 +25,8 @@ public class CSVFileLoader {
             // write header line containing column names
 
             while (result.next()) {
-                String id = result.getString("id");
-                String name = result.getString("name");
+                String id = result.getString("student_number");
+                String name = result.getString("student_email");
 
 
                 String line = String.format("%s,%s",
@@ -48,10 +48,10 @@ public class CSVFileLoader {
         }
     }
 
-    public void loadMovieFile(){
-        csvFilePath = "data/movie.csv";
+    public void loadCourseFile(){
+        csvFilePath = "data/course.csv";
         try (Connection connection = DriverManager.getConnection(jdbcURL, username, password)) {
-            String sql = "SELECT * FROM movie";
+            String sql = "SELECT * FROM course";
 
             Statement statement = connection.createStatement();
 
@@ -62,8 +62,8 @@ public class CSVFileLoader {
             // write header line containing column names
 
             while (result.next()) {
-                String id = result.getString("id");
-                String name = result.getString("name");
+                String id = result.getString("course_id");
+                String name = result.getString("sku");
 
 
                 String line = String.format("%s,%s",
@@ -85,10 +85,10 @@ public class CSVFileLoader {
         }
     }
 
-    public void loadMovieTagFile(){
-        csvFilePath = "data/movie-tag.csv";
+    public void loadCourseTagFile(){
+        csvFilePath = "data/course-tag.csv";
         try (Connection connection = DriverManager.getConnection(jdbcURL, username, password)) {
-            String sql = "SELECT * FROM movie_tag";
+            String sql = "SELECT * FROM course_tag";
 
             Statement statement = connection.createStatement();
 
@@ -99,7 +99,7 @@ public class CSVFileLoader {
             // write header line containing column names
 
             while (result.next()) {
-                String movie_id = result.getString("movie_id");
+                String movie_id = result.getString("course_id");
                 String tag = result.getString("tag");
 
 
@@ -122,10 +122,10 @@ public class CSVFileLoader {
         }
     }
 
-    public void loadRatingFile(){
-        csvFilePath = "data/rating.csv";
+    public void loadCourseRatingFile(){
+        csvFilePath = "data/course-rating.csv";
         try (Connection connection = DriverManager.getConnection(jdbcURL, username, password)) {
-            String sql = "SELECT * FROM rating";
+            String sql = "SELECT * FROM course_rating";
 
             Statement statement = connection.createStatement();
 
@@ -136,8 +136,8 @@ public class CSVFileLoader {
             // write header line containing column names
 
             while (result.next()) {
-                String user_id = result.getString("user_id");
-                String movie_id = result.getString("movie_id");
+                String user_id = result.getString("student_id");
+                String movie_id = result.getString("course_id");
                 String tag = result.getString("rating");
 
 
