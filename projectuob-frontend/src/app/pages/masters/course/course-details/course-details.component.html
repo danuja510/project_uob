@@ -7,6 +7,7 @@
           <img src="{{course.imageUrl?course.imageUrl:'assets/images/products/placeholder.png'}}" class="img-responsive" width="200px">
           <br>
           <h3>{{course.courseName}}</h3>
+          <app-star-rating (rating)="addRating($event)"></app-star-rating>
           <p>{{course.sku}}</p>
                     <div class="price">{{course.perSessionPrice | currency:'USD'}}</div>
                     <button class="btn btn-success" (click)="addToCart()">Add to cart</button>

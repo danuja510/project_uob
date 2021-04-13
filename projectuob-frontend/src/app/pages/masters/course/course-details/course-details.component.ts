@@ -3,6 +3,8 @@ import {ActivatedRoute} from '@angular/router';
 import {CoursesService} from '../../../../services/backend/courses.service';
 import {Course} from '../course.model';
 import {CartService} from '../../../../services/common/cart.service';
+import {RatingService} from '../../../../services/backend/rating.service';
+import {CourseRating} from '../../../../shared/course-rating.model';
 
 @Component({
   selector: 'app-course-details',
@@ -12,7 +14,10 @@ import {CartService} from '../../../../services/common/cart.service';
 export class CourseDetailsComponent implements OnInit {
   course: Course;
 
-  constructor(private route: ActivatedRoute, private courseService: CoursesService, private cartService: CartService) { }
+  constructor(private route: ActivatedRoute,
+              private courseService: CoursesService,
+              private cartService: CartService,
+              private ratingService: RatingService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(
@@ -26,7 +31,13 @@ export class CourseDetailsComponent implements OnInit {
     );
   }
 
-  addToCart() {
+  addToCart(): void {
     this.cartService.addCartItem(this.course);
+  }
+
+  addRating(rating: number): void {
+    const courseRating: CourseRating = new CourseRating(1, this.course.courseId, rating);
+    this.ratingService.addCourseRating(courseRating).subscribe();
+    console.log(courseRating);
   }
 }

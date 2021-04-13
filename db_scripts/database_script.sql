@@ -231,4 +231,62 @@ CREATE TABLE `project_uob`.`teacher_rating` (
     REFERENCES `project_uob`.`student` (`student_number`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+    
+CREATE TABLE `project_uob`.`address` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `street` VARCHAR(100) NULL,
+  `city` VARCHAR(100) NULL,
+  `state` VARCHAR(100) NULL,
+  `country` VARCHAR(100) NULL,
+  `zip_code` VARCHAR(100) NULL,
+  PRIMARY KEY (`id`));
+  
+CREATE TABLE `project_uob`.`orders` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `order_tracking_number` VARCHAR(150) NULL,
+  `total_quantity` INT NULL,
+  `total_price` FLOAT NULL,
+  `status` VARCHAR(45) NULL,
+  `date_created` DATE NULL,
+  `last_updated` DATE NULL,
+  `student_id` BIGINT NULL,
+  `billing_address_id` BIGINT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `std_fk_idx` (`student_id` ASC) VISIBLE,
+  INDEX `add_fk_idx` (`billing_address_id` ASC) VISIBLE,
+  CONSTRAINT `std_fk`
+    FOREIGN KEY (`student_id`)
+    REFERENCES `project_uob`.`student` (`student_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `add_fk`
+    FOREIGN KEY (`billing_address_id`)
+    REFERENCES `project_uob`.`address` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `project_uob`.`order_item` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `image_url` VARCHAR(150) NULL,
+  `price_per_session` FLOAT NULL,
+  `quantity` INT NULL,
+  `course_id` BIGINT NULL,
+  `order_id` BIGINT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `course_fk2_idx` (`course_id` ASC) VISIBLE,
+  INDEX `order_fk_idx` (`order_id` ASC) VISIBLE,
+  CONSTRAINT `course_fk2`
+    FOREIGN KEY (`course_id`)
+    REFERENCES `project_uob`.`course` (`course_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `order_fk`
+    FOREIGN KEY (`order_id`)
+    REFERENCES `project_uob`.`orders` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+ALTER TABLE `project_uob`.`student` 
+CHANGE COLUMN `password` `password` VARCHAR(50) NULL ;
 
