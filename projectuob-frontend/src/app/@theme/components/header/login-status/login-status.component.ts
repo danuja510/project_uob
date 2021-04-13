@@ -48,10 +48,12 @@ export class LoginStatusComponent implements OnInit {
           );
         }
       );
+    } else {
+      this.login.setStudent(null);
     }
   }
 
-  logout() {
+  logout(): void {
     this.oktaAuthService.signOut();
   }
 }

@@ -1,24 +1,28 @@
 <div class="main-content">
   <div class="section-content section-content-p30">
     <div class="container-fluid">
-      <div class="row">
-        <h3>Recommendations</h3>
-        <div class="col-md-3" *ngFor="let course of recommendedCourses">
-          <div class="product-box">
-            <a [routerLink]="'/course/'+course.courseId">
-              <img src="{{course.imageUrl?course.imageUrl:'assets/images/products/placeholder.png'}}" class="img-responsive">
-              <br>
-              <h1>{{course.courseName}}</h1>
-            </a>
-            <h2>{{course.courseDescription}} </h2>
-            <div class="price">${{course.perSessionPrice}}</div>
-            <button class="btn btn-success" style="margin-left: 20px;" (click)="addToCart(course)">Add to Cart</button>
+      <div *ngIf="recommendedCourses.length !== 0">
+        <div class="row">
+          <h3>Recommended Courses</h3>
+          <br><br>
+        </div>
+        <div class="row">
+          <div class="col-md-2" *ngFor="let course of recommendedCourses">
+            <div class="product-box">
+              <a [routerLink]="'/course/'+course.courseId">
+                <img src="{{course.imageUrl?course.imageUrl:'assets/images/products/placeholder.png'}}" class="img-responsive">
+                <br>
+                <h1>{{course.courseName}}</h1>
+              </a>
+              <h2>{{course.courseDescription + course.courseId}} </h2>
+              <div class="price">${{course.perSessionPrice}}</div>
+              <button class="btn btn-success" style="margin-left: 20px;" (click)="addToCart(course)">Add to Cart</button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="row">
-        home
-      </div>
+      <div class="row"><h3>Recommended Teachers</h3></div>
+
     </div>
   </div>
 </div>
