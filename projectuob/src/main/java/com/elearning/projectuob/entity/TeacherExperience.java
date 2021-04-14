@@ -39,4 +39,7 @@ public class TeacherExperience {
 
     @Column(name ="currently_working")
     private boolean currentlyWorking;
+
+    @Column(name ="institution")
+    private String institution;
 }

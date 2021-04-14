@@ -1,11 +1,12 @@
 export class TeacherExperience{
   constructor(
-    private title: string,
-    private description: string,
-    private from: Date,
-    private to: Date,
-    private currentlyWorking: boolean,
-    private teacherId?: number
+    public title: string,
+    public description: string,
+    public from: Date,
+    public to: Date,
+    public currentlyWorking: boolean,
+    public institution: string,
+    public teacherId?: number
   ) {
   }
 }

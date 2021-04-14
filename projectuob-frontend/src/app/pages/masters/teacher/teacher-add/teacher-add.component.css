@@ -10,6 +10,7 @@ input.ng-invalid.ng-touched{
   line-height: 50px;
   border-radius: 25px;
   background-color: #f1f1f1;
+  margin-right: 5px;
 }
 
 .chip img {
@@ -20,3 +21,11 @@ input.ng-invalid.ng-touched{
   border-radius: 50%;
 }
 
+.chip i {
+  font-size: 30px;
+}
+
+.chip span {
+  vertical-align: super;
+  margin-right: 10px;
+}

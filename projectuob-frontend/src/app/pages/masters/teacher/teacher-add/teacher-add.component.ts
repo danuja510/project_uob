@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {TeachersService} from '../../../../services/backend/teachers.service';
 import {Teacher} from '../teacher.model';
@@ -6,13 +6,16 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {TeacherExperience} from '../teacher-experience.model';
 import {TeacherSubject} from '../teacher-subject.model';
 import {TeacherTag} from '../teacher-tag.model';
+import {SubjectsService} from '../../../../services/backend/subjects.service';
+import {Subject} from '../../../../shared/subjects.model';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-teacher-add',
   templateUrl: './teacher-add.component.html',
   styleUrls: ['./teacher-add.component.css']
 })
-export class TeacherAddComponent implements OnInit {
+export class TeacherAddComponent implements OnInit, OnDestroy {
   teacherForm: FormGroup;
   teacherExperienceForm: FormGroup;
   teacherSubjectForm: FormGroup;
@@ -20,8 +23,12 @@ export class TeacherAddComponent implements OnInit {
   teacherExperienceArray: TeacherExperience[] = [];
   teacherSubjectArray: TeacherSubject[] = [];
   teacherTagArray: TeacherTag[] = [];
+  subjects: Subject[];
 
-  constructor(private teacherService: TeachersService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private teacherService: TeachersService,
+              private router: Router,
+              private route: ActivatedRoute,
+              private subjectService: SubjectsService) { }
 
   ngOnInit(): void {
     this.teacherForm = new FormGroup({
@@ -31,6 +38,7 @@ export class TeacherAddComponent implements OnInit {
 
     this.teacherExperienceForm = new FormGroup({
       title: new FormControl('', Validators.required),
+      institution: new FormControl('', Validators.required),
       description: new FormControl(''),
       from: new FormControl(new Date(), Validators.required),
       to: new FormControl(new Date(), Validators.required),
@@ -44,6 +52,12 @@ export class TeacherAddComponent implements OnInit {
     this.teacherTagForm = new FormGroup({
       tag: new FormControl('', Validators.required)
     });
+
+    this.subjectService.getSubjects().subscribe(
+      responce => {
+        this.subjects = responce;
+      }
+    );
   }
 
   onSubmit(): void{
@@ -82,8 +96,25 @@ export class TeacherAddComponent implements OnInit {
         this.teacherExperienceForm.value.description,
         this.teacherExperienceForm.value.from,
         this.teacherExperienceForm.value.to,
-        this.teacherExperienceForm.value.currentlyWorking === 'currentlyWorking'));
+        this.teacherExperienceForm.value.currentlyWorking === 'currentlyWorking',
+        this.teacherExperienceForm.value.institution
+      ));
     console.log(this.teacherExperienceArray);
     this.teacherExperienceForm.reset();
+    this.teacherExperienceForm.patchValue({
+      title: '',
+      institution: '',
+      description: '',
+      from: new Date(),
+      to: new Date(),
+      currentlyWorking: 'currentlyWorking'
+    });
+  }
+
+  removeExp(i: number): void {
+    this.teacherExperienceArray.splice(i, 1);
+  }
+
+  ngOnDestroy(): void {
   }
 }
