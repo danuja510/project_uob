@@ -3,6 +3,9 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {TeachersService} from '../../../../services/backend/teachers.service';
 import {Teacher} from '../teacher.model';
 import {ActivatedRoute, Router} from '@angular/router';
+import {TeacherExperience} from '../teacher-experience.model';
+import {TeacherSubject} from '../teacher-subject.model';
+import {TeacherTag} from '../teacher-tag.model';
 
 @Component({
   selector: 'app-teacher-add',
@@ -11,16 +14,35 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class TeacherAddComponent implements OnInit {
   teacherForm: FormGroup;
+  teacherExperienceForm: FormGroup;
+  teacherSubjectForm: FormGroup;
+  teacherTagForm: FormGroup;
+  teacherExperienceArray: TeacherExperience[] = [];
+  teacherSubjectArray: TeacherSubject[] = [];
+  teacherTagArray: TeacherTag[] = [];
 
   constructor(private teacherService: TeachersService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.teacherForm = new FormGroup({
-      teacherFirstName: new FormControl(null, Validators.required),
-      teacherLastName: new FormControl(null, Validators.required),
-      teacherEmail: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, Validators.required),
-      imageUrl: new FormControl(null)
+      teacherTelephone: new FormControl('', [Validators.required]),
+      teacherZoomAddress: new FormControl('', Validators.required)
+    });
+
+    this.teacherExperienceForm = new FormGroup({
+      title: new FormControl('', Validators.required),
+      description: new FormControl(''),
+      from: new FormControl(new Date(), Validators.required),
+      to: new FormControl(new Date(), Validators.required),
+      currentlyWorking: new FormControl('currentlyWorking')
+    });
+
+    this.teacherSubjectForm = new FormGroup({
+      subject: new FormControl('', Validators.required)
+    });
+
+    this.teacherTagForm = new FormGroup({
+      tag: new FormControl('', Validators.required)
     });
   }
 
@@ -40,8 +62,6 @@ export class TeacherAddComponent implements OnInit {
       this.teacherForm.value.teacherFirstName,
       this.teacherForm.value.teacherLastName,
       this.teacherForm.value.teacherEmail,
-      this.teacherForm.value.password,
-      this.teacherForm.value.imageUrl,
       new Date(),
       true,
       );
@@ -55,4 +75,15 @@ export class TeacherAddComponent implements OnInit {
     );
   }
 
+  addTeacherExperience(): void {
+    this.teacherExperienceArray.push(
+      new TeacherExperience(
+        this.teacherExperienceForm.value.title,
+        this.teacherExperienceForm.value.description,
+        this.teacherExperienceForm.value.from,
+        this.teacherExperienceForm.value.to,
+        this.teacherExperienceForm.value.currentlyWorking === 'currentlyWorking'));
+    console.log(this.teacherExperienceArray);
+    this.teacherExperienceForm.reset();
+  }
 }

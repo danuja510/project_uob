@@ -1,0 +1,19 @@
+div .new-teacher {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  background-color: #f9f9f9;
+  color: #777;
+  position: relative;
+  overflow: auto;
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 1px;
+  min-height: 350px;
+  height: auto;
+  margin: 100px auto 8px;
+  width: 600px;
+  min-width: 300px;
+  padding: 100px 0px;
+  vertical-align: center;
+}

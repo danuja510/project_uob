@@ -1,56 +1,121 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <form [formGroup]="teacherForm" (ngSubmit)="onSubmit()">
+      <h3>Contact Details</h3><br>
+      <form [formGroup]="teacherForm">
         <div class="form-group">
-          <label for="teacherFirstName">First Name</label>
+          <label for="teacherTelephone">Telephone</label>
           <input
             type="text"
-            id="teacherFirstName"
+            id="teacherTelephone"
             class="form-control"
-            formControlName="teacherFirstName">
-          <span class="help-block" *ngIf="!teacherForm.get('teacherFirstName').valid && teacherForm.get('teacherFirstName').touched">Please ender a first name!</span>
+            formControlName="teacherTelephone">
+          <span class="help-block" *ngIf="!teacherForm.get('teacherTelephone').valid && teacherForm.get('teacherTelephone').touched">Please enter a telephone number!</span>
         </div>
         <div class="form-group">
-          <label for="teacherLastName">Last Name</label>
+          <label for="teacherZoomAddress">Zoom ID</label>
           <input
             type="text"
-            id="teacherLastName"
-            formControlName="teacherLastName"
+            id="teacherZoomAddress"
+            formControlName="teacherZoomAddress"
             class="form-control">
-          <span class="help-block" *ngIf="!teacherForm.get('teacherLastName').valid && teacherForm.get('teacherLastName').touched">Please ender a last name!</span>
-        </div>
-        <div class="form-group">
-          <label for="teacherEmail">Email</label>
-          <input
-            type="email"
-            id="teacherEmail"
-            formControlName="teacherEmail"
-            class="form-control">
-          <span class="help-block" *ngIf="!teacherForm.get('teacherEmail').valid && teacherForm.get('teacherEmail').touched">Please ender a valid email!</span>
-        </div>
-        <div class="form-group">
-          <label for="imageUrl">Image URL</label>
-          <input
-            type="text"
-            id="imageUrl"
-            class="form-control"
-            formControlName="imageUrl">
-          <span class="help-block" *ngIf="!teacherForm.get('imageUrl').valid && teacherForm.get('imageUrl').touched">Please ender a image url!</span>
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            class="form-control"
-            formControlName="password">
-          <span class="help-block" *ngIf="!teacherForm.get('password').valid && teacherForm.get('password').touched">Please ender a password!</span>
+          <span class="help-block" *ngIf="!teacherForm.get('teacherZoomAddress').valid && teacherForm.get('teacherZoomAddress').touched">Please enter a Valid Zoom ID!</span>
         </div>
         <span class="help-block" *ngIf="!teacherForm.valid && teacherForm.touched">Please ender a valid data!</span>
         <hr>
-        <button class="btn btn-primary" [disabled]="!teacherForm.valid" type="submit">Submit</button>
       </form>
+      <h3>Experience</h3><br>
+      <div class="chip">
+        <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-6.jpg" alt="Contact Person"> John Doe
+      </div>
+      <form [formGroup]="teacherExperienceForm" (ngSubmit)="addTeacherExperience()">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input
+            type="text"
+            id="title"
+            class="form-control"
+            formControlName="title">
+          <span class="help-block" *ngIf="!teacherExperienceForm.get('title').valid && teacherExperienceForm.get('title').touched">Please enter a Title!</span>
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input
+            type="text"
+            id="description"
+            formControlName="description"
+            class="form-control">
+<!--          <span class="help-block" *ngIf="!teacherForm.get('description').valid && teacherForm.get('description').touched">Please enter a Valid Zoom ID!</span>-->
+        </div>
+        <div class="form-group">
+          <label for="title">From</label>
+          <input
+            type="date"
+            id="from"
+            class="form-control"
+            formControlName="from">
+          <span class="help-block" *ngIf="!teacherExperienceForm.get('from').valid && teacherExperienceForm.get('from').touched">Please enter from when you started working!</span>
+        </div>
+        <div class="form-group">
+          <label for="to">To</label>
+          <input
+            type="date"
+            id="to"
+            class="form-control"
+            formControlName="to">
+          <span class="help-block" *ngIf="!teacherExperienceForm.get('to').valid && teacherExperienceForm.get('to').touched">Please enter to when you worked!</span>
+        </div>
+        <div class="form-group">
+          <label for="currentlyWorking">Are you currently working here?</label><br>
+          Yes<input
+            type="radio"
+            id="currentlyWorking"
+            name="currentlyWorking"
+            class="form-control"
+            formControlName="currentlyWorking"
+          value="currentlyWorking">
+          No<input
+            type="radio"
+            name="currentlyWorking"
+            id="currentlyNotWorking"
+            class="form-control"
+            formControlName="currentlyWorking"
+            value="currentlyNotWorking">
+        </div>
+        <button class="btn btn-primary" [disabled]="!teacherExperienceForm.valid" type="submit">Add</button>
+        <span class="help-block" *ngIf="!teacherExperienceForm.valid && teacherExperienceForm.touched">Please enter a valid data!</span>
+        <hr>
+      </form>
+
+      <h3>Subjects</h3><br>
+      <form [formGroup]="teacherSubjectForm">
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input
+            type="text"
+            id="subject"
+            class="form-control"
+            formControlName="subject">
+          <span class="help-block" *ngIf="!teacherSubjectForm.get('subject').valid && teacherSubjectForm.get('subject').touched">Please enter a Subject!</span>
+        </div>
+        <hr>
+      </form>
+
+      <h3>Tags</h3><br>
+      <form [formGroup]="teacherTagForm">
+        <div class="form-group">
+          <label for="tag">Tag</label>
+          <input
+            type="text"
+            id="tag"
+            class="form-control"
+            formControlName="tag">
+          <span class="help-block" *ngIf="!teacherTagForm.get('tag').valid && teacherTagForm.get('tag').touched">Please enter a Tag!</span>
+        </div>
+        <hr>
+      </form>
+
+      <button class="btn btn-primary" [disabled]="!teacherForm.valid" type="submit">Submit</button>
 
     </div>
   </div>

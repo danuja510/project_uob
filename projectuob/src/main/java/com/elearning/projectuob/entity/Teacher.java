@@ -29,14 +29,8 @@ public class Teacher {
     @Column(name = "teacher_email")
     private String teacherEmail;
 
-    @Column(name = "password")
-    private String password;
-
     @Column(name = "is_active")
     private boolean isActive;
-
-    @Column(name = "image_url")
-    private String imageUrl;
 
     @Column(name = "date_joined")
     @CreationTimestamp

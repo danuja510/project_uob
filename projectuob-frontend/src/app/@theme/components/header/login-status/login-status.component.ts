@@ -14,7 +14,9 @@ export class LoginStatusComponent implements OnInit {
   isAuthenticated = false;
   userFullName: string | undefined = '';
 
-  constructor(private oktaAuthService: OktaAuthService, private studentService: StudentService, private login: LoginService) { }
+  constructor(private oktaAuthService: OktaAuthService,
+              private studentService: StudentService,
+              public login: LoginService) { }
 
   ngOnInit(): void {
     this.oktaAuthService.$authenticationState.subscribe(
@@ -25,7 +27,7 @@ export class LoginStatusComponent implements OnInit {
     );
   }
 
-  private getUserDetails() {
+  private getUserDetails(): void {
     if (this.isAuthenticated) {
       this.oktaAuthService.getUser().then(
         res => {
@@ -55,5 +57,9 @@ export class LoginStatusComponent implements OnInit {
 
   logout(): void {
     this.oktaAuthService.signOut();
+  }
+
+  teacher(): void {
+    this.login.setTeacherMode();
   }
 }

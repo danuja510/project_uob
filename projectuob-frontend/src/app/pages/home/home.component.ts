@@ -58,7 +58,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       // this.courseServiceSub.unsubscribe();
       // this.recommenderServiceSub.unsubscribe();
     }
-
     // this.teacherServiceSub.unsubscribe();
   }
 

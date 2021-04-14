@@ -290,3 +290,11 @@ CREATE TABLE `project_uob`.`order_item` (
 ALTER TABLE `project_uob`.`student` 
 CHANGE COLUMN `password` `password` VARCHAR(50) NULL ;
 
+ALTER TABLE `project_uob`.`teacher` 
+DROP COLUMN `password`;
+
+ALTER TABLE `project_uob`.`teacher` 
+DROP COLUMN `image_url`;
+
+
+

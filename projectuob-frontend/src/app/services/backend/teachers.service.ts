@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {Teacher} from '../../pages/masters/teacher/teacher.model';
 import {map} from 'rxjs/operators';
 import {Course} from '../../pages/masters/course/course.model';
+import {Student} from '../../pages/masters/student/student.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,15 @@ export class TeachersService{
       map(responce => responce._embedded.teachers)
     );
   }
+
+  findTeacherByEmail(email: string): Observable<Teacher[]>{
+    const searchUrl = this.baseUrl + '/search/findByTeacherEmailEquals?email=' + email;
+    return this.http.get<GetResponses>(searchUrl).pipe(
+      map( responce => responce._embedded.teachers)
+    );
+  }
+
+  addTeacherDetails(teacher: Teacher, )
 }
 
 interface GetResponses {

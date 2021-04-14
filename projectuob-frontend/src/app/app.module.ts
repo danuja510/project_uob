@@ -34,6 +34,8 @@ import {Router} from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { StarRatingComponent } from './pages/components/star-rating/star-rating.component';
 import {StarRatingModule} from './pages/components/star-rating/star-rating.module';
+import { TeachingComponent } from './pages/teaching/teaching.component';
+import {AuthGuard} from './auth-guard.service';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (injector) => {
@@ -65,7 +67,8 @@ const oktaConfig = Object.assign({
     StudentComponent,
     LoginComponent,
     LoginStatusComponent,
-    HomeComponent],
+    HomeComponent,
+    TeachingComponent],
   imports: [
     NgbModule,
     BrowserModule,
@@ -75,7 +78,7 @@ const oktaConfig = Object.assign({
     OktaAuthModule,
     StarRatingModule
   ],
-  providers: [{provide: OKTA_CONFIG, useValue: oktaConfig}],
+  providers: [{provide: OKTA_CONFIG, useValue: oktaConfig}, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
