@@ -1,7 +1,7 @@
 export class TeacherSubject{
   constructor(
-    private teacherId: number,
-    private subjectId: number,
+    public subjectId: number,
+    public teacherId?: number,
     private no?: number
   ) {
   }

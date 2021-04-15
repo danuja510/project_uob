@@ -1,10 +1,15 @@
 package com.elearning.projectuob.entity;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+
+
+@Getter
+@Setter
+@Entity
+@Table(name = "teacher_tag")
 public class TeacherTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

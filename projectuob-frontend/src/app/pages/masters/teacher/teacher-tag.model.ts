@@ -1,7 +1,7 @@
 export class TeacherTag{
   constructor(
-    private teacherId: number,
-    private tag: string,
+    public tag: string,
+    public teacherId?: number,
     private id?: number
     ) {
   }

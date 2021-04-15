@@ -3,8 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Teacher} from '../../pages/masters/teacher/teacher.model';
 import {map} from 'rxjs/operators';
-import {Course} from '../../pages/masters/course/course.model';
-import {Student} from '../../pages/masters/student/student.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +24,8 @@ export class TeachersService{
     return this.http.get<Teacher>(this.baseUrl + '/' + id );
   }
 
-  addTeacher(teacher: Teacher): Observable<any>{
-    return this.http.post(this.baseUrl, teacher);
+  addTeacher(teacher: Teacher): Observable<Teacher>{
+    return this.http.post<Teacher>(this.baseUrl, teacher);
   }
 
   filterBySubject(subjectId: string): Observable<Teacher[]>{
@@ -43,8 +41,6 @@ export class TeachersService{
       map( responce => responce._embedded.teachers)
     );
   }
-
-  addTeacherDetails(teacher: Teacher, )
 }
 
 interface GetResponses {

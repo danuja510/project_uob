@@ -1,6 +1,5 @@
 package com.elearning.projectuob.entity;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,28 +17,24 @@ public class TeacherExperience {
     @Column(name ="no")
     private Long no;
 
-    @ManyToOne(cascade =  {CascadeType.DETACH,
-                            CascadeType.MERGE,
-                            CascadeType.PERSIST,
-                            CascadeType.REFRESH})
-    @JoinColumn(name = "teacher_id", nullable = false)
-    private Teacher teacherId;
+    @Column(name = "teacher_id")
+    private Long teacherId;
 
     @Column(name ="title")
     private String title;
 
+    @Column(name ="institution")
+    private String institution;
+
     @Column(name ="description")
     private String description;
 
-    @Column(name ="from")
+    @Column(name ="working_from")
     private Date from;
 
-    @Column(name ="to")
+    @Column(name ="worked_until")
     private Date to;
 
     @Column(name ="currently_working")
     private boolean currentlyWorking;
-
-    @Column(name ="institution")
-    private String institution;
 }

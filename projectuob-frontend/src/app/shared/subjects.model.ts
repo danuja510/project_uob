@@ -1,11 +1,11 @@
 export class Subject{
 
   constructor(
-    public sku: string,
     public subjectName: string,
-    public subjectDescription: string,
     public active: boolean,
-    public subjectId?: string
+    public sku?: string,
+    public subjectDescription?: string,
+    public subjectId?: number
   ) {
   }
 }

@@ -7,7 +7,7 @@ export class Teacher{
     public teacherEmail: string,
     public dateJoined: Date,
     public active: boolean,
-    public teacherId?: string
+    public teacherId?: number
   ) {
   }
 }

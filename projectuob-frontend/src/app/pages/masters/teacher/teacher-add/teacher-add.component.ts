@@ -8,7 +8,12 @@ import {TeacherSubject} from '../teacher-subject.model';
 import {TeacherTag} from '../teacher-tag.model';
 import {SubjectsService} from '../../../../services/backend/subjects.service';
 import {Subject} from '../../../../shared/subjects.model';
-import {BehaviorSubject} from 'rxjs';
+import {LoginService} from '../../../../services/common/login.service';
+import {TeacherTagService} from '../../../../services/backend/teacher-tag.service';
+import {TeacherExperienceService} from '../../../../services/backend/teacher-experience.service';
+import {TeacherSubjectService} from '../../../../services/backend/teacher-subject.service';
+import {TeacherDetailService} from '../../../../services/backend/teacher-detail.service';
+import {TeacherDetail} from '../teacher-detail.model';
 
 @Component({
   selector: 'app-teacher-add',
@@ -24,15 +29,24 @@ export class TeacherAddComponent implements OnInit, OnDestroy {
   teacherSubjectArray: TeacherSubject[] = [];
   teacherTagArray: TeacherTag[] = [];
   subjects: Subject[];
+  newSubjects: Subject[] = [];
+  existingSubjects: Subject[] = [];
+  teacherTags: TeacherTag[];
 
   constructor(private teacherService: TeachersService,
               private router: Router,
               private route: ActivatedRoute,
-              private subjectService: SubjectsService) { }
+              private subjectService: SubjectsService,
+              private login: LoginService,
+              private teacherTagService: TeacherTagService,
+              private teacherExperienceService: TeacherExperienceService,
+              private teacherSubjectService: TeacherSubjectService,
+              private teacherDetailsService: TeacherDetailService) { }
 
   ngOnInit(): void {
     this.teacherForm = new FormGroup({
       teacherTelephone: new FormControl('', [Validators.required]),
+      teacherAddress: new FormControl('', [Validators.required]),
       teacherZoomAddress: new FormControl('', Validators.required)
     });
 
@@ -58,6 +72,12 @@ export class TeacherAddComponent implements OnInit, OnDestroy {
         this.subjects = responce;
       }
     );
+
+    this.teacherTagService.getDistinctTags().subscribe(
+      responce => {
+        this.teacherTags = responce;
+      }
+    );
   }
 
   onSubmit(): void{
@@ -71,20 +91,53 @@ export class TeacherAddComponent implements OnInit, OnDestroy {
     let rand = (Math.random() * 1000);
     rand = Math.floor(rand);
 
-    const teacher = new Teacher(
-      this.teacherForm.value.teacherFirstName.toLowerCase().trim().concat('-' + rand),
-      this.teacherForm.value.teacherFirstName,
-      this.teacherForm.value.teacherLastName,
-      this.teacherForm.value.teacherEmail,
+    let teacher = new Teacher(
+      this.login.getStudent().studentFirstName.toLowerCase().trim().concat('-' + rand),
+      this.login.getStudent().studentFirstName,
+      this.login.getStudent().studentLastName,
+      this.login.getStudent().studentEmail,
       new Date(),
       true,
       );
 
     this.teacherService.addTeacher(teacher).subscribe(
-      responce => {
-        console.log(responce);
-        this.teacherForm.reset();
-        this.router.navigate(['../'], {relativeTo: this.route});
+      response => {
+        // setting teacher objects teacher id from the response of the rest api
+        teacher = response;
+        console.log(teacher);
+
+        this.teacherDetailsService.addTeacherDetails(new TeacherDetail(this.teacherForm.value.teacherTelephone,
+          this.teacherForm.value.teacherAddress,
+          this.teacherForm.value.teacherZoomAddress,
+          teacher.teacherId)).subscribe();
+
+        // setting the teacher id for the teacherExperience objects and posting them
+        for (const exp of this.teacherExperienceArray) {
+          exp.teacherId = teacher.teacherId;
+          console.log(exp);
+          this.teacherExperienceService.addTeacherExperience(exp).subscribe();
+        }
+
+        // creating new subjects if there are any new ones and adding teacher subjects
+        // for (let sub of this.newSubjects) {
+        //   this.subjectService.addSubject(sub).subscribe(
+        //     response2 => {
+        //       sub = response2;
+        //       this.teacherSubjectArray.push(new TeacherSubject(sub.subjectId));
+        //       for (const teacherSub of this.teacherSubjectArray) {
+        //         teacherSub.teacherId = teacher.teacherId;
+        //         this.teacherSubjectService.addTeacherSubject(teacherSub).subscribe();
+        //       }
+        //     }
+        //   );
+        // }
+
+        // adding the teacher tags
+        for (const tag of this.teacherTagArray) {
+          tag.teacherId = teacher.teacherId;
+          this.teacherTagService.addTeacherTag(tag).subscribe();
+        }
+        // this.router.navigate(['../'], {relativeTo: this.route});
       }
     );
   }
@@ -99,7 +152,6 @@ export class TeacherAddComponent implements OnInit, OnDestroy {
         this.teacherExperienceForm.value.currentlyWorking === 'currentlyWorking',
         this.teacherExperienceForm.value.institution
       ));
-    console.log(this.teacherExperienceArray);
     this.teacherExperienceForm.reset();
     this.teacherExperienceForm.patchValue({
       title: '',
@@ -116,5 +168,53 @@ export class TeacherAddComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+  }
+
+  addSubject(): void {
+    for ( const sub of this.newSubjects){
+      if (this.teacherSubjectForm.value.subject.toLowerCase() === sub.subjectName){
+        return;
+      }
+    }
+    for ( const sub of this.existingSubjects){
+      if (this.teacherSubjectForm.value.subject.toLowerCase() === sub.subjectName){
+        return;
+      }
+    }
+    for (const subject of this.subjects){
+      if (this.teacherSubjectForm.value.subject.toLowerCase() === subject.subjectName){
+        this.teacherSubjectArray.push(new TeacherSubject(subject.subjectId));
+        this.existingSubjects.push(subject);
+        this.teacherSubjectForm.reset();
+        return;
+      }
+    }
+    this.newSubjects.push(
+      new Subject(this.teacherSubjectForm.value.subject.toLowerCase(), true)
+    );
+    this.teacherSubjectForm.reset();
+  }
+
+  removeSubEx(i: number): void {
+    this.existingSubjects.splice(i, 1);
+    this.teacherSubjectArray.splice(i, 1);
+  }
+
+  removeSubNew(i: number): void {
+    this.newSubjects.splice(i, 1);
+  }
+
+  addTeacherTag(): void {
+    for ( const tag of this.teacherTagArray){
+      if (this.teacherTagForm.value.tag.toLowerCase() === tag.tag){
+        return;
+      }
+    }
+    this.teacherTagArray.push(new TeacherTag(this.teacherTagForm.value.tag.toLowerCase()));
+    this.teacherTagForm.reset();
+  }
+
+  removeTag(i: number): void {
+    this.teacherTagArray.splice(i, 1);
   }
 }

@@ -3,6 +3,7 @@ import {LoginService} from '../../services/common/login.service';
 import {TeachersService} from '../../services/backend/teachers.service';
 import {Teacher} from '../masters/teacher/teacher.model';
 import {Student} from '../masters/student/student.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-teaching',
@@ -15,7 +16,9 @@ export class TeachingComponent implements OnInit {
   private teacher: Teacher;
   public newTeacher = false;
 
-  constructor(private login: LoginService, private teacherService: TeachersService) { }
+  constructor(private login: LoginService,
+              private teacherService: TeachersService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.student = this.login.getStudent();
@@ -41,4 +44,7 @@ export class TeachingComponent implements OnInit {
       true));
   }
 
+  newTeacherPage(): void {
+    this.router.navigate(['/teacher/new']);
+  }
 }

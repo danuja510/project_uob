@@ -296,5 +296,18 @@ DROP COLUMN `password`;
 ALTER TABLE `project_uob`.`teacher` 
 DROP COLUMN `image_url`;
 
+ALTER TABLE `project_uob`.`teacher_tag` 
+CHANGE COLUMN `id` `id` BIGINT NOT NULL AUTO_INCREMENT ;
+
+ALTER TABLE `project_uob`.`course_tag` 
+CHANGE COLUMN `id` `id` BIGINT NOT NULL AUTO_INCREMENT ;
+
+ALTER TABLE `project_uob`.`teacher_experience` 
+CHANGE COLUMN `title` `title` VARCHAR(100) NOT NULL ,
+CHANGE COLUMN `description` `description` VARCHAR(100) NULL DEFAULT NULL ,
+CHANGE COLUMN `institution` `institution` VARCHAR(100) NULL DEFAULT NULL ;
 
 
+ALTER TABLE `project_uob`.`teacher_experience` 
+CHANGE COLUMN `from` `working_from` DATE NOT NULL ,
+CHANGE COLUMN `to` `worked_until` DATE NULL DEFAULT NULL ;
