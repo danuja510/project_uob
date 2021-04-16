@@ -104,9 +104,9 @@ export class TeacherAddComponent implements OnInit, OnDestroy {
       response => {
         // setting teacher objects teacher id from the response of the rest api
         teacher = response;
-        console.log(teacher);
 
-        this.teacherDetailsService.addTeacherDetails(new TeacherDetail(this.teacherForm.value.teacherTelephone,
+        this.teacherDetailsService.addTeacherDetails(new TeacherDetail(
+          this.teacherForm.value.teacherTelephone,
           this.teacherForm.value.teacherAddress,
           this.teacherForm.value.teacherZoomAddress,
           teacher.teacherId)).subscribe();
@@ -118,26 +118,26 @@ export class TeacherAddComponent implements OnInit, OnDestroy {
           this.teacherExperienceService.addTeacherExperience(exp).subscribe();
         }
 
-        // creating new subjects if there are any new ones and adding teacher subjects
-        // for (let sub of this.newSubjects) {
-        //   this.subjectService.addSubject(sub).subscribe(
-        //     response2 => {
-        //       sub = response2;
-        //       this.teacherSubjectArray.push(new TeacherSubject(sub.subjectId));
-        //       for (const teacherSub of this.teacherSubjectArray) {
-        //         teacherSub.teacherId = teacher.teacherId;
-        //         this.teacherSubjectService.addTeacherSubject(teacherSub).subscribe();
-        //       }
-        //     }
-        //   );
-        // }
+        for (const teacherSub of this.teacherSubjectArray) {
+          teacherSub.teacherId = teacher.teacherId;
+          this.teacherSubjectService.addTeacherSubject(teacherSub).subscribe();
+        }
+
+        for (let sub of this.newSubjects) {
+          this.subjectService.addSubject(sub).subscribe(
+            response2 => {
+              sub = response2;
+              this.teacherSubjectService.addTeacherSubject(new TeacherSubject( sub.subjectId, teacher.teacherId)).subscribe();
+            }
+          );
+        }
 
         // adding the teacher tags
         for (const tag of this.teacherTagArray) {
           tag.teacherId = teacher.teacherId;
           this.teacherTagService.addTeacherTag(tag).subscribe();
         }
-        // this.router.navigate(['../'], {relativeTo: this.route});
+        this.router.navigate(['/teaching'], {relativeTo: this.route});
       }
     );
   }

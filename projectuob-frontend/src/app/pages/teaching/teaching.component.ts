@@ -28,8 +28,6 @@ export class TeachingComponent implements OnInit {
           this.newTeacher = true;
         }else {
           this.teacher = responce[0];
-          console.log(this.teacher);
-          console.log(this.student);
         }
       }
     );

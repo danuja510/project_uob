@@ -27,5 +27,5 @@ public class TeacherDetails {
     private String teacherAddress;
 
     @Column(name = "teacher_zoom_id")
-    private String teacherZoomID;
+    private String teacherZoomAddress;
 }
