@@ -12,9 +12,10 @@ import {CheckoutComponent} from './pages/components/checkout/checkout.component'
 import {OktaCallbackComponent} from '@okta/okta-angular';
 import {LoginComponent} from './pages/components/login/login.component';
 import {HomeComponent} from './pages/home/home.component';
-import {StarRatingComponent} from './pages/components/star-rating/star-rating.component';
 import {TeachingComponent} from './pages/teaching/teaching.component';
 import {AuthGuard} from './auth-guard.service';
+import {TeacherCoursesComponent} from './pages/teaching/teacher-courses/teacher-courses.component';
+import {CourseAddComponent} from './pages/masters/course/course-add/course-add.component';
 
 const routes: Routes = [
     {path: 'login/callback', component: OktaCallbackComponent},
@@ -29,7 +30,9 @@ const routes: Routes = [
     { path: 'cart', component: CartDetailsComponent },
     { path: 'checkout', component: CheckoutComponent },
     { path: 'not-found', component: ErrorComponent },
-  { path: 'teaching', canActivate: [AuthGuard], component: TeachingComponent },
+    { path: 'teaching', canActivate: [AuthGuard], component: TeachingComponent },
+    { path: 'teaching/course', canActivate: [AuthGuard], component: TeacherCoursesComponent },
+    { path: 'teaching/course/new', canActivate: [AuthGuard], component: CourseAddComponent },
     { path: '', component: HomeComponent },
     { path: '**', redirectTo: 'not-found' }
   ];

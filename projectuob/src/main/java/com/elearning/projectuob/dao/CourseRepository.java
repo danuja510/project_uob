@@ -22,4 +22,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     Page<Course> findByCourseNameContaining(@RequestParam("name") String name, Pageable pageable);
 
     Page<Course> findByCourseId(@RequestParam("id") int itemIds, Pageable pageable);
+
+    @Query(value = "select * from course c, course_teacher ct where c.course_id = ct.course_id and teacher_id = ?1", nativeQuery = true)
+    Page<Course> findByTeacherId(@RequestParam("id") Long id, Pageable pageable);
 }

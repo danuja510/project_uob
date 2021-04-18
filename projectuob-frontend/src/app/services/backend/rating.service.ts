@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {CourseRating} from '../../shared/course-rating.model';
-import {Course} from '../../pages/masters/course/course.model';
 import {map} from 'rxjs/operators';
 
 @Injectable({

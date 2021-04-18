@@ -16,17 +16,9 @@ public class CourseTeacher {
     @Column(name = "no")
     private Long no;
 
-    @ManyToOne(cascade =  {CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH})
-    @JoinColumn(name = "teacher_id")
-    private Subject teacherId;
+    @Column(name = "teacher_id")
+    private Long teacherId;
 
-    @ManyToOne(cascade =  {CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH})
-    @JoinColumn(name = "course_id")
-    private Teacher courseId;
+    @Column(name = "course_id")
+    private Long courseId;
 }

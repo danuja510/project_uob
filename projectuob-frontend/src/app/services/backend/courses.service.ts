@@ -42,6 +42,18 @@ export class CoursesService{
     return this.http.get<GetResponce>(filterUrl);
   }
 
+  filterByTeacher(teacherId: string): Observable<Course[]>{
+    const filterUrl = this.baseUrl + '/search/findByTeacherId?id=' + teacherId;
+    return this.http.get<GetResponce>(filterUrl ).pipe(
+      map(responce => responce._embedded.courses)
+    );
+  }
+
+  filterByTeacherPaginate(teacherId: string, thePage: number, thePageSize: number): Observable<GetResponce>{
+    const filterUrl = this.baseUrl + '/search/findByTeacherId?id=' + teacherId + '&page=' + thePage + '&size=' + thePageSize;
+    return this.http.get<GetResponce>(filterUrl);
+  }
+
   searchByCourseName(searchString: string): Observable<Course[]> {
     const searchUrl = this.baseUrl + '/search/findByCourseNameContaining?name=' + searchString;
     return this.http.get<GetResponce>(searchUrl ).pipe(

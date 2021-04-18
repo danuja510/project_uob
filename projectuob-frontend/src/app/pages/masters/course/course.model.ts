@@ -6,8 +6,8 @@ export class Course {
     public isActive: boolean,
     public perSessionPrice: number,
     public imageUrl: string,
-    public dateCreated: Date,
-    public lastModified: Date,
+    public dateCreated?: Date,
+    public lastModified?: Date,
     public courseId?: number,
   ) {
   }

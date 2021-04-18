@@ -32,10 +32,11 @@ import {
 import AppConfig from './config/app-config';
 import {Router} from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { StarRatingComponent } from './pages/components/star-rating/star-rating.component';
 import {StarRatingModule} from './pages/components/star-rating/star-rating.module';
 import { TeachingComponent } from './pages/teaching/teaching.component';
 import {AuthGuard} from './auth-guard.service';
+import { TeacherCoursesComponent } from './pages/teaching/teacher-courses/teacher-courses.component';
+import { CourseAddComponent } from './pages/masters/course/course-add/course-add.component';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (injector) => {
@@ -68,7 +69,9 @@ const oktaConfig = Object.assign({
     LoginComponent,
     LoginStatusComponent,
     HomeComponent,
-    TeachingComponent],
+    TeachingComponent,
+    TeacherCoursesComponent,
+    CourseAddComponent],
   imports: [
     NgbModule,
     BrowserModule,

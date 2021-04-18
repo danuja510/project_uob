@@ -13,7 +13,7 @@ import {Router} from '@angular/router';
 export class TeachingComponent implements OnInit {
 
   private student: Student;
-  private teacher: Teacher;
+  public teacher: Teacher;
   public newTeacher = false;
 
   constructor(private login: LoginService,
@@ -28,18 +28,10 @@ export class TeachingComponent implements OnInit {
           this.newTeacher = true;
         }else {
           this.teacher = responce[0];
+          this.login.setTeacher(this.teacher);
         }
       }
     );
-  }
-
-  createTeacher(): void{
-    this.teacherService.addTeacher(new Teacher( 'tt',
-      this.student.studentFirstName,
-      this.student.studentLastName,
-      this.student.studentEmail,
-      new Date(),
-      true));
   }
 
   newTeacherPage(): void {

@@ -98,6 +98,7 @@ export class TeacherAddComponent implements OnInit, OnDestroy {
       this.login.getStudent().studentEmail,
       new Date(),
       true,
+      this.login.getStudent().imageUrl
       );
 
     this.teacherService.addTeacher(teacher).subscribe(

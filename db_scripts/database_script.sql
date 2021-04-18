@@ -311,3 +311,11 @@ CHANGE COLUMN `institution` `institution` VARCHAR(100) NULL DEFAULT NULL ;
 ALTER TABLE `project_uob`.`teacher_experience` 
 CHANGE COLUMN `from` `working_from` DATE NOT NULL ,
 CHANGE COLUMN `to` `worked_until` DATE NULL DEFAULT NULL ;
+
+ALTER TABLE `project_uob`.`teacher` 
+ADD COLUMN `image-url` VARCHAR(255) NULL AFTER `date_joined`;
+
+ALTER TABLE `project_uob`.`teacher` 
+CHANGE COLUMN `image-url` `image_url` VARCHAR(255) NULL DEFAULT NULL ;
+
+

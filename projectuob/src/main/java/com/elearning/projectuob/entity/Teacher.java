@@ -36,6 +36,9 @@ public class Teacher {
     @CreationTimestamp
     private Date dateJoined;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
 //    @OneToOne(cascade = CascadeType.ALL, mappedBy = "teacherId", fetch = FetchType.LAZY)
 //    private TeacherDetails teacherDetails;
 //

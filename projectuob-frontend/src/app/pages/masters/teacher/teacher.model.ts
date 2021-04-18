@@ -7,6 +7,7 @@ export class Teacher{
     public teacherEmail: string,
     public dateJoined: Date,
     public active: boolean,
+    public imageUrl?: string,
     public teacherId?: number
   ) {
   }

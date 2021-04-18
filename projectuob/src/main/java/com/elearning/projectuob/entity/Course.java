@@ -2,6 +2,8 @@ package com.elearning.projectuob.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -43,7 +45,7 @@ public class Course {
     private String courseDescription;
 
     @Column(name = "is_active")
-    private String isActive;
+    private boolean isActive;
 
     @Column(name = "per_session_price")
     private Float perSessionPrice;
@@ -51,9 +53,11 @@ public class Course {
     @Column(name = "image_url")
     private String imageUrl;
 
+    @CreationTimestamp
     @Column(name = "date_created")
     private Date dateCreated;
 
+    @UpdateTimestamp
     @Column(name = "last_modified")
     private Date lastModified;
 
