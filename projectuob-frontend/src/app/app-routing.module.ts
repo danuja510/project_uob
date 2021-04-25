@@ -19,6 +19,10 @@ import {CourseAddComponent} from './pages/masters/course/course-add/course-add.c
 import {TeacherTimeSlotsComponent} from './pages/teaching/teacher-time-slots/teacher-time-slots.component';
 import {TimeSlotAddComponent} from './pages/teaching/teacher-time-slots/time-slot-add/time-slot-add.component';
 import {TimeSlotDetailsComponent} from './pages/teaching/teacher-time-slots/time-slot-details/time-slot-details.component';
+import {ProfileComponent} from './pages/profile/profile.component';
+import {EnrolledCoursesComponent} from './pages/profile/enrolled-courses/enrolled-courses.component';
+import {OrdersComponent} from './pages/profile/orders/orders.component';
+import {StudentTimeSlotsComponent} from './pages/profile/student-time-slots/student-time-slots.component';
 
 const routes: Routes = [
     {path: 'login/callback', component: OktaCallbackComponent},
@@ -33,6 +37,10 @@ const routes: Routes = [
     { path: 'cart', component: CartDetailsComponent },
     { path: 'checkout', canActivate: [AuthGuard], component: CheckoutComponent },
     { path: 'not-found', component: ErrorComponent },
+    { path: 'account', canActivate: [AuthGuard], component: ProfileComponent },
+    { path: 'account/enrolled-courses', canActivate: [AuthGuard], component: EnrolledCoursesComponent },
+    { path: 'account/orders', canActivate: [AuthGuard], component: OrdersComponent },
+    { path: 'account/time-slots', canActivate: [AuthGuard], component: StudentTimeSlotsComponent },
     { path: 'teaching', canActivate: [AuthGuard], component: TeachingComponent },
     { path: 'teaching/course', canActivate: [AuthGuard], component: TeacherCoursesComponent },
     { path: 'teaching/course/new', canActivate: [AuthGuard], component: CourseAddComponent },

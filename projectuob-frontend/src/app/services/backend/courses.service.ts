@@ -72,6 +72,13 @@ export class CoursesService{
     return this.http.get<Course>(this.baseUrl + '/' + id );
   }
 
+  getCourseByEnrolledStudent(id: number): Observable<Course[]> {
+    const url = this.baseUrl + '/search/findByEnrolledStudent/?id=' + id;
+    return this.http.get<GetResponce>(url).pipe(
+      map( response => response._embedded.courses)
+    );
+  }
+
   // getRecommendedCourses(userId: number, nRec: number): Observable<Course[]> {
   //
   //   //

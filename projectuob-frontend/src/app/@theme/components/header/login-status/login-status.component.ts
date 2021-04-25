@@ -3,6 +3,7 @@ import {OktaAuthService} from '@okta/okta-angular';
 import {StudentService} from '../../../../services/backend/student.service';
 import {LoginService} from '../../../../services/common/login.service';
 import {Student} from '../../../../pages/masters/student/student.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login-status',
@@ -16,7 +17,8 @@ export class LoginStatusComponent implements OnInit {
 
   constructor(private oktaAuthService: OktaAuthService,
               private studentService: StudentService,
-              public login: LoginService) { }
+              public login: LoginService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.oktaAuthService.$authenticationState.subscribe(
@@ -61,5 +63,9 @@ export class LoginStatusComponent implements OnInit {
 
   teacher(): void {
     this.login.setTeacherMode();
+  }
+
+  myAccount(): void {
+    this.router.navigate(['/account']);
   }
 }

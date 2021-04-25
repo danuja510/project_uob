@@ -5,7 +5,9 @@
 
   <button class="btn btn-info" *ngIf="!isAuthenticated" routerLink="/login">Login</button>
 
-  <button class="btn btn-info" *ngIf="isAuthenticated" (click)="teacher()">Teacher</button>
+  <button class="btn btn-info" *ngIf="isAuthenticated" (click)="myAccount()">My Account</button>
+
+  <button class="btn btn-info" *ngIf="isAuthenticated" (click)="teacher()" style="margin-left: 20px">Teacher</button>
 
   <button class="btn btn-info" *ngIf="isAuthenticated" (click)="logout()" style="margin-left: 20px">Logout</button>
 </div>

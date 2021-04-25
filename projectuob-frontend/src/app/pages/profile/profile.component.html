@@ -1,0 +1,58 @@
+<div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="row">
+          <div class="col" style="margin-left: 25px">
+            <div>
+              <img src="{{student.imageUrl?student.imageUrl:'assets/images/teachers/placeholder.png'}}" class="img-responsive" width="200px">
+              <br><br>
+              <h3>{{student.studentFirstName+ " "+ student.studentLastName}}</h3>
+              <p>{{student.slug}}</p>
+              <h4>{{student.studentEmail}}</h4>
+            </div>
+          </div>
+          <hr>
+          <div class="col">
+            <div class="row">
+              <div class="col">
+                <a routerLink="enrolled-courses">
+                  <div class='select-option'>
+                    <i class='ion-ios-paper-outline icon-select'></i>
+                    <h4>My Enrolled Courses</h4>
+                  </div>
+                </a>
+              </div>
+              <div class="col">
+                <a routerLink="time-slots">
+                  <div class='select-option'>
+                    <i class='ion-ios-paper-outline icon-select'></i>
+                    <h4>Booked Time Slots</h4>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <a>
+                  <div class='select-option'>
+                    <i class='ion-ios-paper-outline icon-select'></i>
+                    <h4>Manage Profile Information</h4>
+                  </div>
+                </a>
+              </div>
+              <div class="col">
+                <a routerLink="orders">
+                  <div class='select-option'>
+                    <i class='ion-ios-paper-outline icon-select'></i>
+                    <h4>Order History</h4>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,6 @@
 package com.elearning.projectuob.service;
 
+import com.elearning.projectuob.dao.OrderRepository;
 import com.elearning.projectuob.dao.StudentRepository;
 import com.elearning.projectuob.dto.Purchase;
 import com.elearning.projectuob.dto.PurchaseResponce;
@@ -17,10 +18,14 @@ import java.util.UUID;
 public class CheckoutServiceImpl implements CheckoutService{
 
     private StudentRepository studentRepository;
+    private OrderRepository orderRepository;
 
     @Autowired
-    public CheckoutServiceImpl(StudentRepository studentRepository){
+    public CheckoutServiceImpl(
+            StudentRepository studentRepository,
+            OrderRepository orderRepository){
         this.studentRepository = studentRepository;
+        this.orderRepository = orderRepository;
     }
 
     @Override
@@ -31,15 +36,19 @@ public class CheckoutServiceImpl implements CheckoutService{
         String orderTrackingNumber = generateOrderTrackingNumber();
         order.setOrderTrackingNumber(orderTrackingNumber);
 
-        Set<OrderItem> orderItems = purchase.getOrderItems();
-        orderItems.forEach(item -> {
-            order.add(item);
-        });
-
         order.setBillingAddress(purchase.getBillingAddress());
 
+        order = orderRepository.save(order);
+
+        Set<OrderItem> orderItems = purchase.getOrderItems();
+        Order finalOrder = order;
+        orderItems.forEach(item -> {
+            finalOrder.add(item);
+        });
+
+
         Student student = purchase.getStudent();
-        student.add(order);
+        student.add(finalOrder);
 
         studentRepository.save(student);
 

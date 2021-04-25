@@ -1,3 +1,5 @@
+import {Order} from '../../components/checkout/order.model';
+
 export class Student {
 
   public studentNumber: number;

@@ -1,0 +1,14 @@
+<div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <a *ngFor="let order of orders; let i = index" (click)="orderDetails(order.id)">
+        <div class='select-option'>
+          <i class='ion-ios-paper-outline icon-select'></i>
+          <h4>{{order.id}}</h4>
+          <p>{{order.orderTrackingNumber}}</p>
+        </div>
+      </a>
+      <span *ngIf="orders.length === 0">You have not placed any orders yet</span>
+    </div>
+  </div>
+</div>
