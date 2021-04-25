@@ -59,7 +59,7 @@ public class Order {
                 orderItems = new HashSet<>();
             }
             orderItems.add(item);
-            item.setOrder(this);
+            item.setOrder(this.id);
         }
     }
 }

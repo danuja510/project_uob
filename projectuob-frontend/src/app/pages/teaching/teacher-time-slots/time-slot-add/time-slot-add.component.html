@@ -1,0 +1,42 @@
+<div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+            <form [formGroup]="timeSlotForm" (ngSubmit)="createTimeSlot()">
+              <div class="form-group">
+                <label for="date">Date</label>
+                <input
+                  type="date"
+                  id="date"
+                  class="form-control"
+                  formControlName="date">
+                <span class="help-block" *ngIf="!timeSlotForm.get('date').valid && timeSlotForm.get('date').touched">Please select a date!</span>
+              </div>
+              <div class="form-group">
+                <label for="startTime">Start Time</label>
+                <input
+                  type="time"
+                  id="startTime"
+                  class="form-control"
+                  formControlName="startTime">
+                <span class="help-block" *ngIf="!timeSlotForm.get('startTime').valid && timeSlotForm.get('startTime').touched">Please select a start time!</span>
+              </div>
+              <div class="form-group">
+                <label for="endTime">Start Time</label>
+                <input
+                  type="text"
+                  id="endTime"
+                  class="form-control"
+                  value="{{endTime}}"
+                  formControlName="endTime">
+              </div>
+              <button class="btn btn-success" type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

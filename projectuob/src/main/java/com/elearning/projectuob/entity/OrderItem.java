@@ -29,7 +29,6 @@ public class OrderItem {
     @Column(name = "course_id")
     private Long courseId;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @Column(name = "order_id")
+    private Long order;
 }

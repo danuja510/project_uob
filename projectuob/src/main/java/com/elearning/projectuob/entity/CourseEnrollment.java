@@ -18,19 +18,11 @@ public class CourseEnrollment {
     @Column(name = "no")
     private Long no;
 
-    @ManyToOne(cascade =  {CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH})
-    @JoinColumn(name = "course_id")
-    private Course courseId;
+    @Column(name = "course_id")
+    private Long courseId;
 
-    @ManyToOne(cascade =  {CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH})
-    @JoinColumn(name = "student_id")
-    private Student studentId;
+    @Column(name = "student_id")
+    private Long studentId;
 
     @Column(name = "enrollment_date")
     @CreationTimestamp

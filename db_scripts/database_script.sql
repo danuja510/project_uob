@@ -318,4 +318,42 @@ ADD COLUMN `image-url` VARCHAR(255) NULL AFTER `date_joined`;
 ALTER TABLE `project_uob`.`teacher` 
 CHANGE COLUMN `image-url` `image_url` VARCHAR(255) NULL DEFAULT NULL ;
 
+CREATE TABLE `project_uob`.`time_slots` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `teacher_id` BIGINT NOT NULL,
+  `start_time` DATETIME NULL,
+  `end_time` DATETIME NULL,
+  `student_id` BIGINT NULL,
+  `zoom_link` VARCHAR(255) NULL,
+  `course_id` BIGINT NULL,
+  `order_id` BIGINT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `teacher_id_idx` (`teacher_id` ASC) VISIBLE,
+  INDEX `student_id_fk_idx` (`student_id` ASC) VISIBLE,
+  INDEX `course_id_fk_idx` (`course_id` ASC) VISIBLE,
+  INDEX `order_id_fk_idx` (`order_id` ASC) VISIBLE,
+  CONSTRAINT `teacher_id_fk4`
+    FOREIGN KEY (`teacher_id`)
+    REFERENCES `project_uob`.`teacher` (`teacher_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `student_id_fk4`
+    FOREIGN KEY (`student_id`)
+    REFERENCES `project_uob`.`student` (`student_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `course_id_fk4`
+    FOREIGN KEY (`course_id`)
+    REFERENCES `project_uob`.`course` (`course_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `order_id_fk`
+    FOREIGN KEY (`order_id`)
+    REFERENCES `project_uob`.`orders` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+ALTER TABLE `project_uob`.`time_slots` 
+ADD COLUMN `date` DATE NOT NULL AFTER `order_id`,
+CHANGE COLUMN `start_time` `start_time` DATETIME NOT NULL ;
 

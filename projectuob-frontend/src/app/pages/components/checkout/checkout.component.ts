@@ -8,6 +8,9 @@ import {Order} from './order.model';
 import {OrderItem} from './order-item.model';
 import {Purchase} from './purchase.model';
 import {Student} from '../../masters/student/student.model';
+import {LoginService} from '../../../services/common/login.service';
+import {CourseEnrollmentService} from '../../../services/backend/course-enrollment.service';
+import {CourseEnrollment} from '../../masters/student/student-course-enrollments/course-enrollment.model';
 
 @Component({
   selector: 'app-checkout',
@@ -21,14 +24,20 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   totalValue = 0.00;
   totalQuantity = 0;
 
-  constructor(private cartService: CartService, private checkoutSerice: CheckoutService, private router: Router) { }
+  constructor(
+    private cartService: CartService,
+    private checkoutSerice: CheckoutService,
+    private router: Router,
+    private login: LoginService,
+    private courseEnrollmentService: CourseEnrollmentService
+  ) { }
 
   ngOnInit(): void {
     this.checkoutForm = new FormGroup({
       customer: new FormGroup({
-        studentFirstName: new FormControl(null, Validators.required),
-        studentLastName: new FormControl(null, Validators.required),
-        studentEmail: new FormControl(null, [Validators.required, Validators.email])
+        studentFirstName: new FormControl(this.login.getStudent().studentFirstName, Validators.required),
+        studentLastName: new FormControl(this.login.getStudent().studentLastName, Validators.required),
+        studentEmail: new FormControl(this.login.getStudent().studentEmail, [Validators.required, Validators.email])
       }),
       billingAddress: new FormGroup({
         street: new FormControl(null, Validators.required),
@@ -74,10 +83,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     let purchase = new Purchase();
 
     // purchase.student = this.checkoutForm.controls['customer'].value;
-    purchase.student = new Student();
-    purchase.student.studentFirstName = 'test';
-    purchase.student.studentLastName = 'test';
-    purchase.student.studentEmail = 'test@test.com';
+    purchase.student = this.login.getStudent();
+    // purchase.student.studentFirstName = this.checkoutForm.controls['customer'].value.studentFirstName;
+    // purchase.student.studentLastName = 'test';
+    // purchase.student.studentEmail = 'test@test.com';
 
     purchase.billingAddress = this.checkoutForm.controls['billingAddress'].value;
 
@@ -86,11 +95,45 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
     this.checkoutSerice.placeOrder(purchase).subscribe({
       next: responce => {
-        alert(responce.orderTrackingNumber);
+        console.log(responce.orderTrackingNumber);
+        this.courseEnrollmentService.getCourseEnrollmentsByStudent(this.login.getStudent().studentNumber).subscribe(
+          response2 => {
+            const enrolledCourses = response2;
+            if (enrolledCourses.length === 0){
+              for (const cartItem of cartIems){
+                this.courseEnrollmentService.addCourseEnrollment(
+                  new CourseEnrollment(
+                    cartItem.course.courseId,
+                    this.login.getStudent().studentNumber,
+                    cartItem.quantity
+                  )
+                ).subscribe();
+              }
+            }else{
+              loop1: for (const cartItem of cartIems){
+                loop2: for ( const course of enrolledCourses){
+                  if (course.courseId === cartItem.course.courseId) {
+                    course.noOfSessions += cartItem.quantity;
+                    this.courseEnrollmentService.updateCourseEnrollment(course, course.no).subscribe();
+                    continue loop1;
+                  }
+                }
+                this.courseEnrollmentService.addCourseEnrollment(
+                  new CourseEnrollment(
+                    cartItem.course.courseId,
+                    this.login.getStudent().studentNumber,
+                    cartItem.quantity
+                  )
+                ).subscribe();
+                continue loop1;
+              }
+            }
+          }
+        );
         this.resetCart();
       },
       error: err => {
-        alert(`An Error occured ${err.message}`);
+        alert(`An Error occurred ${err.message}`);
       }
     });
   }

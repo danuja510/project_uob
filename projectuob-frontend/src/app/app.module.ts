@@ -37,6 +37,10 @@ import { TeachingComponent } from './pages/teaching/teaching.component';
 import {AuthGuard} from './auth-guard.service';
 import { TeacherCoursesComponent } from './pages/teaching/teacher-courses/teacher-courses.component';
 import { CourseAddComponent } from './pages/masters/course/course-add/course-add.component';
+import { TeacherTimeSlotsComponent } from './pages/teaching/teacher-time-slots/teacher-time-slots.component';
+import { TimeSlotAddComponent } from './pages/teaching/teacher-time-slots/time-slot-add/time-slot-add.component';
+import { TimeSlotDetailsComponent } from './pages/teaching/teacher-time-slots/time-slot-details/time-slot-details.component';
+import { StudentCourseEnrollmentsComponent } from './pages/masters/student/student-course-enrollments/student-course-enrollments.component';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (injector) => {
@@ -71,7 +75,11 @@ const oktaConfig = Object.assign({
     HomeComponent,
     TeachingComponent,
     TeacherCoursesComponent,
-    CourseAddComponent],
+    CourseAddComponent,
+    TeacherTimeSlotsComponent,
+    TimeSlotAddComponent,
+    TimeSlotDetailsComponent,
+    StudentCourseEnrollmentsComponent],
   imports: [
     NgbModule,
     BrowserModule,
