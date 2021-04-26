@@ -45,6 +45,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { EnrolledCoursesComponent } from './pages/profile/enrolled-courses/enrolled-courses.component';
 import { OrdersComponent } from './pages/profile/orders/orders.component';
 import { StudentTimeSlotsComponent } from './pages/profile/student-time-slots/student-time-slots.component';
+import { ReserveTimeSlotComponent } from './pages/components/reserve-time-slot/reserve-time-slot.component';
+import { ReserveTimeSlotDetailsComponent } from './pages/components/reserve-time-slot/reserve-time-slot-details/reserve-time-slot-details.component';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (injector) => {
@@ -87,7 +89,9 @@ const oktaConfig = Object.assign({
     ProfileComponent,
     EnrolledCoursesComponent,
     OrdersComponent,
-    StudentTimeSlotsComponent],
+    StudentTimeSlotsComponent,
+    ReserveTimeSlotComponent,
+    ReserveTimeSlotDetailsComponent],
   imports: [
     NgbModule,
     BrowserModule,

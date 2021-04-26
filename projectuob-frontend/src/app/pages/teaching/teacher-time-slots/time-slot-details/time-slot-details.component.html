@@ -17,9 +17,9 @@
       <div class="row">
         <h3>Reservation Info</h3>
       </div>
-      <div *ngIf="timeSlot.orderId; else elseBlock">
+      <div *ngIf="timeSlot.studentId; else elseBlock">
         <div class="row">
-          <strong>Date: </strong>{{timeSlotDate | date:'fullDate': '+0530'}}
+          <strong>Student ID: </strong>{{timeSlot.studentId}}
         </div>
         <div class="row">
           <strong>Start Time: </strong>{{timeSlotStartTime | date: 'medium': '+0530' }}

@@ -23,6 +23,8 @@ import {ProfileComponent} from './pages/profile/profile.component';
 import {EnrolledCoursesComponent} from './pages/profile/enrolled-courses/enrolled-courses.component';
 import {OrdersComponent} from './pages/profile/orders/orders.component';
 import {StudentTimeSlotsComponent} from './pages/profile/student-time-slots/student-time-slots.component';
+import {ReserveTimeSlotComponent} from './pages/components/reserve-time-slot/reserve-time-slot.component';
+import {ReserveTimeSlotDetailsComponent} from './pages/components/reserve-time-slot/reserve-time-slot-details/reserve-time-slot-details.component';
 
 const routes: Routes = [
     {path: 'login/callback', component: OktaCallbackComponent},
@@ -32,6 +34,8 @@ const routes: Routes = [
         { path: ':id', component: TeacherDetailsComponent },
         { path: '', component: TeacherListComponent },
       ] },
+    { path: 'course/:id/reserve-time-slot/:timeSlot', component: ReserveTimeSlotDetailsComponent},
+    { path: 'course/:id/reserve-time-slot', component: ReserveTimeSlotComponent },
     { path: 'course/:id', component: CourseDetailsComponent },
     { path: 'course', component: CourseComponent },
     { path: 'cart', component: CartDetailsComponent },

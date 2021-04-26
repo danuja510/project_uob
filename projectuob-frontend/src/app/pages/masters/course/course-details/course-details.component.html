@@ -3,19 +3,31 @@
     <div class="container-fluid">
       <div class="row">
 
-        <div>
+        <div class="col">
           <img src="{{course.imageUrl?course.imageUrl:'assets/images/products/placeholder.png'}}" class="img-responsive" width="200px">
           <br>
           <h3>{{course.courseName}}</h3>
-          <app-star-rating (rating)="addRating($event)"></app-star-rating>
+          <br>
+          <app-star-rating *ngIf="courseEnrolled" (rating)="addRating($event)"></app-star-rating>
           <p>{{course.sku}}</p>
                     <div class="price">{{course.perSessionPrice | currency:'USD'}}</div>
                     <button class="btn btn-success" (click)="addToCart()">Add to cart</button>
+          <hr>
           <p>
-            Date Created: {{course.dateCreated}}
+            Date Created: {{course.dateCreated | date: 'fullDate': '+0530'}}
           </p>
           <hr>
           <a routerLink="/course">Back to Course List</a>
+        </div>
+        <div class="col">
+          <div *ngIf="courseEnrolled">
+            <h3>Enrollment Details</h3>
+            <hr>
+            <p>Date Enrolled: <strong>{{courseEnrollment.enrollmentDate | date: 'shortDate': '+0530'}}</strong></p>
+            <p>No. of Sessions Left: <strong>{{courseEnrollment.noOfSessions}}</strong></p>
+            <br>
+            <button *ngIf="courseEnrollment.noOfSessions>0" class="btn btn-primary" (click)="reserveTimeSlot()"> Reserve Time Slot</button>
+          </div>
         </div>
       </div>
     </div>
