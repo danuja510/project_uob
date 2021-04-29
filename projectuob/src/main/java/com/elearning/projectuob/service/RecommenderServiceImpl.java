@@ -16,8 +16,8 @@ public class RecommenderServiceImpl implements RecommenderService{
     private CourseRepository courseDAO;
 
     @Autowired
-    public RecommenderServiceImpl(CourseRepository CourseRepository) {
-        this.courseDAO = courseDAO;
+    public RecommenderServiceImpl(CourseRepository courseRepository) {
+        this.courseDAO = courseRepository;
     }
 
     @Override
@@ -28,6 +28,18 @@ public class RecommenderServiceImpl implements RecommenderService{
         params.put("userId", userId);
         params.put("nRec", nRec);
         Recommendations recommendations = restTemplate.getForObject(url+"get-recommendations/?userId="+userId+"&nRec="+nRec, Recommendations.class);
+
+
+        return recommendations;
+    }
+
+    @Override
+    public Recommendations getTeacherRecommendations(int userId, int nRec) {
+        RestTemplate restTemplate = new RestTemplate();
+        Map<String, Integer> params = new HashMap<String, Integer>();
+        params.put("userId", userId);
+        params.put("nRec", nRec);
+        Recommendations recommendations = restTemplate.getForObject(url+"get-teacher-recommendations/?userId="+userId+"&nRec="+nRec, Recommendations.class);
 
 
         return recommendations;

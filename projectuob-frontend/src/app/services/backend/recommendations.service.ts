@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Course} from '../../pages/masters/course/course.model';
 import {map} from 'rxjs/operators';
 
 @Injectable({
@@ -19,6 +18,15 @@ export class RecommendationsService {
     return this.http.get<GetResponce>(url + '?userId=' + userId + '&nRec=' + nRec)
       .pipe(
         map( responce => responce.itemIds )
+      );
+
+  }
+
+  getTeacherRecommendations(userId: number, nRec: number): Observable<number[]> {
+    const url = this.baseUrl + 'teacher/get-recommendations/';
+    return this.http.get<GetResponce>(url + '?userId=' + userId + '&nRec=' + nRec)
+      .pipe(
+        map( response => response.itemIds )
       );
 
   }

@@ -43,6 +43,7 @@ export class ReserveTimeSlotDetailsComponent implements OnInit {
 
   reserveTimeSlot() {
     this.timeSlot.studentId = this.login.getStudent().studentNumber;
+    this.timeSlot.courseId = this.course.courseId;
     this.timeSlotService.updateTimeSlot(this.timeSlot, this.timeSlot.id).subscribe();
     this.courseEnrollmentService.getCourseEnrollmentsByStudent(this.login.getStudent().studentNumber).subscribe(
       response => {
@@ -51,6 +52,7 @@ export class ReserveTimeSlotDetailsComponent implements OnInit {
           if (tempEnrollment.courseId === this.course.courseId){
             tempEnrollment.noOfSessions--;
             this.courseEnrollmentService.updateCourseEnrollment(tempEnrollment, tempEnrollment.no).subscribe();
+            break;
           }
         }
       }

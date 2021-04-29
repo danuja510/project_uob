@@ -1,1 +1,13 @@
-<p>student-time-slots works!</p>
+<div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <a *ngFor="let timeSlot of timeSlots; let i = index" (click)="timeSlotDetails(timeSlot.id)">
+        <div class='select-option'>
+          <i class='ion-ios-paper-outline icon-select'></i>
+          <h4>{{timeSlot.startTime| date:'short': '+0530'}}</h4>
+        </div>
+      </a>
+      <span *ngIf="timeSlots.length === 0">Teacher hasn't created any time slots yet. Please contact the teacher</span>
+    </div>
+  </div>
+</div>

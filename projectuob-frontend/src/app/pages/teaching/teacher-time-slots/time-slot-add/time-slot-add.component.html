@@ -23,15 +23,6 @@
                   formControlName="startTime">
                 <span class="help-block" *ngIf="!timeSlotForm.get('startTime').valid && timeSlotForm.get('startTime').touched">Please select a start time!</span>
               </div>
-              <div class="form-group">
-                <label for="endTime">Start Time</label>
-                <input
-                  type="text"
-                  id="endTime"
-                  class="form-control"
-                  value="{{endTime}}"
-                  formControlName="endTime">
-              </div>
               <button class="btn btn-success" type="submit">Submit</button>
             </form>
           </div>

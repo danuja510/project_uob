@@ -40,7 +40,44 @@ public class CSVFileLoader {
             fileWriter.close();
 
         } catch (SQLException e) {
-            System.out.println("Datababse error:");
+            System.out.println("Database error:");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("File IO error:");
+            e.printStackTrace();
+        }
+    }
+
+    public void loadTeacherFile(){
+        csvFilePath = "data/teacher.csv";
+        try (Connection connection = DriverManager.getConnection(jdbcURL, username, password)) {
+            String sql = "SELECT * FROM teacher";
+
+            Statement statement = connection.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(csvFilePath));
+
+            // write header line containing column names
+
+            while (result.next()) {
+                String id = result.getString("teacher_id");
+                String name = result.getString("teacher_email");
+
+
+                String line = String.format("%s,%s",
+                        id, name);
+
+                fileWriter.write(line);
+                fileWriter.newLine();
+            }
+
+            statement.close();
+            fileWriter.close();
+
+        } catch (SQLException e) {
+            System.out.println("Database error:");
             e.printStackTrace();
         } catch (IOException e) {
             System.out.println("File IO error:");
@@ -77,7 +114,7 @@ public class CSVFileLoader {
             fileWriter.close();
 
         } catch (SQLException e) {
-            System.out.println("Datababse error:");
+            System.out.println("Database error:");
             e.printStackTrace();
         } catch (IOException e) {
             System.out.println("File IO error:");
@@ -114,7 +151,44 @@ public class CSVFileLoader {
             fileWriter.close();
 
         } catch (SQLException e) {
-            System.out.println("Datababse error:");
+            System.out.println("Database error:");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("File IO error:");
+            e.printStackTrace();
+        }
+    }
+
+    public void loadTeacherTagFile(){
+        csvFilePath = "data/teacher-tag.csv";
+        try (Connection connection = DriverManager.getConnection(jdbcURL, username, password)) {
+            String sql = "SELECT * FROM teacher_tag";
+
+            Statement statement = connection.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(csvFilePath));
+
+            // write header line containing column names
+
+            while (result.next()) {
+                String movie_id = result.getString("teacher_id");
+                String tag = result.getString("tag");
+
+
+                String line = String.format("%s,%s",
+                        movie_id, tag);
+
+                fileWriter.write(line);
+                fileWriter.newLine();
+            }
+
+            statement.close();
+            fileWriter.close();
+
+        } catch (SQLException e) {
+            System.out.println("Database error:");
             e.printStackTrace();
         } catch (IOException e) {
             System.out.println("File IO error:");
@@ -152,7 +226,45 @@ public class CSVFileLoader {
             fileWriter.close();
 
         } catch (SQLException e) {
-            System.out.println("Datababse error:");
+            System.out.println("Database error:");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("File IO error:");
+            e.printStackTrace();
+        }
+    }
+
+    public void loadTeacherRatingFile(){
+        csvFilePath = "data/teacher-rating.csv";
+        try (Connection connection = DriverManager.getConnection(jdbcURL, username, password)) {
+            String sql = "SELECT * FROM teacher_rating";
+
+            Statement statement = connection.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(csvFilePath));
+
+            // write header line containing column names
+
+            while (result.next()) {
+                String user_id = result.getString("student_id");
+                String movie_id = result.getString("teacher_id");
+                String tag = result.getString("rating");
+
+
+                String line = String.format("%s,%s,%s",
+                        user_id, movie_id, tag);
+
+                fileWriter.write(line);
+                fileWriter.newLine();
+            }
+
+            statement.close();
+            fileWriter.close();
+
+        } catch (SQLException e) {
+            System.out.println("Database error:");
             e.printStackTrace();
         } catch (IOException e) {
             System.out.println("File IO error:");

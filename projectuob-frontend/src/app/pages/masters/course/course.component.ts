@@ -3,6 +3,7 @@ import {Course} from './course.model';
 import {CoursesService} from '../../../services/backend/courses.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {CartService} from '../../../services/common/cart.service';
+import {RatingService} from '../../../services/backend/rating.service';
 
 @Component({
   selector: 'app-course',
@@ -11,9 +12,10 @@ import {CartService} from '../../../services/common/cart.service';
 })
 export class CourseComponent implements OnInit {
   courses: Course[] = [];
+  courseRatings: {itemId: number, rating: number}[] =  [];
   currentPage = 1;
   totalElements = 0;
-  pageSize = 5;
+  pageSize = 8;
 
   previousSubject = '';
   currentSubject = '';
@@ -24,7 +26,8 @@ export class CourseComponent implements OnInit {
   constructor(private courseService: CoursesService,
               private route: ActivatedRoute,
               private router: Router,
-              private cartService: CartService) { }
+              private cartService: CartService,
+              private ratingService: RatingService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(
@@ -81,6 +84,19 @@ export class CourseComponent implements OnInit {
       this.currentPage = data.page.number + 1;
       this.pageSize = data.page.size;
       this.totalElements = data.page.totalElements;
+      this.courseRatings = [];
+
+
+      for (const course of this.courses) {
+        this.ratingService.getCourseAverageRatingByCourse(course.courseId).subscribe({
+          next: response => {
+            this.courseRatings.push(response);
+          }, error: err => {
+            this.courseRatings.push({itemId: course.courseId, rating: 0});
+            }
+        }
+        );
+      }
     };
   }
 
@@ -104,5 +120,15 @@ export class CourseComponent implements OnInit {
 
   addToCart(course: Course): void {
     this.cartService.addCartItem(course);
+  }
+
+  getAverageRating(id: number): number {
+    // for (const rating of this.courseRatings) {
+    //   if (rating.itemId === id){
+    //     return rating.rating;
+    //   }
+    // }
+    // @ts-ignore
+    return this.courseRatings.find(({itemId}) => itemId === id).rating;
   }
 }

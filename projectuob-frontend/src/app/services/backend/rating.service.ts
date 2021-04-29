@@ -14,8 +14,13 @@ export class RatingService{
   constructor(private http: HttpClient) {}
 
   getCourseRatings(): Observable<CourseRating[]> {
-    return this.http.get<GetResponce>(this.baseCourseUrl).pipe(
+    return this.http.get<GetResponse>(this.baseCourseUrl).pipe(
       map(responce => responce._embedded.courseRatings));
+  }
+
+  getCourseAverageRatingByCourse(id: number): Observable<{itemId: number, rating: number}> {
+    const url = this.baseCourseUrl + '/search/getCourseAverageRating/?id=' + id;
+    return this.http.get<{itemId: number, rating: number}>(url);
   }
 
   addCourseRating(rating: CourseRating): Observable<any> {
@@ -23,7 +28,7 @@ export class RatingService{
   }
 }
 
-interface GetResponce {
+interface GetResponse {
   _embedded: {
     courseRatings: CourseRating[];
   };

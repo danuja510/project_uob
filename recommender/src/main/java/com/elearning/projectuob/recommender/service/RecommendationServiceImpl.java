@@ -26,4 +26,16 @@ public class RecommendationServiceImpl implements RecommendationService {
             return null;
         }
     }
+
+    @Override
+    public Recommendations getTeacherRecommendations(int userId, int nRec) {
+        try {
+            Recommendations recommendations = new Recommendations();
+            recommendations.setItemIds(recommendationEngine.getTeacherRecommendations(userId, nRec));
+            return recommendations;
+        } catch (RecommenderBuildException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

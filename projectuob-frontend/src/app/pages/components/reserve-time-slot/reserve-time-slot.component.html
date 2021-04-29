@@ -7,7 +7,7 @@
           <h4>{{timeSlot.startTime| date:'short': '+0530'}}</h4>
         </div>
       </a>
-      <span *ngIf="timeSlots.length === 0"></span>
+      <span *ngIf="timeSlots.length === 0">Teacher hasn't created any time slots yet. Please contact the teacher</span>
     </div>
   </div>
 </div>

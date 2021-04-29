@@ -35,4 +35,12 @@ public class RecommenderRestController {
 
         return courses;
     }
+
+    @GetMapping("/teacher/get-recommendations")
+    public Recommendations getTeacherRecommendations(@RequestParam int userId, @RequestParam int nRec) {
+
+        Recommendations teachers = recommenderService.getTeacherRecommendations(userId, nRec);
+
+        return teachers;
+    }
 }

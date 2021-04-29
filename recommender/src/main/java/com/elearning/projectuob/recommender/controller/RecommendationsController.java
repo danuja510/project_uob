@@ -22,4 +22,10 @@ public class RecommendationsController {
         Recommendations recommendations = recommendationService.getRecommendations(userId, nRec);
         return recommendations;
     }
+
+    @GetMapping("/get-teacher-recommendations")
+    public Recommendations getTeacherRecommendations(@RequestParam int userId, @RequestParam int nRec){
+        Recommendations recommendations = recommendationService.getTeacherRecommendations(userId, nRec);
+        return recommendations;
+    }
 }

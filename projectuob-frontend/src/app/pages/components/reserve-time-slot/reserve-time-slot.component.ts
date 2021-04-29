@@ -31,7 +31,7 @@ export class ReserveTimeSlotComponent implements OnInit {
         this.courseTeacherService.getCourseTeacher(+ params.id).subscribe(
           response => {
             this.courseTeacher = response;
-            this.timeSlotService.getTimeSlotsByTeacher(this.courseTeacher.teacherId).subscribe(
+            this.timeSlotService.getNotReservedTimeSlotsByTeacher(this.courseTeacher.teacherId).subscribe(
               response2 => {
                 this.timeSlots = response2;
               }

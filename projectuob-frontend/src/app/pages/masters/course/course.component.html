@@ -11,6 +11,8 @@
               <h1>{{course.courseName}}</h1>
             </a>
             <h2>{{course.courseDescription}} </h2>
+            <br>
+            <app-rated-stars [rating]="getAverageRating(course.courseId)"></app-rated-stars>
             <div class="price">${{course.perSessionPrice}}</div>
             <button class="btn btn-success" style="margin-left: 20px;" (click)="addToCart(course)">Add to Cart</button>
           </div>
@@ -40,11 +42,11 @@
               <div class="col-md-3" style="text-align: center;">
                 <span class="mr-2">Page Size</span>
                 <select (change)="updatePageSize($event.target)">
-                  <option>2</option>
-                  <option selected>5</option>
-                  <option>10</option>
-                  <option>20</option>
-                  <option>50</option>
+                  <option>4</option>
+                  <option selected>8</option>
+                  <option>16</option>
+                  <option>32</option>
+                  <option>64</option>
                 </select>
               </div>
             </div>

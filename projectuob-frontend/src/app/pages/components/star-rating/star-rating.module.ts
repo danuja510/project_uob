@@ -5,12 +5,14 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
+import {RatedStarsComponent} from './rated-stars/rated-stars.component';
 
 
 
 @NgModule({
   declarations: [
-    StarRatingComponent
+    StarRatingComponent,
+    RatedStarsComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatIconModule,
     FlexLayoutModule
   ], exports: [
-    StarRatingComponent
+    StarRatingComponent,
+    RatedStarsComponent
   ]
 })
 export class StarRatingModule { }

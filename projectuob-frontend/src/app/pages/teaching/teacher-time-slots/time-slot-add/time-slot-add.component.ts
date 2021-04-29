@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {TimeSlotService} from '../../../../services/backend/time-slot.service';
 import {LoginService} from '../../../../services/common/login.service';
 import {TimeSlot} from '../time-slot.model';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-time-slot-add',
@@ -19,6 +19,7 @@ export class TimeSlotAddComponent implements OnInit {
     private timeSlotService: TimeSlotService,
     private login: LoginService,
     private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -41,6 +42,6 @@ export class TimeSlotAddComponent implements OnInit {
     console.log(sd.toString());
     const timeSlot = new TimeSlot(this.login.getTeacher().teacherId, sd, ed, d);
     this.timeSlotService.createTimeSlot(timeSlot).subscribe();
-    this.router.navigate(['/teaching/time-slots']);
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 }

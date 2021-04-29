@@ -1,0 +1,14 @@
+.star{
+  margin: 0px 0px;
+  color: #a9a5a5;
+  display: inline-block;
+  transition: all .3s;
+  transform: scale(1);
+}
+.star .mat-icon{
+  width: 40px;
+  height: 40px;
+}
+.star-gold{
+  color: orange;
+}

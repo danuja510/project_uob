@@ -37,6 +37,20 @@ export class TimeSlotService{
     );
   }
 
+  getTimeSlotsByStudent(studentId: number): Observable<TimeSlot[]> {
+    const url = this.baseUrl + 'search/findByStudentIdEquals/?id=' + studentId;
+    return this.http.get<GetResponse>(url).pipe(
+      map( responce => responce._embedded.timeSlots)
+    );
+  }
+
+  getNotReservedTimeSlotsByTeacher(teacherId: number): Observable<TimeSlot[]> {
+    const url = this.baseUrl + 'search/findByTeacherIdAndAndNotReserved/?id=' + teacherId;
+    return this.http.get<GetResponse>(url).pipe(
+      map( responce => responce._embedded.timeSlots)
+    );
+  }
+
   getTimeSlot(id: number): Observable<TimeSlot>{
     const url = this.baseUrl + id;
     return this.http.get<TimeSlot>(url);
