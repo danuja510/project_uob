@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {CourseRating} from '../../shared/course-rating.model';
 import {map} from 'rxjs/operators';
+import {TeacherRating} from '../../shared/teacher-rating.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import {map} from 'rxjs/operators';
 export class RatingService{
 
   private baseCourseUrl = 'http://localhost:8080/api/courseRatings';
+  private baseTeacherUrl = 'http://localhost:8080/api/teacherRatings';
 
   constructor(private http: HttpClient) {}
 
@@ -25,6 +27,15 @@ export class RatingService{
 
   addCourseRating(rating: CourseRating): Observable<any> {
     return this.http.post(this.baseCourseUrl, rating);
+  }
+
+  getTeacherAverageRatingByTeacher(id: number): Observable<{itemId: number, rating: number}> {
+    const url = this.baseTeacherUrl + '/search/getTeacherAverageRating/?id=' + id;
+    return this.http.get<{itemId: number, rating: number}>(url);
+  }
+
+  addTeacherRating(rating: TeacherRating): Observable<any> {
+    return this.http.post(this.baseTeacherUrl, rating);
   }
 }
 

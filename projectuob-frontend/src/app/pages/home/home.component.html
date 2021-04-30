@@ -35,6 +35,7 @@
                 <br>
                 <h1>{{teacher.teacherFirstName}}</h1>
                 <h2>{{teacher.slug}} </h2>
+                <app-rated-stars [rating]="getAverageTeacherRating(teacher.teacherId)"></app-rated-stars>
               </div>
             </a>
           </div>

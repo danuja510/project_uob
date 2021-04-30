@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public recommendedCourses: Course[] = [];
   courseRatings: {itemId: number, rating: number}[] =  [];
+  teacherRatings: {itemId: number, rating: number}[] =  [];
   private tempCourse: Course | undefined;
   private recommendedCoursesIds: number[] = [];
   private recommendedTeachers: Teacher[] = [];
@@ -62,6 +63,15 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.teacherService.getTeacher(id).subscribe(
                   response2 => {
                     this.recommendedTeachers.push(response2);
+                    this.ratingService.getTeacherAverageRatingByTeacher(response2.teacherId).subscribe(
+                      {
+                        next: response4 => {
+                          this.teacherRatings.push(response4);
+                        }, error: err => {
+                          this.teacherRatings.push({itemId: response2.teacherId, rating: 0});
+                        }
+                      }
+                    );
                   }
                 );
               }
@@ -88,5 +98,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   getAverageRating(id: number): number {
     // @ts-ignore
     return this.courseRatings.find(({itemId}) => itemId === id).rating;
+  }
+
+  getAverageTeacherRating(id: number): number {
+    // @ts-ignore
+    return this.teacherRatings.find(({itemId}) => itemId === id).rating;
   }
 }
