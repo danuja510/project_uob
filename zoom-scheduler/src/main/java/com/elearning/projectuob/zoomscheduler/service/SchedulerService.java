@@ -16,7 +16,7 @@ public interface SchedulerService {
      *
      * @return zoomMeetingsListResponseDTO the dto containing list of meetings
      */
-    public ZoomMeetingsListResponseDTO listMeetings(String userIdOrEmail, String meetingType, String zoomApiSecret, String zoomApiKey);
+    public ZoomMeetingsListResponseDTO listMeetings(String userIdOrEmail, int meetingType, String zoomApiSecret, String zoomApiKey);
 
     /**
      * Get ZoomMeeting by Meeting id
@@ -24,14 +24,14 @@ public interface SchedulerService {
      * @param meetingId the id of meeting from Zoom
      * @return the meetingObjectDTO with meeting details
      */
-    public ZoomMeetingObjectDTO getZoomMeetingById(String meetingId, String zoomApiSecret, String zoomApiKey);
+    public ZoomMeetingObjectDTO getZoomMeetingById(Long meetingId, String zoomApiSecret, String zoomApiKey);
 
     /**
      * Get ZoomMeeting by Meeting id
      *
      * @param meetingId the id of meeting from Zoom
      */
-    public ZoomMeetingObjectDTO deleteZoomMeetingById(String meetingId, String zoomApiSecret, String zoomApiKey);
+    public ZoomMeetingObjectDTO deleteZoomMeetingById(Long meetingId, String zoomApiSecret, String zoomApiKey);
 
     /**
      * Generate JWT token for Zoom using api credentials

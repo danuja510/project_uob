@@ -9,7 +9,7 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  subjects: Subject[];
+  public subjects: Subject[];
 
   constructor(private subjectService: SubjectsService, public route: ActivatedRoute) { }
 

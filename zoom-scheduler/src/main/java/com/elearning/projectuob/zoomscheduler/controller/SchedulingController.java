@@ -2,12 +2,13 @@ package com.elearning.projectuob.zoomscheduler.controller;
 
 import com.elearning.projectuob.zoomscheduler.dto.SchedulerDTO;
 import com.elearning.projectuob.zoomscheduler.dto.ZoomMeetingObjectDTO;
+import com.elearning.projectuob.zoomscheduler.dto.ZoomMeetingsListResponseDTO;
 import com.elearning.projectuob.zoomscheduler.service.SchedulerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/scheduler")
@@ -22,7 +23,7 @@ public class SchedulingController {
     }
 
     @PostMapping("/create-session")
-    public SchedulerDTO scheduleMeeting(SchedulerDTO schedulerDTO){
+    public SchedulerDTO scheduleMeeting(@RequestBody SchedulerDTO schedulerDTO){
         ZoomMeetingObjectDTO zoomMeetingObjectDTO = new ZoomMeetingObjectDTO();
         zoomMeetingObjectDTO.setType(schedulerDTO.getMeetingType());
         zoomMeetingObjectDTO.setTimezone(schedulerDTO.getTimeZone());
@@ -35,8 +36,48 @@ public class SchedulingController {
                 schedulerDTO.getZoomApiSecret(),
                 schedulerDTO.getZoomApiKey()
         );
-        schedulerDTO.setMeetingId(zoomMeetingObjectDTO.getId().toString());
-        schedulerDTO.setMeetingUrl(zoomMeetingObjectDTO.getJoin_url());
+        schedulerDTO.setThroughZoomMeetingObjectDTO(zoomMeetingObjectDTO);
+        return schedulerDTO;
+    }
+
+    @GetMapping("/list-sessions")
+    public List<SchedulerDTO> listMeetings(@RequestBody SchedulerDTO schedulerDTO){
+        ZoomMeetingsListResponseDTO zoomMeetingsListResponseDTO = this.schedulerService.listMeetings(
+                schedulerDTO.getZoomUserId(),
+                schedulerDTO.getMeetingType(),
+                schedulerDTO.getZoomApiSecret(),
+                schedulerDTO.getZoomApiKey()
+        );
+        List<SchedulerDTO> meetings = new ArrayList<>();
+        for (ZoomMeetingObjectDTO meeting: zoomMeetingsListResponseDTO.getMeetings()) {
+            meetings.add(new SchedulerDTO(meeting));
+        }
+        return meetings;
+    }
+
+    @GetMapping("/get-session")
+    public SchedulerDTO getMeetingById(@RequestBody SchedulerDTO schedulerDTO){
+        ZoomMeetingObjectDTO zoomMeetingObjectDTO = this.schedulerService.getZoomMeetingById(
+                schedulerDTO.getMeetingId(),
+                schedulerDTO.getZoomApiSecret(),
+                schedulerDTO.getZoomApiKey()
+        );
+        schedulerDTO.setThroughZoomMeetingObjectDTO(zoomMeetingObjectDTO);
+        return schedulerDTO;
+    }
+
+    @DeleteMapping("/delete-session")
+    public SchedulerDTO deleteMeetingById(@RequestBody SchedulerDTO schedulerDTO){
+        try {
+            ZoomMeetingObjectDTO zoomMeetingObjectDTO = this.schedulerService.deleteZoomMeetingById(
+                    schedulerDTO.getMeetingId(),
+                    schedulerDTO.getZoomApiSecret(),
+                    schedulerDTO.getZoomApiKey()
+            );
+            schedulerDTO.setThroughZoomMeetingObjectDTO(zoomMeetingObjectDTO);
+        }catch (NullPointerException e){
+            return null;
+        }
         return schedulerDTO;
     }
 }

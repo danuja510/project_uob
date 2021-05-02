@@ -14,6 +14,8 @@ import {TeacherExperienceService} from '../../../../services/backend/teacher-exp
 import {TeacherSubjectService} from '../../../../services/backend/teacher-subject.service';
 import {TeacherDetailService} from '../../../../services/backend/teacher-detail.service';
 import {TeacherDetail} from '../teacher-detail.model';
+import {TeacherZoomCredentialsService} from '../../../../services/backend/teacher-zoom-credentials.service';
+import {TeacherZoomCredentials} from '../teacher-zoom-credentials.model';
 
 @Component({
   selector: 'app-teacher-add',
@@ -21,10 +23,12 @@ import {TeacherDetail} from '../teacher-detail.model';
   styleUrls: ['./teacher-add.component.css']
 })
 export class TeacherAddComponent implements OnInit, OnDestroy {
+
   teacherForm: FormGroup;
   teacherExperienceForm: FormGroup;
   teacherSubjectForm: FormGroup;
   teacherTagForm: FormGroup;
+  teacherZoomDetailsForm: FormGroup;
   teacherExperienceArray: TeacherExperience[] = [];
   teacherSubjectArray: TeacherSubject[] = [];
   teacherTagArray: TeacherTag[] = [];
@@ -41,30 +45,37 @@ export class TeacherAddComponent implements OnInit, OnDestroy {
               private teacherTagService: TeacherTagService,
               private teacherExperienceService: TeacherExperienceService,
               private teacherSubjectService: TeacherSubjectService,
-              private teacherDetailsService: TeacherDetailService) { }
+              private teacherDetailsService: TeacherDetailService,
+              private teacherZoomCredentialsService: TeacherZoomCredentialsService) { }
 
   ngOnInit(): void {
     this.teacherForm = new FormGroup({
       teacherTelephone: new FormControl('', [Validators.required]),
-      teacherAddress: new FormControl('', [Validators.required]),
-      teacherZoomAddress: new FormControl('', Validators.required)
+      teacherAddress: new FormControl('', [Validators.required])
     });
 
     this.teacherExperienceForm = new FormGroup({
-      title: new FormControl('', Validators.required),
-      institution: new FormControl('', Validators.required),
-      description: new FormControl(''),
-      from: new FormControl(new Date(), Validators.required),
-      to: new FormControl(new Date(), Validators.required),
+      title: new FormControl(null, Validators.required),
+      institution: new FormControl(null, Validators.required),
+      description: new FormControl(null),
+      from: new FormControl(null, Validators.required),
+      to: new FormControl(null, Validators.required),
       currentlyWorking: new FormControl('currentlyWorking')
     });
 
     this.teacherSubjectForm = new FormGroup({
-      subject: new FormControl('', Validators.required)
+      subject: new FormControl(null, Validators.required)
     });
 
     this.teacherTagForm = new FormGroup({
-      tag: new FormControl('', Validators.required)
+      tag: new FormControl(null, Validators.required)
+    });
+
+    this.teacherZoomDetailsForm = new FormGroup({
+      zoomUserId: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, Validators.required),
+      zoomApiSecret: new FormControl(null, Validators.required),
+      zoomApiKey: new FormControl(null, Validators.required)
     });
 
     this.subjectService.getSubjects().subscribe(
@@ -106,12 +117,6 @@ export class TeacherAddComponent implements OnInit, OnDestroy {
         // setting teacher objects teacher id from the response of the rest api
         teacher = response;
 
-        this.teacherDetailsService.addTeacherDetails(new TeacherDetail(
-          this.teacherForm.value.teacherTelephone,
-          this.teacherForm.value.teacherAddress,
-          this.teacherForm.value.teacherZoomAddress,
-          teacher.teacherId)).subscribe();
-
         // setting the teacher id for the teacherExperience objects and posting them
         for (const exp of this.teacherExperienceArray) {
           exp.teacherId = teacher.teacherId;
@@ -138,6 +143,24 @@ export class TeacherAddComponent implements OnInit, OnDestroy {
           tag.teacherId = teacher.teacherId;
           this.teacherTagService.addTeacherTag(tag).subscribe();
         }
+
+        // storing zoom details
+        if (this.teacherZoomDetailsForm.valid && this.teacherZoomDetailsForm.touched) {
+          // validate
+          const teacherZoomCredentials = new TeacherZoomCredentials(
+            teacher.teacherId,
+            this.teacherZoomDetailsForm.value.zoomUserId,
+            this.teacherZoomDetailsForm.value.password,
+            this.teacherZoomDetailsForm.value.zoomApiSecret,
+            this.teacherZoomDetailsForm.value.zoomApiKey,
+            );
+          this.teacherZoomCredentialsService.addTeacherZoomCredentials(teacherZoomCredentials).subscribe();
+        }
+
+        this.teacherDetailsService.addTeacherDetails(new TeacherDetail(
+          this.teacherForm.value.teacherTelephone,
+          this.teacherForm.value.teacherAddress,
+          teacher.teacherId)).subscribe();
         this.router.navigate(['/teaching'], {relativeTo: this.route});
       }
     );
@@ -218,4 +241,22 @@ export class TeacherAddComponent implements OnInit, OnDestroy {
   removeTag(i: number): void {
     this.teacherTagArray.splice(i, 1);
   }
+
+  validateZoomDetails(): void {
+    // if (this.teacherZoomDetailsForm.valid && this.teacherZoomDetailsForm.touched) {
+      // validate
+      const teacherZoomCredentials = new TeacherZoomCredentials(
+        14,
+        this.teacherZoomDetailsForm.value.zoomUserId,
+        this.teacherZoomDetailsForm.value.password,
+        this.teacherZoomDetailsForm.value.zoomApiSecret,
+        this.teacherZoomDetailsForm.value.zoomApiKey,
+      );
+      console.log(teacherZoomCredentials);
+      this.teacherZoomCredentialsService.addTeacherZoomCredentials(teacherZoomCredentials).subscribe(responce => {
+        console.log(responce);
+      });
+    }
+
+  // }
 }

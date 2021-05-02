@@ -21,15 +21,6 @@
             formControlName="teacherAddress">
           <span class="help-block" *ngIf="!teacherForm.get('teacherAddress').valid && teacherForm.get('teacherAddress').touched">Please enter a Address!</span>
         </div>
-        <div class="form-group">
-          <label for="teacherZoomAddress">Zoom ID</label>
-          <input
-            type="text"
-            id="teacherZoomAddress"
-            formControlName="teacherZoomAddress"
-            class="form-control">
-          <span class="help-block" *ngIf="!teacherForm.get('teacherZoomAddress').valid && teacherForm.get('teacherZoomAddress').touched">Please enter a Valid Zoom ID!</span>
-        </div>
         <span class="help-block" *ngIf="!teacherForm.valid && teacherForm.touched">Please ender a valid data!</span>
         <hr>
       </form>
@@ -167,6 +158,49 @@
           </span>
         </div>
         <hr>
+      </form>
+
+      <h3>Zoom Details</h3><br>
+      <form [formGroup]="teacherZoomDetailsForm" (ngSubmit)="validateZoomDetails()">
+        <div class="form-group">
+          <label for="teacherTelephone">Zoom User ID</label>
+          <input
+            type="email"
+            id="zoomUserId"
+            class="form-control"
+            formControlName="zoomUserId">
+          <span class="help-block" *ngIf="!teacherZoomDetailsForm.get('zoomUserId').valid && teacherZoomDetailsForm.get('zoomUserId').touched">Please enter a valid Zoom User ID!</span>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            formControlName="password">
+          <span class="help-block" *ngIf="!teacherZoomDetailsForm.get('password').valid && teacherZoomDetailsForm.get('password').touched">Please enter the valid Password!</span>
+        </div>
+        <div class="form-group">
+          <label for="zoomApiSecret">Zoom API Secret</label>
+          <input
+            type="password"
+            id="zoomApiSecret"
+            class="form-control"
+            formControlName="zoomApiSecret">
+          <span class="help-block" *ngIf="!teacherZoomDetailsForm.get('zoomApiSecret').valid && teacherZoomDetailsForm.get('zoomApiSecret').touched">Please enter the valid Zoom API Secret!</span>
+        </div>
+        <div class="form-group">
+          <label for="zoomApiKey">Zoom API Key</label>
+          <input
+            type="password"
+            id="zoomApiKey"
+            class="form-control"
+            formControlName="zoomApiKey">
+          <span class="help-block" *ngIf="!teacherZoomDetailsForm.get('zoomApiKey').valid && teacherZoomDetailsForm.get('zoomApiKey').touched">Please enter the valid Zoom API Key!</span>
+        </div>
+        <span class="help-block" *ngIf="!teacherZoomDetailsForm.valid && teacherZoomDetailsForm.touched">Please enter a valid data!</span>
+        <hr>
+        <button class="btn btn-primary" [disabled]="!teacherZoomDetailsForm.valid" type="submit">Validate</button>
       </form>
 
       <button

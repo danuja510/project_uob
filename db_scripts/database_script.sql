@@ -357,3 +357,35 @@ ALTER TABLE `project_uob`.`time_slots`
 ADD COLUMN `date` DATE NOT NULL AFTER `order_id`,
 CHANGE COLUMN `start_time` `start_time` DATETIME NOT NULL ;
 
+CREATE TABLE `project_uob`.`teacher_zoom_credentials` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `teacher_id` BIGINT NOT NULL,
+  `zoom_user_id` VARCHAR(255) NOT NULL,
+  `zoom_password` VARCHAR(255) NOT NULL,
+  `zoom_api_secret` VARCHAR(255) NOT NULL,
+  `zoom_api_key` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `teacher_id_fk_6_idx` (`teacher_id` ASC) VISIBLE,
+  CONSTRAINT `teacher_id_fk_6`
+    FOREIGN KEY (`teacher_id`)
+    REFERENCES `project_uob`.`teacher` (`teacher_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+ALTER TABLE `project_uob`.`teacher_details` 
+CHANGE COLUMN `teacher_zoom_id` `teacher_zoom_id` BIGINT NULL DEFAULT NULL ,
+ADD INDEX `teacher_zoom_fk_idx` (`teacher_zoom_id` ASC) VISIBLE;
+;
+ALTER TABLE `project_uob`.`teacher_details` 
+ADD CONSTRAINT `teacher_zoom_fk`
+  FOREIGN KEY (`teacher_zoom_id`)
+  REFERENCES `project_uob`.`teacher_zoom_credentials` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+ALTER TABLE `project_uob`.`teacher_details` 
+DROP FOREIGN KEY `teacher_zoom_fk`;
+ALTER TABLE `project_uob`.`teacher_details` 
+DROP COLUMN `teacher_zoom_id`,
+DROP INDEX `teacher_zoom_fk_idx` ;
+;

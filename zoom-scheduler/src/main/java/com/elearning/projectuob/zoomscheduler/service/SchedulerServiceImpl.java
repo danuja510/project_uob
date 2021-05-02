@@ -57,7 +57,7 @@ public class SchedulerServiceImpl implements SchedulerService{
     }
 
     @Override
-    public ZoomMeetingsListResponseDTO listMeetings(String userIdOrEmail, String meetingType, String zoomApiSecret, String zoomApiKey) {
+    public ZoomMeetingsListResponseDTO listMeetings(String userIdOrEmail, int meetingType, String zoomApiSecret, String zoomApiKey) {
         System.out.println("Request to list all Zoom meetings by User id or email {}"+ userIdOrEmail);
         // replace me with user id in case, listing meetings for a different user than admin
         String listMeetingUrl = "https://api.zoom.us/v2/users/me/meetings";
@@ -86,7 +86,7 @@ public class SchedulerServiceImpl implements SchedulerService{
     }
 
     @Override
-    public ZoomMeetingObjectDTO getZoomMeetingById(String meetingId, String zoomApiSecret, String zoomApiKey) {
+    public ZoomMeetingObjectDTO getZoomMeetingById(Long meetingId, String zoomApiSecret, String zoomApiKey) {
         System.out.println("Request to get single meeting by id {}"+ meetingId);
         String getMeetingUrl = "https://api.zoom.us/v2/meetings/" + meetingId;
         System.out.println("Meeting Url {}"+getMeetingUrl);
@@ -107,7 +107,7 @@ public class SchedulerServiceImpl implements SchedulerService{
     }
 
     @Override
-    public ZoomMeetingObjectDTO deleteZoomMeetingById(String meetingId,String zoomApiSecret, String zoomApiKey) {
+    public ZoomMeetingObjectDTO deleteZoomMeetingById(Long meetingId,String zoomApiSecret, String zoomApiKey) {
         System.out.println("Request to delete single meeting by id {}"+ meetingId);
         String getMeetingUrl = "https://api.zoom.us/v2/meetings/" + meetingId;
         System.out.println("Meeting Url {}"+getMeetingUrl);
