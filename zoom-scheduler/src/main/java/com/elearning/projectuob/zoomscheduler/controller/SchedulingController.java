@@ -70,7 +70,7 @@ public class SchedulingController {
         return schedulerDTO;
     }
 
-    @DeleteMapping("/delete-session")
+    @PostMapping("/delete-session")
     public SchedulerDTO deleteMeetingById(@RequestBody SchedulerDTO schedulerDTO){
         try {
             ZoomMeetingObjectDTO zoomMeetingObjectDTO = this.schedulerService.deleteZoomMeetingById(

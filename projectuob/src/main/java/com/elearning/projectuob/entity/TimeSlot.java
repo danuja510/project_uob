@@ -40,4 +40,13 @@ public class TimeSlot {
 
     @Column(name = "date")
     private Date date;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "zoom_meeting_id")
+    private Long zoomMeetingId;
+
+    @Column(name = "automated_schedule")
+    private boolean automatedSchedule;
 }

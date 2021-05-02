@@ -18,17 +18,35 @@ public class SchedulerServiceImpl implements SchedulerService {
 
     @Override
     public SchedulerObject scheduleMeeting(SchedulerObject schedulerObject) {
-        return null;
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        JSONObject schedulerJsonObject = schedulerObjectToJSONObject(schedulerObject);
+        HttpEntity<String> request = new HttpEntity<String>(schedulerJsonObject.toString(), headers);
+        schedulerObject = restTemplate.postForObject(url + "create-session", request, SchedulerObject.class);
+        return schedulerObject;
     }
 
     @Override
     public SchedulerObject getMeeting(SchedulerObject schedulerObject) {
-        return null;
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        JSONObject schedulerJsonObject = schedulerObjectToJSONObject(schedulerObject);
+        HttpEntity<String> request = new HttpEntity<String>(schedulerJsonObject.toString(), headers);
+        schedulerObject = restTemplate.postForObject(url + "get-session", request, SchedulerObject.class);
+        return schedulerObject;
     }
 
     @Override
     public SchedulerObject deleteMeeting(SchedulerObject schedulerObject) {
-        return null;
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        JSONObject schedulerJsonObject = schedulerObjectToJSONObject(schedulerObject);
+        HttpEntity<String> request = new HttpEntity<String>(schedulerJsonObject.toString(), headers);
+        schedulerObject = restTemplate.postForObject(url + "delete-session", request, SchedulerObject.class);
+        return schedulerObject;
     }
 
     @Override
@@ -36,6 +54,17 @@ public class SchedulerServiceImpl implements SchedulerService {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        JSONObject schedulerJsonObject = schedulerObjectToJSONObject(schedulerObject);
+        HttpEntity<String> request = new HttpEntity<String>(schedulerJsonObject.toString(), headers);
+        try{
+            SchedulerObject[] meetings = restTemplate.postForObject(url + "list-sessions", request, SchedulerObject[].class);
+            return Arrays.asList(meetings);
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    private JSONObject schedulerObjectToJSONObject(SchedulerObject schedulerObject){
         JSONObject schedulerJsonObject = new JSONObject();
         schedulerJsonObject.put("zoomUserId", schedulerObject.getZoomUserId());
         schedulerJsonObject.put("userPass", schedulerObject.getUserPass());
@@ -47,14 +76,6 @@ public class SchedulerServiceImpl implements SchedulerService {
         schedulerJsonObject.put("timeZone", schedulerObject.getTimeZone());
         schedulerJsonObject.put("meetingType", schedulerObject.getMeetingType());
         schedulerJsonObject.put("topic", schedulerObject.getTopic());
-        System.out.println(schedulerJsonObject.toString());
-        HttpEntity<String> request = new HttpEntity<String>(schedulerJsonObject.toString(), headers);
-
-        try{
-            SchedulerObject[] meetings = restTemplate.postForObject(url + "list-sessions", request, SchedulerObject[].class);
-            return Arrays.asList(meetings);
-        }catch (Exception e){
-            return null;
-        }
+        return schedulerJsonObject;
     }
 }

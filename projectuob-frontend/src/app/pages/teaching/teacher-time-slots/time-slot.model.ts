@@ -8,7 +8,10 @@ export class TimeSlot{
     public studentId?: number,
     public zoomLink?: string,
     public courseId?: number,
-    public orderId?: number
+    public orderId?: number,
+    public description?: string,
+    public zoomMeetingId?: number,
+    public automatedSchedule?: boolean
   ) {
   }
 }

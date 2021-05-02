@@ -388,4 +388,14 @@ DROP FOREIGN KEY `teacher_zoom_fk`;
 ALTER TABLE `project_uob`.`teacher_details` 
 DROP COLUMN `teacher_zoom_id`,
 DROP INDEX `teacher_zoom_fk_idx` ;
-;
+
+ALTER TABLE `project_uob`.`time_slots` 
+ADD COLUMN `description` VARCHAR(255) NULL AFTER `date`,
+ADD COLUMN `zoom_meeting_id` DOUBLE NULL AFTER `description`;
+
+ALTER TABLE `project_uob`.`time_slots` 
+ADD COLUMN `automated_schedule` BIT(1) NULL DEFAULT 0 AFTER `zoom_meeting_id`;
+
+ALTER TABLE `project_uob`.`time_slots` 
+CHANGE COLUMN `zoom_meeting_id` `zoom_meeting_id` BIGINT NULL DEFAULT NULL ;
+

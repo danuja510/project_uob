@@ -27,12 +27,34 @@ public class SchedulerRestController {
     public List<SchedulerObject> getMeetings (@RequestParam int teacherId){
         TeacherZoomCredentials teacherZoomCredentials = teacherZoomCredentialsRepository.findByTeacherIdEquals((long)teacherId);
         SchedulerObject schedulerObject = new SchedulerObject();
-        schedulerObject.setMeetingType(1);
+        schedulerObject.setMeetingType(2);
         schedulerObject.setZoomUserId(teacherZoomCredentials.getZoomUserId());
         schedulerObject.setUserPass(teacherZoomCredentials.getZoomPassword());
         schedulerObject.setZoomApiSecret(teacherZoomCredentials.getZoomApiSecret());
         schedulerObject.setZoomApiKey(teacherZoomCredentials.getZoomApiKey());
         return this.schedulerService.getMeetings(schedulerObject);
+    }
+
+    @PostMapping("/create-session")
+    public SchedulerObject createMeeting (@RequestParam int teacherId, @RequestBody SchedulerObject schedulerObject){
+        TeacherZoomCredentials teacherZoomCredentials = teacherZoomCredentialsRepository.findByTeacherIdEquals((long)teacherId);
+        schedulerObject.setMeetingType(2);
+        schedulerObject.setZoomUserId(teacherZoomCredentials.getZoomUserId());
+        schedulerObject.setUserPass(teacherZoomCredentials.getZoomPassword());
+        schedulerObject.setZoomApiSecret(teacherZoomCredentials.getZoomApiSecret());
+        schedulerObject.setZoomApiKey(teacherZoomCredentials.getZoomApiKey());
+        return this.schedulerService.scheduleMeeting(schedulerObject);
+    }
+
+    @PostMapping("/delete-session")
+    public SchedulerObject deleteMeeting (@RequestParam int teacherId, @RequestBody SchedulerObject schedulerObject){
+        TeacherZoomCredentials teacherZoomCredentials = teacherZoomCredentialsRepository.findByTeacherIdEquals((long)teacherId);
+        schedulerObject.setMeetingType(2);
+        schedulerObject.setZoomUserId(teacherZoomCredentials.getZoomUserId());
+        schedulerObject.setUserPass(teacherZoomCredentials.getZoomPassword());
+        schedulerObject.setZoomApiSecret(teacherZoomCredentials.getZoomApiSecret());
+        schedulerObject.setZoomApiKey(teacherZoomCredentials.getZoomApiKey());
+        return this.schedulerService.deleteMeeting(schedulerObject);
     }
 
     @PostMapping("/validate-credentials")
