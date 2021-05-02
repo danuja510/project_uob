@@ -20,12 +20,10 @@ import java.util.Optional;
 public class RecommenderRestController {
 
     private RecommenderService recommenderService;
-    private CourseDAO courseDAO;
 
     @Autowired
-    public RecommenderRestController(RecommenderService recommenderService, CourseDAO courseDAO) {
+    public RecommenderRestController(RecommenderService recommenderService) {
         this.recommenderService = recommenderService;
-        this.courseDAO = courseDAO;
     }
 
     @GetMapping("/course/get-recommendations")

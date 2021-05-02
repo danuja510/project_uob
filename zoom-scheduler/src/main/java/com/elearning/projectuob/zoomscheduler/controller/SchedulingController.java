@@ -40,22 +40,26 @@ public class SchedulingController {
         return schedulerDTO;
     }
 
-    @GetMapping("/list-sessions")
+    @PostMapping(value ="/list-sessions", consumes = "application/json", produces = "application/json")
     public List<SchedulerDTO> listMeetings(@RequestBody SchedulerDTO schedulerDTO){
-        ZoomMeetingsListResponseDTO zoomMeetingsListResponseDTO = this.schedulerService.listMeetings(
-                schedulerDTO.getZoomUserId(),
-                schedulerDTO.getMeetingType(),
-                schedulerDTO.getZoomApiSecret(),
-                schedulerDTO.getZoomApiKey()
-        );
-        List<SchedulerDTO> meetings = new ArrayList<>();
-        for (ZoomMeetingObjectDTO meeting: zoomMeetingsListResponseDTO.getMeetings()) {
-            meetings.add(new SchedulerDTO(meeting));
+        try{
+            ZoomMeetingsListResponseDTO zoomMeetingsListResponseDTO = this.schedulerService.listMeetings(
+                    schedulerDTO.getZoomUserId(),
+                    schedulerDTO.getMeetingType(),
+                    schedulerDTO.getZoomApiSecret(),
+                    schedulerDTO.getZoomApiKey()
+            );
+            List<SchedulerDTO> meetings = new ArrayList<>();
+            for (ZoomMeetingObjectDTO meeting: zoomMeetingsListResponseDTO.getMeetings()) {
+                meetings.add(new SchedulerDTO(meeting));
+            }
+            return meetings;
+        }catch (Exception e){
+            return null;
         }
-        return meetings;
     }
 
-    @GetMapping("/get-session")
+    @PostMapping("/get-session")
     public SchedulerDTO getMeetingById(@RequestBody SchedulerDTO schedulerDTO){
         ZoomMeetingObjectDTO zoomMeetingObjectDTO = this.schedulerService.getZoomMeetingById(
                 schedulerDTO.getMeetingId(),
