@@ -16,6 +16,8 @@ import {TeacherDetailService} from '../../../../services/backend/teacher-detail.
 import {TeacherDetail} from '../teacher-detail.model';
 import {TeacherZoomCredentialsService} from '../../../../services/backend/teacher-zoom-credentials.service';
 import {TeacherZoomCredentials} from '../teacher-zoom-credentials.model';
+import {SchedulerService} from '../../../../services/backend/scheduler.service';
+import {Scheduler} from '../../../../shared/scheduler.model';
 
 @Component({
   selector: 'app-teacher-add',
@@ -36,6 +38,10 @@ export class TeacherAddComponent implements OnInit, OnDestroy {
   newSubjects: Subject[] = [];
   existingSubjects: Subject[] = [];
   teacherTags: TeacherTag[];
+  zoomCredentialsValidity = false;
+  zoomCredentialsValidated = false;
+  validBtnPressed = false;
+  zoomDetails = false;
 
   constructor(private teacherService: TeachersService,
               private router: Router,
@@ -46,7 +52,8 @@ export class TeacherAddComponent implements OnInit, OnDestroy {
               private teacherExperienceService: TeacherExperienceService,
               private teacherSubjectService: TeacherSubjectService,
               private teacherDetailsService: TeacherDetailService,
-              private teacherZoomCredentialsService: TeacherZoomCredentialsService) { }
+              private teacherZoomCredentialsService: TeacherZoomCredentialsService,
+              private schedulerService: SchedulerService) { }
 
   ngOnInit(): void {
     this.teacherForm = new FormGroup({
@@ -145,15 +152,14 @@ export class TeacherAddComponent implements OnInit, OnDestroy {
         }
 
         // storing zoom details
-        if (this.teacherZoomDetailsForm.valid && this.teacherZoomDetailsForm.touched) {
-          // validate
+        if (this.zoomDetails && this.zoomCredentialsValidity && this.zoomCredentialsValidated){
           const teacherZoomCredentials = new TeacherZoomCredentials(
             teacher.teacherId,
             this.teacherZoomDetailsForm.value.zoomUserId,
             this.teacherZoomDetailsForm.value.password,
             this.teacherZoomDetailsForm.value.zoomApiSecret,
             this.teacherZoomDetailsForm.value.zoomApiKey,
-            );
+          );
           this.teacherZoomCredentialsService.addTeacherZoomCredentials(teacherZoomCredentials).subscribe();
         }
 
@@ -243,20 +249,33 @@ export class TeacherAddComponent implements OnInit, OnDestroy {
   }
 
   validateZoomDetails(): void {
-    // if (this.teacherZoomDetailsForm.valid && this.teacherZoomDetailsForm.touched) {
+    if (this.teacherZoomDetailsForm.valid && this.teacherZoomDetailsForm.touched) {
       // validate
-      const teacherZoomCredentials = new TeacherZoomCredentials(
-        14,
-        this.teacherZoomDetailsForm.value.zoomUserId,
-        this.teacherZoomDetailsForm.value.password,
-        this.teacherZoomDetailsForm.value.zoomApiSecret,
-        this.teacherZoomDetailsForm.value.zoomApiKey,
+      const scheduler = new Scheduler();
+      scheduler.zoomUserId = this.teacherZoomDetailsForm.value.zoomUserId;
+      scheduler.userPass = this.teacherZoomDetailsForm.value.password;
+      scheduler.zoomApiSecret = this.teacherZoomDetailsForm.value.zoomApiSecret;
+      scheduler.zoomApiKey = this.teacherZoomDetailsForm.value.zoomApiKey;
+      this.schedulerService.validateCredentials(scheduler).subscribe(
+        response => {
+          this.zoomCredentialsValidity = response;
+          this.validBtnPressed = true;
+          this.zoomCredentialsValidated = response;
+        }
       );
-      console.log(teacherZoomCredentials);
-      this.teacherZoomCredentialsService.addTeacherZoomCredentials(teacherZoomCredentials).subscribe(responce => {
-        console.log(responce);
-      });
     }
 
-  // }
+  }
+
+  addZoomDetails(): void {
+    this.zoomDetails = true;
+  }
+
+  closeZoomDetails(): void {
+    this.zoomDetails = false;
+  }
+
+  editZoomCredentials() {
+    this.zoomCredentialsValidated = false;
+  }
 }

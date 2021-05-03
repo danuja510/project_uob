@@ -16,7 +16,7 @@ export class TeacherZoomCredentialsService{
   }
 
   getZoomCredentialsByTeacherId(id: number): Observable<TeacherZoomCredentials>{
-    const url = this.baseUrl + id;
+    const url = this.baseUrl + 'search/findByTeacherIdEquals/?id=' + id;
     return this.http.get<TeacherZoomCredentials>(url);
   }
 

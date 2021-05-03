@@ -23,6 +23,23 @@
                   formControlName="startTime">
                 <span class="help-block" *ngIf="!timeSlotForm.get('startTime').valid && timeSlotForm.get('startTime').touched">Please select a start time!</span>
               </div>
+              <div class="form-group" *ngIf="automatedScheduler">
+                <label for="automatedSchedule">Do you want a zoom session to be automatically created?</label><br>
+                Yes<input
+                type="radio"
+                id="automatedSchedule"
+                name="automatedSchedule"
+                class="form-control"
+                formControlName="automatedSchedule"
+                value="yes">
+                No<input
+                type="radio"
+                name="automatedSchedule"
+                id="noAutomatedSchedule"
+                class="form-control"
+                formControlName="automatedSchedule"
+                value="no">
+              </div>
               <button class="btn btn-success" type="submit">Submit</button>
             </form>
           </div>
