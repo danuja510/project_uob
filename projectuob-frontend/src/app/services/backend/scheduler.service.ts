@@ -12,8 +12,7 @@ export class SchedulerService{
   baseUrl = 'http://localhost:8080/api/scheduler/';
 
   constructor(
-    private http: HttpClient
-  ) {
+    private http: HttpClient) {
   }
 
   getSessionsList(id: number): Observable<Scheduler[]>{
@@ -29,12 +28,12 @@ export class SchedulerService{
   }
 
   createSession(teacherId: number, scheduler: Scheduler): Observable<Scheduler>{
-    const url = this.baseUrl + '/create-session/?teacherId= ' + teacherId;
+    const url = this.baseUrl + 'create-session/?teacherId=' + teacherId;
     return this.http.post<Scheduler>(url, scheduler);
   }
 
   deleteSession(teacherId: number, scheduler: Scheduler): Observable<Scheduler>{
-    const url = this.baseUrl + '/delete-session/?teacherId= ' + teacherId;
+    const url = this.baseUrl + 'delete-session/?teacherId=' + teacherId;
     return this.http.post<Scheduler>(url, scheduler);
   }
 }

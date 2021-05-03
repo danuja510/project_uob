@@ -6,6 +6,8 @@ import {TimeSlot} from '../../../teaching/teacher-time-slots/time-slot.model';
 import {CourseEnrollmentService} from '../../../../services/backend/course-enrollment.service';
 import {Course} from '../../../masters/course/course.model';
 import {CoursesService} from '../../../../services/backend/courses.service';
+import {SchedulerService} from '../../../../services/backend/scheduler.service';
+import {Scheduler} from '../../../../shared/scheduler.model';
 
 @Component({
   selector: 'app-reserve-time-slot-details',
@@ -22,7 +24,8 @@ export class ReserveTimeSlotDetailsComponent implements OnInit {
     private timeSlotService: TimeSlotService,
     private login: LoginService,
     private courseEnrollmentService: CourseEnrollmentService,
-    private courseSerivce: CoursesService) { }
+    private courseSerivce: CoursesService,
+    private schedulerService: SchedulerService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(
@@ -41,10 +44,25 @@ export class ReserveTimeSlotDetailsComponent implements OnInit {
     );
   }
 
-  reserveTimeSlot() {
+  reserveTimeSlot(): void {
     this.timeSlot.studentId = this.login.getStudent().studentNumber;
     this.timeSlot.courseId = this.course.courseId;
-    this.timeSlotService.updateTimeSlot(this.timeSlot, this.timeSlot.id).subscribe();
+    if (this.timeSlot.automatedSchedule){
+      let scheduler = new Scheduler();
+      scheduler.topic = '"' + this.course.courseName + '" Session';
+      scheduler.startTime = this.timeSlot.startTime.toLocaleString().split('.')[0];
+      scheduler.timeZone = 'UTC';
+      this.schedulerService.createSession(this.timeSlot.teacherId, scheduler).subscribe(
+        response => {
+          scheduler = response;
+          this.timeSlot.zoomLink = scheduler.meetingUrl;
+          this.timeSlot.zoomMeetingId = scheduler.meetingId;
+          this.timeSlotService.updateTimeSlot(this.timeSlot, this.timeSlot.id).subscribe();
+        }
+      );
+    }else {
+      this.timeSlotService.updateTimeSlot(this.timeSlot, this.timeSlot.id).subscribe();
+    }
     this.courseEnrollmentService.getCourseEnrollmentsByStudent(this.login.getStudent().studentNumber).subscribe(
       response => {
         const enrolledCourses = response;

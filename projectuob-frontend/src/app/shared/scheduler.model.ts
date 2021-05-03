@@ -3,7 +3,7 @@ export class Scheduler{
   public userPass: string;
   public zoomApiSecret: string;
   public zoomApiKey: string;
-  public meetingId: string;
+  public meetingId: number;
   public meetingUrl: string;
   public startTime: string;
   public timeZone: string;

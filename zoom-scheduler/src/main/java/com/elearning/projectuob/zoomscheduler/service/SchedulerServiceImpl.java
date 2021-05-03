@@ -27,9 +27,9 @@ public class SchedulerServiceImpl implements SchedulerService{
         String apiUrl = "https://api.zoom.us/v2/users/" + zoomUserId + "/meetings";
 
         // replace with your password or method
-        zoomMeetingObjectDTO.setPassword(userPass);
+//        zoomMeetingObjectDTO.setPassword(userPass);
         // replace email with your email
-        zoomMeetingObjectDTO.setHost_email("danuja.kalugamaarachchi@study.beds.ac.uk");
+        zoomMeetingObjectDTO.setHost_email(zoomUserId);
         zoomMeetingObjectDTO.setType(2);
 
         // Optional Settings for host and participant related options
@@ -39,6 +39,7 @@ public class SchedulerServiceImpl implements SchedulerService{
         settingsDTO.setHost_video(false);
         settingsDTO.setAuto_recording("cloud");
         settingsDTO.setMute_upon_entry(true);
+        settingsDTO.setWaiting_room(true);
         zoomMeetingObjectDTO.setSettings(settingsDTO);
 
         RestTemplate restTemplate = new RestTemplate();
