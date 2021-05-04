@@ -44,8 +44,39 @@ export class TimeSlotService{
     );
   }
 
+  getFutureTimeSlotsByStudent(studentId: number): Observable<TimeSlot[]> {
+    const date = new Date();
+    const url = this.baseUrl + 'search/findByStudentIdEqualsAndStartTimeGreaterThan/?id=' + studentId +
+      '&startTime=' + date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate() + ' ' +
+    date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+    return this.http.get<GetResponse>(url).pipe(
+      map( responce => responce._embedded.timeSlots)
+    );
+  }
+
+  getFutureTimeSlotsByTeacher(studentId: number): Observable<TimeSlot[]> {
+    const date = new Date();
+    const url = this.baseUrl + 'search/findByTeacherIdEqualsAndStartTimeGreaterThan/?id=' + studentId +
+      '&startTime=' + date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate() + ' ' +
+      date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+    return this.http.get<GetResponse>(url).pipe(
+      map( responce => responce._embedded.timeSlots)
+    );
+  }
+
   getNotReservedTimeSlotsByTeacher(teacherId: number): Observable<TimeSlot[]> {
     const url = this.baseUrl + 'search/findByTeacherIdAndAndNotReserved/?id=' + teacherId;
+    return this.http.get<GetResponse>(url).pipe(
+      map( responce => responce._embedded.timeSlots)
+    );
+  }
+
+  getNotReservedFutureTimeSlotsByTeacher(teacherId: number): Observable<TimeSlot[]> {
+    const date = new Date();
+    const url = this.baseUrl + 'search/findByTeacherIdEqualsAndStartTimeGreaterThanAndStudentIdEquals/?id=' +
+      teacherId + '&startTime=' + date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate() + ' ' +
+      date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '&studentId=' ;
+
     return this.http.get<GetResponse>(url).pipe(
       map( responce => responce._embedded.timeSlots)
     );

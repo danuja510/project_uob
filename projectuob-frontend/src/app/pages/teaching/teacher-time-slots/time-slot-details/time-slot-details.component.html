@@ -18,14 +18,25 @@
         <h3>Reservation Info</h3>
       </div>
       <div *ngIf="timeSlot.studentId; else elseBlock">
+        <br>
         <div class="row">
           <strong>Student ID: </strong>{{timeSlot.studentId}}
         </div>
+
+        <div class="row">
+          <strong>Description: </strong>{{timeSlot.description}}
+        </div>
+
         <div class="row">
           <strong>Start Time: </strong>{{timeSlotStartTime | date: 'medium': '+0530' }}
         </div>
+
         <div class="row">
           <strong>End Time: </strong>{{timeSlotEndTime | date: 'medium': '+0530' }}
+        </div>
+
+        <div class="row" *ngIf="timeSlot.zoomLink">
+          <strong>Zoom Link: </strong><a href="{{timeSlot.zoomLink }}" >{{timeSlot.zoomLink }}</a>
         </div>
       </div>
       <ng-template #elseBlock>

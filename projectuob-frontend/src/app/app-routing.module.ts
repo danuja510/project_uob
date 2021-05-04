@@ -25,6 +25,7 @@ import {OrdersComponent} from './pages/profile/orders/orders.component';
 import {StudentTimeSlotsComponent} from './pages/profile/student-time-slots/student-time-slots.component';
 import {ReserveTimeSlotComponent} from './pages/components/reserve-time-slot/reserve-time-slot.component';
 import {ReserveTimeSlotDetailsComponent} from './pages/components/reserve-time-slot/reserve-time-slot-details/reserve-time-slot-details.component';
+import {StudentTimeSlotDetailsComponent} from './pages/profile/student-time-slots/student-time-slot-details/student-time-slot-details.component';
 
 const routes: Routes = [
     {path: 'login/callback', component: OktaCallbackComponent},
@@ -44,6 +45,7 @@ const routes: Routes = [
     { path: 'account', canActivate: [AuthGuard], component: ProfileComponent },
     { path: 'account/enrolled-courses', canActivate: [AuthGuard], component: EnrolledCoursesComponent },
     { path: 'account/orders', canActivate: [AuthGuard], component: OrdersComponent },
+    { path: 'account/time-slots/:timeSlot', canActivate: [AuthGuard], component: StudentTimeSlotDetailsComponent },
     { path: 'account/time-slots', canActivate: [AuthGuard], component: StudentTimeSlotsComponent },
     { path: 'teaching', canActivate: [AuthGuard], component: TeachingComponent },
     { path: 'teaching/course', canActivate: [AuthGuard], component: TeacherCoursesComponent },

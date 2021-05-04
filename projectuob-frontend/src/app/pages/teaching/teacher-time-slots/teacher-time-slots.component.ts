@@ -22,7 +22,7 @@ export class TeacherTimeSlotsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.timeSlotService.getTimeSlotsByTeacher( this.login.getTeacher().teacherId ).subscribe(
+    this.timeSlotService.getFutureTimeSlotsByTeacher( this.login.getTeacher().teacherId ).subscribe(
       responce => {
         this.timeSlots = responce;
         for (const time of this.timeSlots){

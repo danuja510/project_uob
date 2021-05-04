@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {TimeSlotService} from '../../../../services/backend/time-slot.service';
 import {LoginService} from '../../../../services/common/login.service';
 import {TimeSlot} from '../../../teaching/teacher-time-slots/time-slot.model';
@@ -25,7 +25,8 @@ export class ReserveTimeSlotDetailsComponent implements OnInit {
     private login: LoginService,
     private courseEnrollmentService: CourseEnrollmentService,
     private courseSerivce: CoursesService,
-    private schedulerService: SchedulerService) { }
+    private schedulerService: SchedulerService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(
@@ -47,6 +48,7 @@ export class ReserveTimeSlotDetailsComponent implements OnInit {
   reserveTimeSlot(): void {
     this.timeSlot.studentId = this.login.getStudent().studentNumber;
     this.timeSlot.courseId = this.course.courseId;
+    this.timeSlot.description =  '"' + this.course.courseName + '" Session';
     if (this.timeSlot.automatedSchedule){
       let scheduler = new Scheduler();
       scheduler.topic = '"' + this.course.courseName + '" Session';
@@ -75,5 +77,6 @@ export class ReserveTimeSlotDetailsComponent implements OnInit {
         }
       }
     );
+    this.router.navigate(['/account/time-slots']);
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {LoginService} from '../../../services/common/login.service';
 import {TimeSlotService} from '../../../services/backend/time-slot.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {TimeSlot} from '../../teaching/teacher-time-slots/time-slot.model';
 
 @Component({
@@ -16,15 +16,19 @@ export class StudentTimeSlotsComponent implements OnInit {
   constructor(
     private login: LoginService,
     private timeSlotService: TimeSlotService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.timeSlotService.getTimeSlotsByStudent(this.login.getStudent().studentNumber).subscribe(
+    this.timeSlotService.getFutureTimeSlotsByStudent(this.login.getStudent().studentNumber).subscribe(
       response => {
         this.timeSlots = response;
       }
     );
   }
 
+  timeSlotDetails(id: number): void {
+    this.router.navigate([id], {relativeTo:  this.route});
+  }
 }

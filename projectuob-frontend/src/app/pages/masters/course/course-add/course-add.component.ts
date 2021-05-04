@@ -157,4 +157,5 @@ export class CourseAddComponent implements OnInit {
     }
     this.newSubjectArray.push(new Subject(this.courseSubjectForm.value.subject, true));
   }
+
 }
