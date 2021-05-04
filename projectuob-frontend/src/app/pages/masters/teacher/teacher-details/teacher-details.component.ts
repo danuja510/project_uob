@@ -5,6 +5,9 @@ import {Teacher} from '../teacher.model';
 import {LoginService} from '../../../../services/common/login.service';
 import {TeacherRating} from '../../../../shared/teacher-rating.model';
 import {RatingService} from '../../../../services/backend/rating.service';
+import {CoursesService} from '../../../../services/backend/courses.service';
+import {Course} from '../../course/course.model';
+import {CartService} from '../../../../services/common/cart.service';
 
 @Component({
   selector: 'app-teacher-details',
@@ -14,12 +17,16 @@ import {RatingService} from '../../../../services/backend/rating.service';
 export class TeacherDetailsComponent implements OnInit {
   teacher: Teacher;
   teacherEnrolled = false;
+  courses: Course[];
+  courseRatings: {itemId: number, rating: number}[] =  [];
 
   constructor(
     private route: ActivatedRoute,
     private teacherService: TeachersService,
     private login: LoginService,
-    private ratingService: RatingService
+    private ratingService: RatingService,
+    private courseService: CoursesService,
+    private cartService: CartService
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +46,21 @@ export class TeacherDetailsComponent implements OnInit {
                   }
                 );
               }
+              this.courseService.filterByTeacher(this.teacher.teacherId).subscribe(
+                response => {
+                  this.courses = response;
+                  for (const course of this.courses) {
+                    this.ratingService.getCourseAverageRatingByCourse(course.courseId).subscribe({
+                        next: response2 => {
+                          this.courseRatings.push(response2);
+                        }, error: err => {
+                          this.courseRatings.push({itemId: course.courseId, rating: 0});
+                        }
+                      }
+                    );
+                  }
+                }
+              );
             }
         );
       }
@@ -48,5 +70,14 @@ export class TeacherDetailsComponent implements OnInit {
   addRating(rating: number): void {
     const teacherRating: TeacherRating = new TeacherRating( this.login.getStudent().studentNumber, this.teacher.teacherId, rating);
     this.ratingService.addTeacherRating(teacherRating).subscribe();
+  }
+
+  getAverageRating(id: number): number {
+    // @ts-ignore
+    return this.courseRatings.find(({itemId}) => itemId === id).rating;
+  }
+
+  addToCart(course: Course): void {
+    this.cartService.addCartItem(course);
   }
 }

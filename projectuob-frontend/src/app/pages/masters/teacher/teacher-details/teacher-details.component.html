@@ -13,8 +13,30 @@
           <p>
             Date Joined: {{teacher.dateJoined}}
           </p>
-          <hr>
+
           <a routerLink="/teacher">Back to Teacher List</a>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+
+        <div class="col-md-3" *ngFor="let course of courses">
+          <div class="product-box">
+            <a [routerLink]="'/course/' + course.courseId">
+              <img src="{{course.imageUrl?course.imageUrl:'assets/images/products/placeholder.png'}}" class="img-responsive">
+              <br>
+              <h1>{{course.courseName}}</h1>
+            </a>
+            <h2>{{course.courseDescription}} </h2>
+            <br>
+            <app-rated-stars [rating]="getAverageRating(course.courseId)"></app-rated-stars>
+            <div class="price">${{course.perSessionPrice}}</div>
+            <button class="btn btn-success" style="margin-left: 20px;" (click)="addToCart(course)">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="col-md-3" *ngIf="!courses ||courses.length===0">
+          <h3>No Courses found</h3>
         </div>
       </div>
     </div>
