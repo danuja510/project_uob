@@ -1,5 +1,6 @@
 package com.elearning.projectuob.dao;
 
+import com.elearning.projectuob.entity.Course;
 import com.elearning.projectuob.entity.Teacher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,4 +16,8 @@ public interface TeacherRepository  extends JpaRepository<Teacher, Long> {
     Page<Teacher> findBySubjectId(@RequestParam("id") Long id, Pageable pageable);
 
     Page<Teacher> findByTeacherEmailEquals(@RequestParam("email") String email, Pageable pageable);
+
+    @Query(value = "select * from  course_enrollment ce, course_teacher ct, teacher t " +
+            "where ce.course_id = ct.course_id and t.teacher_id = ct.teacher_id and student_id =?1 group by t.teacher_id", nativeQuery = true)
+    Page<Teacher> findByEnrolledStudent(@RequestParam("id") Long id, Pageable pageable);
 }

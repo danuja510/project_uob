@@ -41,6 +41,13 @@ export class TeachersService{
       map( responce => responce._embedded.teachers)
     );
   }
+
+  getTeachersByStudentEnrollment(id: number): Observable<Teacher[]>{
+    const url = this.baseUrl + '/search/findByEnrolledStudent/?id=' + id;
+    return this.http.get<GetResponses>(url).pipe(
+      map( responce => responce._embedded.teachers)
+    );
+  }
 }
 
 interface GetResponses {

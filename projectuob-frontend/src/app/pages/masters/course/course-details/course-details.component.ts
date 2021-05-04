@@ -59,7 +59,6 @@ export class CourseDetailsComponent implements OnInit {
   addRating(rating: number): void {
     const courseRating: CourseRating = new CourseRating( this.login.getStudent().studentNumber, this.course.courseId, rating);
     this.ratingService.addCourseRating(courseRating).subscribe();
-    console.log(courseRating);
   }
 
   reserveTimeSlot(): void {

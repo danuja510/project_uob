@@ -8,8 +8,7 @@
           <br>
           <h3>{{teacher.teacherFirstName+ " "+ teacher.teacherLastName}}</h3>
           <p>{{teacher.slug}}</p>
-<!--          <div class="price">$19.22</div>-->
-<!--          <a href="shopping-detail.html" class="primary-btn">Add to cart</a>-->
+          <app-star-rating *ngIf="teacherEnrolled" (rating)="addRating($event)"></app-star-rating>
           <h4>{{teacher.teacherEmail}}</h4>
           <p>
             Date Joined: {{teacher.dateJoined}}

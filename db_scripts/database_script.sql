@@ -399,3 +399,5 @@ ADD COLUMN `automated_schedule` BIT(1) NULL DEFAULT 0 AFTER `zoom_meeting_id`;
 ALTER TABLE `project_uob`.`time_slots` 
 CHANGE COLUMN `zoom_meeting_id` `zoom_meeting_id` BIGINT NULL DEFAULT NULL ;
 
+ALTER TABLE `project_uob`.`teacher_rating` 
+CHANGE COLUMN `id` `id` BIGINT NOT NULL AUTO_INCREMENT ;
