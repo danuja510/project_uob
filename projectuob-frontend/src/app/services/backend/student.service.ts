@@ -4,13 +4,14 @@ import {Teacher} from '../../pages/masters/teacher/teacher.model';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Student} from '../../pages/masters/student/student.model';
+import AppConfig from '../../config/app-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService{
 
-  private baseUrl = 'http://localhost:8080/api/students/';
+  private baseUrl = AppConfig.backendUrl + 'api/students/';
 
   constructor( private http: HttpClient) {
   }

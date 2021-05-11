@@ -302,11 +302,6 @@ CHANGE COLUMN `id` `id` BIGINT NOT NULL AUTO_INCREMENT ;
 ALTER TABLE `project_uob`.`course_tag` 
 CHANGE COLUMN `id` `id` BIGINT NOT NULL AUTO_INCREMENT ;
 
-ALTER TABLE `project_uob`.`teacher_experience` 
-CHANGE COLUMN `title` `title` VARCHAR(100) NOT NULL ,
-CHANGE COLUMN `description` `description` VARCHAR(100) NULL DEFAULT NULL ,
-CHANGE COLUMN `institution` `institution` VARCHAR(100) NULL DEFAULT NULL ;
-
 
 ALTER TABLE `project_uob`.`teacher_experience` 
 CHANGE COLUMN `from` `working_from` DATE NOT NULL ,
@@ -375,7 +370,7 @@ CREATE TABLE `project_uob`.`teacher_zoom_credentials` (
 ALTER TABLE `project_uob`.`teacher_details` 
 CHANGE COLUMN `teacher_zoom_id` `teacher_zoom_id` BIGINT NULL DEFAULT NULL ,
 ADD INDEX `teacher_zoom_fk_idx` (`teacher_zoom_id` ASC) VISIBLE;
-;
+
 ALTER TABLE `project_uob`.`teacher_details` 
 ADD CONSTRAINT `teacher_zoom_fk`
   FOREIGN KEY (`teacher_zoom_id`)
@@ -401,3 +396,10 @@ CHANGE COLUMN `zoom_meeting_id` `zoom_meeting_id` BIGINT NULL DEFAULT NULL ;
 
 ALTER TABLE `project_uob`.`teacher_rating` 
 CHANGE COLUMN `id` `id` BIGINT NOT NULL AUTO_INCREMENT ;
+
+ALTER TABLE `project_uob`.`teacher_experience` 
+ADD COLUMN `institution` VARCHAR(100) NULL AFTER `currently_working`;
+
+ALTER TABLE `project_uob`.`teacher_experience` 
+CHANGE COLUMN `title` `title` VARCHAR(100) NOT NULL ,
+CHANGE COLUMN `description` `description` VARCHAR(100) NULL DEFAULT NULL ;

@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/scheduler")
-@CrossOrigin("http://localhost:8080")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SchedulingController {
 
     private SchedulerService schedulerService;

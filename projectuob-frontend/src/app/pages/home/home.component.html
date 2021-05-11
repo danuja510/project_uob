@@ -31,13 +31,74 @@
           <div class="col-md-2" *ngFor="let teacher of recommendedTeachers">
             <a [routerLink]="'/teacher/'+[teacher.teacherId]">
               <div class="product-box">
-                <img src="{{teacher.imageUrl?teacher.imageUrl:'assets/images/teachers/placeholder.png'}}" class="img-responsive">
+                <img src="{{teacher.imageUrl?teacher.imageUrl:'assets/images/teachers/placeholder.png'}}" class="img-responsive"  style="border-radius: 100%">
                 <br>
                 <h1>{{teacher.teacherFirstName}}</h1>
                 <h2>{{teacher.slug}} </h2>
                 <app-rated-stars [rating]="getAverageTeacherRating(teacher.teacherId)"></app-rated-stars>
               </div>
             </a>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="bestSellingCourses.length !== 0">
+        <div class="row">
+          <h3>Best-Selling Courses</h3>
+          <br><br>
+        </div>
+        <div class="row">
+          <div class="col-md-2" *ngFor="let course of bestSellingCourses">
+            <div class="product-box">
+              <a [routerLink]="'/course/'+course.courseId">
+                <img src="{{course.imageUrl?course.imageUrl:'assets/images/products/placeholder.png'}}" class="img-responsive">
+                <br>
+                <h1>{{course.courseName}}</h1>
+              </a>
+              <h2>{{course.courseDescription + course.courseId}} </h2>
+              <app-rated-stars [rating]="getAverageCBSRating(course.courseId)"></app-rated-stars>
+              <div class="price">${{course.perSessionPrice}}</div>
+              <button class="btn btn-success" style="margin-left: 20px;" (click)="addToCart(course)">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="bestSellingTeachers.length !== 0">
+        <div class="row">
+          <h3>Best-Selling Teachers</h3>
+          <br><br>
+        </div>
+        <div class="row">
+          <div class="col-md-2" *ngFor="let teacher of bestSellingTeachers">
+            <a [routerLink]="'/teacher/'+[teacher.teacherId]">
+              <div class="product-box">
+                <img src="{{teacher.imageUrl?teacher.imageUrl:'assets/images/teachers/placeholder.png'}}" class="img-responsive"  style="border-radius: 100%">
+                <br>
+                <h1>{{teacher.teacherFirstName}}</h1>
+                <h2>{{teacher.slug}} </h2>
+                <app-rated-stars [rating]="getAverageBSTeacherRating(teacher.teacherId)"></app-rated-stars>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="latestCourses.length !== 0">
+        <div class="row">
+          <h3>Latest Courses</h3>
+          <br><br>
+        </div>
+        <div class="row">
+          <div class="col-md-2" *ngFor="let course of latestCourses">
+            <div class="product-box">
+              <a [routerLink]="'/course/'+course.courseId">
+                <img src="{{course.imageUrl?course.imageUrl:'assets/images/products/placeholder.png'}}" class="img-responsive">
+                <br>
+                <h1>{{course.courseName}}</h1>
+              </a>
+              <h2>{{course.courseDescription + course.courseId}} </h2>
+              <app-rated-stars [rating]="getAverageLRating(course.courseId)"></app-rated-stars>
+              <div class="price">${{course.perSessionPrice}}</div>
+              <button class="btn btn-success" style="margin-left: 20px;" (click)="addToCart(course)">Add to Cart</button>
+            </div>
           </div>
         </div>
       </div>

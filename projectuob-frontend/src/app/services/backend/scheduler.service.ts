@@ -3,13 +3,14 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Scheduler} from '../../shared/scheduler.model';
 import {map} from 'rxjs/operators';
+import AppConfig from '../../config/app-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SchedulerService{
 
-  baseUrl = 'http://localhost:8080/api/scheduler/';
+  baseUrl = AppConfig.backendUrl + 'api/scheduler/';
 
   constructor(
     private http: HttpClient) {

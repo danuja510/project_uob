@@ -5,13 +5,14 @@ import {map} from 'rxjs/operators';
 import {Course} from '../../pages/masters/course/course.model';
 import {Teacher} from '../../pages/masters/teacher/teacher.model';
 import {RecommendationsService} from './recommendations.service';
+import AppConfig from '../../config/app-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoursesService{
 
-  private baseUrl = 'http://localhost:8080/api/courses';
+  private baseUrl = AppConfig.backendUrl + 'api/courses';
 
   constructor( private http: HttpClient, private recommender: RecommendationsService) {
   }
@@ -74,6 +75,20 @@ export class CoursesService{
 
   getCourseByEnrolledStudent(id: number): Observable<Course[]> {
     const url = this.baseUrl + '/search/findByEnrolledStudent/?id=' + id;
+    return this.http.get<GetResponce>(url).pipe(
+      map( response => response._embedded.courses)
+    );
+  }
+
+  getCourseByPurchases(size: number): Observable<Course[]> {
+    const url = this.baseUrl + '/search/getCourseByPurchases/?size=' + size;
+    return this.http.get<GetResponce>(url).pipe(
+      map( response => response._embedded.courses)
+    );
+  }
+
+  getLatestCourses(size: number): Observable<Course[]> {
+    const url = this.baseUrl + '/search/getCourseByDateCreatedDesc/?size=' + size;
     return this.http.get<GetResponce>(url).pipe(
       map( response => response._embedded.courses)
     );

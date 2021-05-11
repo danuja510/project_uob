@@ -3,12 +3,14 @@ import {Observable} from 'rxjs';
 import {Order} from '../../pages/components/checkout/order.model';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
+import AppConfig from '../../config/app-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService{
-  baseUrl = 'http://localhost:8080/api/orders/';
+
+  baseUrl = AppConfig.backendUrl + 'api/orders/';
 
   constructor(
     private http: HttpClient

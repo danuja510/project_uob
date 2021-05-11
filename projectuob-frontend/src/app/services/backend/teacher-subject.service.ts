@@ -2,12 +2,14 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {TeacherSubject} from '../../pages/masters/teacher/teacher-subject.model';
 import {Observable} from 'rxjs';
+import AppConfig from '../../config/app-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeacherSubjectService{
-  baseUrl = 'http://localhost:8080/api/teacherSubjects/';
+
+  baseUrl = AppConfig.backendUrl + 'api/teacherSubjects/';
 
   constructor(private http: HttpClient) {
   }

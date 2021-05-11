@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public interface CourseRatingRepository extends JpaRepository<CourseRating,Long> {
 
     @Query("SELECT new com.elearning.projectuob.dto.AggregatedRatings( AVG(cr.rating), cr.courseId) "

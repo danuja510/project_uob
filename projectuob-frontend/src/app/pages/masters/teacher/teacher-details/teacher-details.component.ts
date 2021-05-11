@@ -15,8 +15,10 @@ import {CartService} from '../../../../services/common/cart.service';
   styleUrls: ['./teacher-details.component.css']
 })
 export class TeacherDetailsComponent implements OnInit {
+  // @ts-ignore
   teacher: Teacher;
   teacherEnrolled = false;
+  // @ts-ignore
   courses: Course[];
   courseRatings: {itemId: number, rating: number}[] =  [];
 
@@ -46,15 +48,18 @@ export class TeacherDetailsComponent implements OnInit {
                   }
                 );
               }
+              // @ts-ignore
               this.courseService.filterByTeacher(this.teacher.teacherId).subscribe(
                 response => {
                   this.courses = response;
                   for (const course of this.courses) {
+                    // @ts-ignore
                     this.ratingService.getCourseAverageRatingByCourse(course.courseId).subscribe({
                         next: response2 => {
                           this.courseRatings.push(response2);
                         }, error: err => {
-                          this.courseRatings.push({itemId: course.courseId, rating: 0});
+                          // @ts-ignore
+                        this.courseRatings.push({itemId: course.courseId, rating: 0});
                         }
                       }
                     );
@@ -68,6 +73,7 @@ export class TeacherDetailsComponent implements OnInit {
   }
 
   addRating(rating: number): void {
+    // @ts-ignore
     const teacherRating: TeacherRating = new TeacherRating( this.login.getStudent().studentNumber, this.teacher.teacherId, rating);
     this.ratingService.addTeacherRating(teacherRating).subscribe();
   }

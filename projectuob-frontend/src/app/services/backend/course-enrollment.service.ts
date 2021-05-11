@@ -3,13 +3,14 @@ import {HttpClient} from '@angular/common/http';
 import {CourseEnrollment} from '../../pages/masters/student/student-course-enrollments/course-enrollment.model';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import AppConfig from '../../config/app-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseEnrollmentService{
 
-  baseUrl = 'http://localhost:8080/api/courseEnrollments/';
+  baseUrl = AppConfig.backendUrl + 'api/courseEnrollments/';
 
   constructor(
     private http: HttpClient

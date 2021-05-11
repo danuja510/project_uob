@@ -2,13 +2,14 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {TeacherZoomCredentials} from '../../pages/masters/teacher/teacher-zoom-credentials.model';
+import AppConfig from '../../config/app-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeacherZoomCredentialsService{
 
-  baseUrl = 'http://localhost:8080/api/teacherZoomCredentialses/';
+  baseUrl = AppConfig.backendUrl + 'api/teacherZoomCredentialses/';
 
   constructor(
     private http: HttpClient

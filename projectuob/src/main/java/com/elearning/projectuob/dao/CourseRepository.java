@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
     @Query(value = "select * from course c, course_subject cs where c.course_id = cs.course_id and subject_id = ?1", nativeQuery = true)
@@ -28,4 +28,10 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     @Query(value = "select * from course c, course_enrollment ce where c.course_id = ce.course_id and student_id = ?1", nativeQuery = true)
     Page<Course> findByEnrolledStudent(@RequestParam("id") Long id, Pageable pageable);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM course cr, order_item o where cr.course_id=o.course_id group by cr.course_id order by sum(quantity) desc")
+    Page<Course> getCourseByPurchases(Pageable pageable);
+
+    @Query(value = "SELECT * FROM course c order by c.date_created desc", nativeQuery = true)
+    Page<Course> getCourseByDateCreatedDesc(Pageable pageable);
 }

@@ -2,13 +2,14 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import AppConfig from '../../config/app-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecommendationsService {
 
-  private baseUrl = 'http://localhost:8080/api/recommender/';
+  private baseUrl = AppConfig.backendUrl + 'api/recommender/';
 
   constructor(private http: HttpClient) {
   }

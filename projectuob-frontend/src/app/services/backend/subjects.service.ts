@@ -3,13 +3,14 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Subject} from '../../shared/subjects.model';
+import AppConfig from '../../config/app-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubjectsService{
 
-  private baseUrl = 'http://localhost:8080/api/subjects';
+  private baseUrl = AppConfig.backendUrl + 'api/subjects';
 
   constructor( private http: HttpClient) {
   }

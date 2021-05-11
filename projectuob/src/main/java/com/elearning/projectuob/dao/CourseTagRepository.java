@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public interface CourseTagRepository extends JpaRepository<CourseTag, Long> {
     @Query(value = "select * from course_tag c group by c.tag", nativeQuery = true)
     Page<CourseTag> getDistinctTags(Pageable pageable);

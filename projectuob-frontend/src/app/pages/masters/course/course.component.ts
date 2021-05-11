@@ -79,6 +79,7 @@ export class CourseComponent implements OnInit {
   }
 
   private getNext() {
+    // @ts-ignore
     return data => {
       this.courses = data._embedded.courses;
       this.currentPage = data.page.number + 1;
@@ -88,11 +89,13 @@ export class CourseComponent implements OnInit {
 
 
       for (const course of this.courses) {
+        // @ts-ignore
         this.ratingService.getCourseAverageRatingByCourse(course.courseId).subscribe({
           next: response => {
             this.courseRatings.push(response);
           }, error: err => {
-            this.courseRatings.push({itemId: course.courseId, rating: 0});
+            // @ts-ignore
+              this.courseRatings.push({itemId: course.courseId, rating: 0});
             }
         }
         );
@@ -113,6 +116,7 @@ export class CourseComponent implements OnInit {
     this.router.navigate([this.route.snapshot.url], {
       relativeTo: this.route,
       queryParams: {
+        // @ts-ignore
         size: value.value},
       queryParamsHandling: 'merge'}
     );

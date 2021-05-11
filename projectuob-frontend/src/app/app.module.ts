@@ -50,6 +50,7 @@ import { ReserveTimeSlotDetailsComponent } from './pages/components/reserve-time
 import { StudentTimeSlotDetailsComponent } from './pages/profile/student-time-slots/student-time-slot-details/student-time-slot-details.component';
 
 const oktaConfig = Object.assign({
+  // @ts-ignore
   onAuthRequired: (injector) => {
     const router = injector.get(Router);
 

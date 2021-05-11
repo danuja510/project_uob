@@ -2,7 +2,7 @@
   <div class="col-md-3" *ngFor="let teacher of teachers">
     <a [routerLink]="[teacher.teacherId]">
       <div class="product-box">
-          <img src="{{teacher.imageUrl?teacher.imageUrl:'assets/images/teachers/placeholder.png'}}" class="img-responsive">
+          <img src="{{teacher.imageUrl?teacher.imageUrl:'assets/images/teachers/placeholder.png'}}" class="img-responsive" style="border-radius: 100%">
           <br>
           <h1>{{teacher.teacherFirstName}}</h1>
         <h2>{{teacher.slug}} </h2>

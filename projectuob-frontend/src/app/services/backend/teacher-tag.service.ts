@@ -3,12 +3,14 @@ import {Observable} from 'rxjs';
 import {TeacherTag} from '../../pages/masters/teacher/teacher-tag.model';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
+import AppConfig from '../../config/app-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeacherTagService{
-  baseUrl = 'http://localhost:8080/api/teacherTags/';
+
+  baseUrl = AppConfig.backendUrl + 'api/teacherTags/';
 
   constructor(private http: HttpClient) {
   }

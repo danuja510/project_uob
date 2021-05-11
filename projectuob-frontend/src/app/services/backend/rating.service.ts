@@ -4,14 +4,15 @@ import {Observable} from 'rxjs';
 import {CourseRating} from '../../shared/course-rating.model';
 import {map} from 'rxjs/operators';
 import {TeacherRating} from '../../shared/teacher-rating.model';
+import AppConfig from '../../config/app-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RatingService{
 
-  private baseCourseUrl = 'http://localhost:8080/api/courseRatings';
-  private baseTeacherUrl = 'http://localhost:8080/api/teacherRatings';
+  private baseCourseUrl = AppConfig.backendUrl + 'api/courseRatings';
+  private baseTeacherUrl = AppConfig.backendUrl + 'api/teacherRatings';
 
   constructor(private http: HttpClient) {}
 

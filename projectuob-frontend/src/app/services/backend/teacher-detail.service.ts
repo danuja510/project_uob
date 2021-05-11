@@ -3,12 +3,14 @@ import {TeacherDetail} from '../../pages/masters/teacher/teacher-detail.model';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import AppConfig from '../../config/app-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeacherDetailService{
-  baseUrl = 'http://localhost:8080/api/teacherDetails/';
+
+  baseUrl = AppConfig.backendUrl + 'api/teacherDetails/';
 
   constructor(private http: HttpClient){}
 

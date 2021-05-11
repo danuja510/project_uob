@@ -3,13 +3,14 @@ import {HttpClient} from '@angular/common/http';
 import {TimeSlot} from '../../pages/teaching/teacher-time-slots/time-slot.model';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import AppConfig from '../../config/app-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TimeSlotService{
 
-  baseUrl = 'http://localhost:8080/api/timeSlots/';
+  baseUrl = AppConfig.backendUrl + 'api/timeSlots/';
 
   constructor(
     private http: HttpClient

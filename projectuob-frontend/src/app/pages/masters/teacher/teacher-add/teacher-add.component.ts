@@ -66,7 +66,7 @@ export class TeacherAddComponent implements OnInit, OnDestroy {
       institution: new FormControl(null, Validators.required),
       description: new FormControl(null),
       from: new FormControl(null, Validators.required),
-      to: new FormControl(null, Validators.required),
+      to: new FormControl(null),
       currentlyWorking: new FormControl('currentlyWorking')
     });
 

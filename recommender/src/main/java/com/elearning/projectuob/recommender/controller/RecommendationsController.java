@@ -5,7 +5,7 @@ import com.elearning.projectuob.recommender.service.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin("http://localhost:8080")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/recommendations")
 public class RecommendationsController {

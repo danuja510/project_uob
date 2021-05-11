@@ -13,7 +13,9 @@ export class AuthGuard implements CanActivate{
   }
   canActivate(route: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    // @ts-ignore
     return this.oktaAuthService.isAuthenticated().then(
+      // @ts-ignore
       (authenticated: boolean) => {
         if (authenticated) {
           return true;

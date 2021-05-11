@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public interface TimeSlotRepository extends JpaRepository<TimeSlot, Long> {
 
     Page<TimeSlot> findByTeacherIdEquals(@RequestParam("id") Long id, Pageable pageable);

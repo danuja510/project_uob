@@ -3,13 +3,14 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Teacher} from '../../pages/masters/teacher/teacher.model';
 import {map} from 'rxjs/operators';
+import AppConfig from '../../config/app-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeachersService{
 
-  private baseUrl = 'http://localhost:8080/api/teachers';
+  private baseUrl = AppConfig.backendUrl + 'api/teachers';
 
   constructor( private http: HttpClient) {
   }
@@ -46,6 +47,13 @@ export class TeachersService{
     const url = this.baseUrl + '/search/findByEnrolledStudent/?id=' + id;
     return this.http.get<GetResponses>(url).pipe(
       map( responce => responce._embedded.teachers)
+    );
+  }
+
+  getTeachersByPurchases(size: number): Observable<Teacher[]>{
+    const url = this.baseUrl + '/search/getTeachersByPurchases?size=' + size;
+    return this.http.get<GetResponses>(url).pipe(
+      map( response => response._embedded.teachers)
     );
   }
 }

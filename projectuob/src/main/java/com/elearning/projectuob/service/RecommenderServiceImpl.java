@@ -8,6 +8,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class RecommenderServiceImpl implements RecommenderService{
 
+//    final String url = "http://localhost:8081/api/recommendations/";
     final String url = "http://localhost:8081/api/recommendations/";
 
     @Override
