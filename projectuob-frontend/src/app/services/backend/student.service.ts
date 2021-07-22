@@ -18,7 +18,7 @@ export class StudentService{
 
   getStudents(): Observable<Student[]>{
     return this.http.get<GetResponses>(this.baseUrl ).pipe(
-      map(responce => responce._embedded.students)
+      map(response => response._embedded.students)
     );
   }
 
@@ -33,7 +33,7 @@ export class StudentService{
   findStudentByEmail(email: string): Observable<Student[]>{
     const searchUrl = this.baseUrl + 'search/findByStudentEmailEquals?email=' + email;
     return this.http.get<GetResponses>(searchUrl).pipe(
-      map( responce => responce._embedded.students)
+      map( response => response._embedded.students)
     );
   }
 }

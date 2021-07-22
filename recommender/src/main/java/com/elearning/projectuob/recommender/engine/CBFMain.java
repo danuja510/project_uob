@@ -21,10 +21,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Simple hello-world program.
- * @author <a href="http://www.grouplens.org">GroupLens Research</a>
- */
+
 @Service
 public class CBFMain {
     private static final Logger logger = LoggerFactory.getLogger(CBFMain.class);
@@ -139,34 +136,27 @@ public class CBFMain {
      * Create the LensKit recommender configuration.
      * @return The LensKit recommender configuration.
      */
-    // LensKit configuration API generates some unchecked warnings, turn them off
     @SuppressWarnings("unchecked")
     private static LenskitConfiguration configureRecommender() {
         LenskitConfiguration config = new LenskitConfiguration();
-        // configure the rating data source
         config.bind(EventDAO.class)
               .to(MOOCRatingDAO.class);
         config.set(RatingFile.class)
               .to(new File("data/course-rating.csv"));
 
-        // use custom item and user DAOs
-        // specify item DAO implementation with tags
+
         config.bind(ItemDAO.class)
               .to(CSVItemTagDAO.class);
-        // specify tag file
         config.set(TagFile.class)
               .to(new File("data/course-tag.csv"));
-        // and title file
         config.set(TitleFile.class)
               .to(new File("data/course.csv"));
 
-        // our user DAO can look up by user name
         config.bind(UserDAO.class)
               .to(MOOCUserDAO.class);
         config.set(UserFile.class)
               .to(new File("data/user.csv"));
 
-        // use the TF-IDF scorer you will implement to score items
         config.bind(ItemScorer.class)
               .to(TFIDFItemScorer.class);
         return config;
@@ -174,30 +164,24 @@ public class CBFMain {
 
     private static LenskitConfiguration configureTeacherRecommender() {
         LenskitConfiguration config = new LenskitConfiguration();
-        // configure the rating data source
         config.bind(EventDAO.class)
                 .to(MOOCRatingDAO.class);
         config.set(RatingFile.class)
                 .to(new File("data/teacher-rating.csv"));
 
-        // use custom item and user DAOs
-        // specify item DAO implementation with tags
+
         config.bind(ItemDAO.class)
                 .to(CSVItemTagDAO.class);
-        // specify tag file
         config.set(TagFile.class)
                 .to(new File("data/teacher-tag.csv"));
-        // and title file
         config.set(TitleFile.class)
                 .to(new File("data/teacher.csv"));
 
-        // our user DAO can look up by user name
         config.bind(UserDAO.class)
                 .to(MOOCUserDAO.class);
         config.set(UserFile.class)
                 .to(new File("data/user.csv"));
 
-        // use the TF-IDF scorer you will implement to score items
         config.bind(ItemScorer.class)
                 .to(TFIDFItemScorer.class);
         return config;

@@ -12,9 +12,7 @@ import javax.inject.Inject;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-/**
- * @author <a href="http://www.grouplens.org">GroupLens Research</a>
- */
+
 public class MOOCItemDAO implements ItemTitleDAO {
     private final File titleFile;
     private transient volatile Long2ObjectMap<String> titleCache;

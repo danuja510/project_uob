@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.sql.*;
 
 public class CSVFileLoader {
+//    private String jdbcURL = "jdbc:mysql://database-1.ctzqpdoql9gv.ap-south-1.rds.amazonaws.com:3306/project_uob";
+//    private String username = "admin";
+//    private String password = "projectuob";
     private String jdbcURL = "jdbc:mysql://localhost:3306/project_uob";
     private String username = "projectuob";
     private String password = "projectuob";
@@ -99,6 +102,7 @@ public class CSVFileLoader {
             // write header line containing column names
 
             while (result.next()) {
+
                 String id = result.getString("course_id");
                 String name = result.getString("sku");
 
@@ -173,6 +177,7 @@ public class CSVFileLoader {
             // write header line containing column names
 
             while (result.next()) {
+
                 String movie_id = result.getString("teacher_id");
                 String tag = result.getString("tag");
 
@@ -210,6 +215,7 @@ public class CSVFileLoader {
             // write header line containing column names
 
             while (result.next()) {
+
                 String user_id = result.getString("student_id");
                 String movie_id = result.getString("course_id");
                 String tag = result.getString("rating");

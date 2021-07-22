@@ -12,9 +12,7 @@ import javax.inject.Inject;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-/**
- * @author <a href="http://www.grouplens.org">GroupLens Research</a>
- */
+
 public class MOOCUserDAO implements UserNameDAO {
     private final File userFile;
     private transient volatile Object2LongMap<String> nameCache;
@@ -38,7 +36,6 @@ public class MOOCUserDAO implements UserNameDAO {
 
     private Object2LongMap<String> loadNameCache() {
         Object2LongMap<String> cache = new Object2LongOpenHashMap<String>();
-        // make the cache return -1 for missing users
         cache.defaultReturnValue(-1);
         Cursor<String[]> lines = null;
         try {

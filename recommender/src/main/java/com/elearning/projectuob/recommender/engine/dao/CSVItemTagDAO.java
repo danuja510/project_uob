@@ -15,9 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-/**
- * @author <a href="http://www.grouplens.org">GroupLens Research</a>
- */
+
 public class CSVItemTagDAO extends MOOCItemDAO implements ItemTagDAO {
     private final File tagFile;
     private transient volatile Long2ObjectMap<List<String>> tagCache;

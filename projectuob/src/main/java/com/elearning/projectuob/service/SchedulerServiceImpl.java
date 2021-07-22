@@ -24,6 +24,10 @@ public class SchedulerServiceImpl implements SchedulerService {
         JSONObject schedulerJsonObject = schedulerObjectToJSONObject(schedulerObject);
         HttpEntity<String> request = new HttpEntity<String>(schedulerJsonObject.toString(), headers);
         schedulerObject = restTemplate.postForObject(url + "create-session", request, SchedulerObject.class);
+        schedulerObject.setZoomApiSecret(null);
+        schedulerObject.setZoomApiKey(null);
+        schedulerObject.setUserPass(null);
+        schedulerObject.setZoomUserId(null);
         return schedulerObject;
     }
 
@@ -35,6 +39,10 @@ public class SchedulerServiceImpl implements SchedulerService {
         JSONObject schedulerJsonObject = schedulerObjectToJSONObject(schedulerObject);
         HttpEntity<String> request = new HttpEntity<String>(schedulerJsonObject.toString(), headers);
         schedulerObject = restTemplate.postForObject(url + "get-session", request, SchedulerObject.class);
+        schedulerObject.setZoomApiSecret(null);
+        schedulerObject.setZoomApiKey(null);
+        schedulerObject.setUserPass(null);
+        schedulerObject.setZoomUserId(null);
         return schedulerObject;
     }
 
@@ -46,6 +54,10 @@ public class SchedulerServiceImpl implements SchedulerService {
         JSONObject schedulerJsonObject = schedulerObjectToJSONObject(schedulerObject);
         HttpEntity<String> request = new HttpEntity<String>(schedulerJsonObject.toString(), headers);
         schedulerObject = restTemplate.postForObject(url + "delete-session", request, SchedulerObject.class);
+        schedulerObject.setZoomApiSecret(null);
+        schedulerObject.setZoomApiKey(null);
+        schedulerObject.setUserPass(null);
+        schedulerObject.setZoomUserId(null);
         return schedulerObject;
     }
 
@@ -58,7 +70,14 @@ public class SchedulerServiceImpl implements SchedulerService {
         HttpEntity<String> request = new HttpEntity<String>(schedulerJsonObject.toString(), headers);
         try{
             SchedulerObject[] meetings = restTemplate.postForObject(url + "list-sessions", request, SchedulerObject[].class);
-            return Arrays.asList(meetings);
+            List<SchedulerObject> meetingsList = Arrays.asList(meetings);
+            for (SchedulerObject schedulerObject1: meetingsList ) {
+                schedulerObject1.setZoomApiSecret(null);
+                schedulerObject1.setZoomApiKey(null);
+                schedulerObject1.setUserPass(null);
+                schedulerObject1.setZoomUserId(null);
+            }
+            return meetingsList;
         }catch (Exception e){
             return null;
         }

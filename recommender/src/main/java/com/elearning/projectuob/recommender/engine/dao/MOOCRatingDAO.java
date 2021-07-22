@@ -11,14 +11,7 @@ import org.grouplens.lenskit.data.event.Event;
 import javax.inject.Inject;
 import java.io.File;
 
-/**
- * Customized rating DAO for MOOC ratings.  This just wraps some standard LensKit DAOs in an
- * easy-to-configure interface.
- *
- * @see EventCollectionDAO
- * @see SimpleFileRatingDAO
- * @author <a href="http://www.grouplens.org">GroupLens Research</a>
- */
+
 public class MOOCRatingDAO implements EventDAO {
     private final SimpleFileRatingDAO csvDao;
     private transient volatile EventCollectionDAO cache;
@@ -29,7 +22,6 @@ public class MOOCRatingDAO implements EventDAO {
     }
 
     /**
-     * Pre-fetch the ratings into memory if we haven't done so already.
      */
     private void ensureRatingCache() {
         if (cache == null) {
@@ -43,21 +35,18 @@ public class MOOCRatingDAO implements EventDAO {
 
     @Override
     public Cursor<Event> streamEvents() {
-        // delegate to the cached event collection DAO
         ensureRatingCache();
         return cache.streamEvents();
     }
 
     @Override
     public <E extends Event> Cursor<E> streamEvents(Class<E> type) {
-        // delegate to the cached event collection DAO
         ensureRatingCache();
         return cache.streamEvents(type);
     }
 
     @Override
     public <E extends Event> Cursor<E> streamEvents(Class<E> type, SortOrder order) {
-        // delegate to the cached event collection DAO
         ensureRatingCache();
         return cache.streamEvents(type, order);
     }
